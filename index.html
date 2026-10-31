@@ -639,7 +639,14 @@ function logoutTeacher() {
     document.getElementById('teacher-id').value = '';
     document.getElementById('teacher-pass').value = '';
 }
-
+function togglePasswordVisibility(inputId) {
+    const passwordInput = document.getElementById(inputId);
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+    } else {
+        passwordInput.type = 'password';
+    }
+}
 function registerStudent(e) {
     e.preventDefault();
     students.push({
