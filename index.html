@@ -1,0 +1,301 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emican Heritage Academy | Ascend - Explore - Grow</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1E3A8A',
+                            900: '#0D2040',
+                            950: '#060F1E',
+                        },
+                        gold: {
+                            400: '#F1C40F',
+                            500: '#D4AF37',
+                            600: '#C59B27',
+                            700: '#9A7B1C',
+                        },
+                        sky: {
+                            100: '#E0F2FE',
+                            300: '#7DD3FC',
+                            400: '#38BDF8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-heading { font-family: 'Cinzel', serif; }
+        .wireframe-border { border: 2px solid #0D2040; }
+        .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #C59B27 100%); }
+        .navy-gradient { background: linear-gradient(135deg, #0D2040 0%, #1E3A8A 100%); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-navy-950 text-gold-400 text-xs py-1.5 px-4 text-center font-medium tracking-wide flex justify-between items-center px-6">
+        <span class="flex items-center gap-2">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Admissions Open for 2026/2027 Academic Year — Crèche to JHS 3
+        </span>
+        <span class="hidden md:inline text-slate-300">Call Us: +233 (0) 535 694 851</span>
+    </div>
+
+    <!-- MAIN WIREFRAME HEADER -->
+    <header class="bg-navy-900 text-white border-b-4 border-gold-500 sticky top-0 z-40 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            
+            <!-- Left: Flag + Logo + Title + Slogan -->
+            <div class="flex items-center space-x-3">
+                <!-- Flag & Icon badge -->
+                <div class="flex flex-col items-center justify-center bg-white/10 p-1.5 rounded border border-gold-500/40">
+                    <span class="text-xl leading-none" title="Ghana">🇬🇭</span>
+                    <span class="text-[9px] font-bold text-gold-400 tracking-tighter mt-0.5">GHA</span>
+                </div>
+
+                <!-- Main Branding -->
+                <div class="flex items-center space-x-3">
+                    <div id="headerLogoContainer" class="w-12 h-12 rounded-full border-2 border-gold-500 overflow-hidden bg-white flex items-center justify-center p-0.5 shadow-md">
+                        <!-- SVG Crest fallback or uploaded logo -->
+                        <svg class="w-full h-full text-navy-900" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="46" fill="#0D2040" stroke="#D4AF37" stroke-width="4"/>
+                            <path d="M50 20 L60 40 L80 40 L65 52 L70 72 L50 60 L30 72 L35 52 L20 40 L40 40 Z" fill="#D4AF37"/>
+                            <path d="M30 78 Q50 68 70 78" stroke="#7DD3FC" stroke-width="4" fill="none"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="font-heading text-lg md:text-2xl font-bold tracking-wider text-white leading-tight">
+                            EMICAN HERITAGE ACADEMY
+                        </h1>
+                        <p class="text-xs md:text-sm font-semibold tracking-widest text-gold-400 uppercase">
+                            ASCEND - EXPLORE - GROW
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Nav Links -->
+            <nav class="flex items-center space-x-1 sm:space-x-2 text-sm font-semibold">
+                <button onclick="switchView('public')" class="px-3 py-1.5 rounded-md hover:bg-white/10 text-white transition flex items-center gap-1.5 border border-transparent hover:border-gold-500/50">
+                    <i class="fa-solid fa-house text-gold-400"></i> HOME
+                </button>
+                <button onclick="scrollToSection('about-section')" class="px-3 py-1.5 rounded-md hover:bg-white/10 text-slate-200 hover:text-white transition hidden sm:inline-block">
+                    About
+                </button>
+                <button onclick="openPortalModal('parent')" class="px-3 py-1.5 rounded-md bg-sky-400/20 text-sky-300 hover:bg-sky-400/30 transition border border-sky-400/30">
+                    <i class="fa-solid fa-users text-xs"></i> Parents
+                </button>
+                <button onclick="openPortalModal('teacher')" class="px-3 py-1.5 rounded-md bg-gold-500/20 text-gold-400 hover:bg-gold-500/30 transition border border-gold-500/30">
+                    <i class="fa-solid fa-chalkboard-user text-xs"></i> Teachers
+                </button>
+                <button onclick="openPortalModal('admin')" class="px-3.5 py-1.5 rounded-md bg-gold-500 hover:bg-gold-600 text-navy-950 font-bold shadow transition flex items-center gap-1">
+                    <i class="fa-solid fa-user-shield"></i> ADMIN
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN VIEW WRAPPER -->
+    <main id="mainContainer" class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-8">
+        
+        <!-- ========================================== -->
+        <!-- PUBLIC FRONT VIEW (MATCHING WIREFRAME)     -->
+        <!-- ========================================== -->
+        <div id="publicView" class="space-y-8">
+            
+            <!-- Hero Grid Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                
+                <!-- Left: Circular Logo & Large Photo Container -->
+                <div class="lg:col-span-4 bg-white rounded-xl shadow-md border-2 border-navy-900 p-5 flex flex-col items-center justify-between text-center">
+                    <div class="w-full flex flex-col items-center">
+                        <div id="heroLogoDisplay" class="w-36 h-36 rounded-full border-4 border-gold-500 p-2 shadow-inner bg-slate-50 flex items-center justify-center mb-4 relative">
+                            <img id="logoImg" src="https://placehold.co/200x200/0D2040/D4AF37?text=Emican+Logo" alt="Emican Heritage Academy Crest" class="w-full h-full object-contain rounded-full">
+                        </div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-navy-900 bg-sky-100 px-3 py-1 rounded-full border border-sky-300 mb-4">Official School Emblem</span>
+                    </div>
+
+                    <!-- Photo Display Box -->
+                    <div class="w-full mt-2">
+                        <div class="border-2 border-dashed border-slate-300 rounded-lg p-2 bg-slate-50 overflow-hidden group relative">
+                            <img id="heroPhotoImg" src="https://placehold.co/600x400/0D2040/FFFFFF?text=Emican+Academy+Campus" alt="School Photo" class="w-full h-48 object-cover rounded shadow">
+                            <div class="absolute bottom-2 left-2 right-2 bg-navy-900/80 text-white text-xs p-1.5 rounded backdrop-blur text-center">
+                                Heritage Campus & Learning Environment
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: About Emican Heritage Academy Text Block -->
+                <div id="about-section" class="lg:col-span-8 bg-white rounded-xl shadow-md border-2 border-navy-900 p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between border-b-2 border-gold-500 pb-3 mb-4">
+                            <h2 class="font-heading text-2xl md:text-3xl font-bold text-navy-900 flex items-center gap-3">
+                                <i class="fa-solid fa-graduation-cap text-gold-600"></i>
+                                About Emican Heritage Academy
+                            </h2>
+                            <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded">Techiman, Ghana</span>
+                        </div>
+                        <div id="aboutContentDisplay" class="prose max-w-none text-slate-700 leading-relaxed text-base space-y-4">
+                            <p>
+                                Welcome to <strong>Emican Heritage Academy</strong>, a premier educational institution located in Techiman, Bono East Region, Ghana. We are dedicated to nurturing young minds from <strong>Crèche through Junior High School (JHS 3)</strong>.
+                            </p>
+                            <p>
+                                Our holistic curriculum balances academic excellence with moral integrity, creative exploration, and physical development. Guided by our foundational motto — <em>ASCEND, EXPLORE, GROW</em> — we empower students to discover their potential and excel in a rapidly changing world.
+                            </p>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3">
+                                <div class="bg-sky-50 border border-sky-200 p-3 rounded text-center">
+                                    <div class="text-xl font-bold text-navy-900">Crèche - JHS</div>
+                                    <div class="text-xs text-slate-600 font-medium">All Levels</div>
+                                </div>
+                                <div class="bg-gold-50 border border-gold-200 p-3 rounded text-center">
+                                    <div class="text-xl font-bold text-gold-700">100%</div>
+                                    <div class="text-xs text-slate-600 font-medium">Dedicated Staff</div>
+                                </div>
+                                <div class="bg-slate-100 border border-slate-200 p-3 rounded text-center">
+                                    <div class="text-xl font-bold text-navy-900">Techiman</div>
+                                    <div class="text-xs text-slate-600 font-medium">Bono East</div>
+                                </div>
+                                <div class="bg-navy-50 border border-navy-200 p-3 rounded text-center">
+                                    <div class="text-xl font-bold text-navy-900">STEM + Arts</div>
+                                    <div class="text-xs text-slate-600 font-medium">Modern Focus</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-200 flex justify-between items-center text-xs text-slate-500">
+                        <span>Certified Ghana Education Service (GES) Standards</span>
+                        <a href="#admissions-section" class="text-navy-900 font-bold hover:underline flex items-center gap-1">
+                            Apply for Admission <i class="fa-solid fa-arrow-right text-gold-600"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vision & Core Values Section (With Dove Crest Wireframe Banner) -->
+            <div class="bg-white rounded-xl shadow-md border-2 border-navy-900 overflow-hidden">
+                <div class="bg-navy-900 text-white p-4 px-6 border-b-2 border-gold-500 flex justify-between items-center">
+                    <h2 class="font-heading text-xl md:text-2xl font-bold flex items-center gap-3">
+                        <span>Vision & Core Values</span>
+                    </h2>
+                    <!-- Dove Icon from Wireframe -->
+                    <div class="flex items-center gap-2 bg-navy-800 px-3 py-1 rounded-full border border-gold-500/50">
+                        <i class="fa-solid fa-dove text-gold-400 text-lg"></i>
+                        <span class="text-xs font-semibold text-gold-300">Ascend with Integrity</span>
+                    </div>
+                </div>
+
+                <div class="p-6 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-7 space-y-4">
+                        <div class="bg-gold-50/60 border-l-4 border-gold-500 p-4 rounded-r">
+                            <h3 class="font-bold text-navy-900 text-lg mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-eye text-gold-600"></i> Our Vision
+                            </h3>
+                            <p id="visionTextDisplay" class="text-slate-700 text-sm leading-relaxed">
+                                To be a beacon of academic distinction and moral uprightness in Ghana, raising confident, creative, and patriotic global leaders prepared to excel in every sphere of life.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-navy-900 text-lg mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-star text-gold-600"></i> Core Values
+                            </h3>
+                            <ul id="coreValuesDisplay" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                                <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded border border-slate-200">
+                                    <i class="fa-solid fa-circle-check text-navy-900"></i>
+                                    <span><strong>Academic Excellence:</strong> Striving for mastery.</span>
+                                </li>
+                                <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded border border-slate-200">
+                                    <i class="fa-solid fa-circle-check text-navy-900"></i>
+                                    <span><strong>Integrity:</strong> Honesty in action & thought.</span>
+                                </li>
+                                <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded border border-slate-200">
+                                    <i class="fa-solid fa-circle-check text-navy-900"></i>
+                                    <span><strong>Discipline:</strong> Foundation of character.</span>
+                                </li>
+                                <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded border border-slate-200">
+                                    <i class="fa-solid fa-circle-check text-navy-900"></i>
+                                    <span><strong>Innovation:</strong> Exploring new ideas.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Photo Container from Wireframe -->
+                    <div class="md:col-span-5 flex flex-col items-center">
+                        <div class="w-full border-2 border-slate-300 rounded-lg p-2 bg-slate-100 shadow-sm">
+                            <img id="visionPhotoImg" src="https://placehold.co/500x350/1E3A8A/FFFFFF?text=Emican+Students+Learning" alt="Emican Core Values Photo" class="w-full h-56 object-cover rounded">
+                            <p class="text-xs text-center text-slate-500 mt-2 font-medium">Students actively engaged in collaborative learning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two-Column Section: Admissions & Inquiries Form (Left) vs Articles (Right) -->
+            <div id="admissions-section" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Column: Admissions & Inquiries Form (Exact Wireframe Copy) -->
+                <div class="lg:col-span-6 bg-white rounded-xl shadow-md border-2 border-navy-900 overflow-hidden">
+                    <div class="bg-navy-900 text-white p-4 border-b-2 border-gold-500">
+                        <h2 class="font-heading text-xl font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-file-pen text-gold-400"></i>
+                            Admissions & Inquiries
+                        </h2>
+                        <p class="text-xs text-gold-300">Submit an application or general question directly to administration.</p>
+                    </div>
+
+                    <form id="admissionForm" onsubmit="handleAdmissionSubmit(event)" class="p-6 space-y-4">
+                        <!-- Title Dropdown -->
+                        <div>
+                            <label class="block text-xs font-bold text-navy-900 uppercase mb-1">Title <span class="text-red-500">*</span></label>
+                            <select id="admTitle" required class="w-full border-2 border-slate-300 rounded-lg p-2.5 text-sm focus:border-navy-900 focus:outline-none bg-slate-50">
+                                <option value="">Select Title ▼</option>
+                                <option value="Mr">Mr.</option>
+                                <option value="Mrs">Mrs.</option>
+                                <option value="Ms">Ms.</option>
+                                <option value="Dr">Dr.</option>
+                                <option value="Rev">Rev.</option>
+                                <option value="Prof">Prof.</option>
+                            </select>
+                        </div>
+
+                        <!-- Parent's Full Name -->
+                        <div>
+                            <label class="block text-xs font-bold text-navy-900 uppercase mb-1">Parent's Full Name <span class="text-red-500">*</span></label>
+                            <input type="text" id="admParentName" required placeholder="e.g. Kwame Mensah" class="w-full border-2 border-slate-300 rounded-lg p-2.5 text-sm focus:border-navy-900 focus:outline-none">
+                        </div>
+
+                        <!-- Child's Full Name -->
+                        <div>
+                            <label class="block text-xs font-bold text-navy-900 uppercase mb-1">Child's Full Name <span class="text-red-500">*</span></label>
+                            <input type="text" id="admChildName" required placeholder="e.g. Ama Mensah" class="w-full border-2 border-slate-300 rounded-lg p-2.5 text-sm focus:border-navy-900 focus:outline-none">
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-xs font-bold text-navy-900 uppercase mb-1">Your Email <span class="text-red-500">*</span></label>
+                            <input type="email" id="admEmail" required placeholder="example@gmail.com" class="w-full border-2 border-slate-300 rounded-lg p-2.5 text-sm focus:border-navy-900 focus:outline-none">
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div>
+                            <label class="block text-xs font-bold text-navy-900 uppercase mb-1">Phone Number <span class="text-red-500">*</
