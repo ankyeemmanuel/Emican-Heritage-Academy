@@ -127,7 +127,7 @@
             border-top: 4px solid var(--navy-deep);
         }
 
-        .card h2 {
+        .card h2, .card h3 {
             color: var(--navy-deep);
             margin-bottom: 1rem;
             border-bottom: 2px solid var(--sky-blue);
@@ -186,6 +186,39 @@
             max-height: 90vh;
             overflow-y: auto;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table, th, td {
+            border: 1px solid #CBD5E1;
+            padding: 0.5rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--navy-deep);
+            color: var(--white);
+        }
+
+        .news-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-date {
+            font-size: 0.8rem;
+            color: var(--gold-crest);
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
@@ -222,6 +255,12 @@
                         <h2>Vision & Core Values</h2>
                         <p>To empower every student to ascend in knowledge, explore endless possibilities, and grow into upright societal leaders.</p>
                     </div>
+                    <div class="card">
+                        <h2>Latest School News & Announcements</h2>
+                        <div id="public-news-container">
+                            <p style="color:#64748B;">Loading news...</p>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <div class="card">
@@ -233,272 +272,457 @@
                                     <option value="">Select Title</option>
                                     <option>Mr.</option>
                                     <option>Mrs.</option>
-                                    <option>Dr.</option>
-                                    <option>Rev.</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Parent's Full Name</label>
-                                <input type="text" id="adm-parent-name" required placeholder="Enter full name">
-                            </div>
-                            <div class="form-group">
-                                <label>Child's Full Name</label>
-                                <input type="text" id="adm-child-name" required placeholder="Enter child's name">
-                            </div>
-                            <div class="form-group">
-                                <label>Email Address</label>
-                                <input type="email" id="adm-email" required placeholder="example@email.com">
-                            </div>
-                            <div class="form-group">
-                                <label>Phone Number</label>
-                                <input type="tel" id="adm-phone" required placeholder="+233 ...">
-                            </div>
-                            <div class="form-group">
-                                <label>Preferred Contact Method</label>
-                                <select id="adm-contact-pref">
-                                    <option>Email</option>
-                                    <option>Phone Call</option>
-                                    <option>WhatsApp</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn-primary">Submit Application</button>
-                        </form>
-                    </div>
-                </div>
+<option>Dr.</option>
+                    <option>Rev.</option>
+                </select>
             </div>
-        </div>
-
-        <!-- ABOUT SECTION -->
-        <div id="section-about" class="tab-content" style="display:none;">
-            <div class="card">
-                <h2>About Emican Heritage Academy</h2>
-                <p>Located in Techiman, Bono East Region, Ghana, Emican Heritage Academy provides world-class foundational education structured around GES and NaCCA standards.</p>
+            <div class="form-group">
+                <label>Parent's Full Name</label>
+                <input type="text" id="adm-parent-name" required placeholder="Enter full name">
             </div>
-        </div>
-
-        <!-- PARENTS PORTAL -->
-        <div id="section-parents" class="tab-content" style="display:none;">
-            <div class="card" id="parent-login-card">
-                <h2>Parent & Student Portal Login</h2>
-                <form onsubmit="loginParent(event)">
-                    <div class="form-group">
-                        <label>Student ID</label>
-                        <input type="text" id="parent-id" required placeholder="e.g. STU-1001">
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="parent-pass" required>
-                    </div>
-                    <button type="submit" class="btn-primary">Login</button>
-                </form>
+            <div class="form-group">
+                <label>Child's Full Name</label>
+                <input type="text" id="adm-child-name" required placeholder="Enter child's name">
             </div>
-            <div id="parent-dashboard" style="display:none;">
-                <div class="card">
-                    <h2>Welcome, <span id="parent-student-name"></span></h2>
-                    <p>Class: <span id="parent-student-class"></span></p>
-                    <button onclick="logoutParent()" class="btn-primary" style="margin-top:1rem; background:#dc2626;">Logout</button>
-                </div>
-                <div class="card">
-                    <h2>Approved Fee Bills</h2>
-                    <div id="parent-bills-list">No approved bills posted yet.</div>
-                </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="adm-email" required placeholder="example@email.com">
             </div>
-        </div>
-
-        <!-- TEACHERS PORTAL -->
-        <div id="section-teachers" class="tab-content" style="display:none;">
-            <div class="card" id="teacher-login-card">
-                <h2>Teacher Portal Login</h2>
-                <form onsubmit="loginTeacher(event)">
-                    <div class="form-group">
-                        <label>Staff ID</label>
-                        <input type="text" id="teacher-id" required placeholder="e.g. TCH101">
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="teacher-pass" required>
-                    </div>
-                    <button type="submit" class="btn-primary">Login</button>
-                </form>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="adm-phone" required placeholder="+233 ...">
             </div>
-            <div id="teacher-dashboard" style="display:none;">
-                <div class="card">
-                    <h2>Teacher Dashboard</h2>
-                    <button onclick="logoutTeacher()" class="btn-primary" style="margin-bottom:1.5rem; background:#dc2626;">Logout</button>
-                    <h3>Submit Fee Bill (Requires Admin Approval)</h3>
-                    <form onsubmit="submitTeacherBill(event)">
-                        <div class="form-group">
-                            <label>Student ID</label>
-                            <input type="text" id="bill-student-id" required placeholder="STU-1001">
-                        </div>
-                        <div class="form-group">
-                            <label>Description / Fee Item</label>
-                            <input type="text" id="bill-desc" required placeholder="Term 1 Tuition & Books">
-                        </div>
-                        <div class="form-group">
-                            <label>Amount (GHS)</label>
-                            <input type="number" id="bill-amount" required placeholder="1500">
-                        </div>
-                        <button type="submit" class="btn-primary">Submit for Admin Approval</button>
-                    </form>
-                </div>
+            <div class="form-group">
+                <label>Preferred Contact Method</label>
+                <select id="adm-contact-pref">
+                    <option>Email</option>
+                    <option>Phone Call</option>
+                    <option>WhatsApp</option>
+                </select>
             </div>
-        </div>
-
-        <!-- ADMIN PORTAL -->
-        <div id="section-admin" class="tab-content" style="display:none;">
-            <div class="card">
-                <h2>Admin Control Center</h2>
-                <button onclick="changeAdminPassword()" class="btn-primary" style="margin-bottom: 1rem;">Change Admin Password</button>
-                <button onclick="switchTab('home')" class="btn-primary" style="margin-bottom: 1rem; background:#64748B;">Exit Admin</button>
-                
-                <h3 style="margin-top:1.5rem;">Pending Fee Bills for Approval</h3>
-                <div id="admin-pending-bills"></div>
-                
-                <h3 style="margin-top: 2rem;">Admissions Received</h3>
-                <div id="admin-admissions-list"></div>
-            </div>
-        </div>
+            <button type="submit" class="btn-primary">Submit Application</button>
+        </form>
     </div>
+</div>
+</div>
+</div>
 
-    <!-- ADMIN AUTH MODAL -->
-    <div id="admin-auth-modal" class="modal">
-        <div class="modal-content">
-            <h2>Admin Authentication</h2>
-            <p style="margin: 0.5rem 0;">Enter master admin password (default: <code>admin123</code>):</p>
-            <input type="password" id="admin-pass-input" style="width:100%; padding:0.6rem; margin:1rem 0; border:1px solid #ccc; border-radius:4px;">
-            <button onclick="verifyAdminPass()" class="btn-primary">Enter</button>
-            <button onclick="closeModal('admin-auth-modal')" style="background:#64748B; color:white; padding:0.6rem 1rem; border:none; border-radius:4px; margin-left:0.5rem; cursor:pointer;">Cancel</button>
+<!-- ABOUT SECTION -->
+<div id="section-about" class="tab-content" style="display:none;">
+<div class="card">
+    <h2>About Emican Heritage Academy</h2>
+    <p>Located in Techiman, Bono East Region, Ghana, Emican Heritage Academy provides world-class foundational education structured around GES and NaCCA standards.</p>
+</div>
+</div>
+
+<!-- PARENTS PORTAL -->
+<div id="section-parents" class="tab-content" style="display:none;">
+<div class="card" id="parent-login-card">
+    <h2>Parent & Student Portal Login</h2>
+    <form onsubmit="loginParent(event)">
+        <div class="form-group">
+            <label>Student ID</label>
+            <input type="text" id="parent-id" required placeholder="e.g. STU-1001">
         </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="parent-pass" required placeholder="Enter student password">
+        </div>
+        <button type="submit" class="btn-primary">Login</button>
+    </form>
+</div>
+<div id="parent-dashboard" style="display:none;">
+    <div class="card">
+        <h2>Welcome, <span id="parent-student-name"></span></h2>
+        <p><strong>Class:</strong> <span id="parent-student-class"></span> | <strong>Student ID:</strong> <span id="parent-student-id-disp"></span></p>
+        <button onclick="logoutParent()" class="btn-primary" style="margin-top:1rem; background:#dc2626;">Logout</button>
     </div>
+    <div class="card">
+        <h2>Approved Fee Bills & Statements</h2>
+        <div id="parent-bills-list">No approved bills posted yet.</div>
+    </div>
+</div>
+</div>
 
-    <script>
-        let adminPass = "admin123";
-        let bills = [];
-        let admissions = [];
+<!-- TEACHERS PORTAL -->
+<div id="section-teachers" class="tab-content" style="display:none;">
+<div class="card" id="teacher-login-card">
+    <h2>Teacher Portal Login</h2>
+    <form onsubmit="loginTeacher(event)">
+        <div class="form-group">
+            <label>Staff ID</label>
+            <input type="text" id="teacher-id" required placeholder="e.g. TCH101">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="teacher-pass" required placeholder="Enter staff password">
+        </div>
+        <button type="submit" class="btn-primary">Login</button>
+    </form>
+</div>
+<div id="teacher-dashboard" style="display:none;">
+    <div class="card">
+        <h2>Teacher Dashboard (<span id="teacher-logged-name">Staff</span>)</h2>
+        <button onclick="logoutTeacher()" class="btn-primary" style="margin-bottom:1.5rem; background:#dc2626;">Logout</button>
+        <h3>Submit Fee Bill / Bill Draft (Requires Admin Approval)</h3>
+        <form onsubmit="submitTeacherBill(event)">
+            <div class="form-group">
+                <label>Student ID</label>
+                <input type="text" id="bill-student-id" required placeholder="STU-1001">
+            </div>
+            <div class="form-group">
+                <label>Description / Fee Item</label>
+                <input type="text" id="bill-desc" required placeholder="Term 1 Tuition & Books">
+            </div>
+            <div class="form-group">
+                <label>Amount (GHS)</label>
+                <input type="number" id="bill-amount" required placeholder="1500">
+            </div>
+            <button type="submit" class="btn-primary">Submit for Admin Approval</button>
+        </form>
+    </div>
+</div>
+</div>
 
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('nav button').forEach(el => el.classList.remove('active'));
-            document.getElementById('section-' + tab).style.display = 'block';
-            const btn = document.getElementById('nav-' + tab);
-            if (btn) btn.classList.add('active');
-        }
+<!-- ADMIN PORTAL -->
+<div id="section-admin" class="tab-content" style="display:none;">
+<div class="card">
+    <h2>Admin Control Center</h2>
+    <button onclick="changeAdminPassword()" class="btn-primary" style="margin-bottom: 1rem;">Change Admin Password</button>
+    <button onclick="switchTab('home')" class="btn-primary" style="margin-bottom: 1rem; background:#64748B;">Exit Admin</button>
 
-        function openAdminAuth() {
-            document.getElementById('admin-pass-input').value = '';
-            document.getElementById('admin-auth-modal').style.display = 'flex';
-        }
+    <!-- PUBLISH NEWS ARTICLE -->
+    <h3 style="margin-top:1.5rem;">Publish News / Announcement</h3>
+    <form onsubmit="publishNews(event)" style="background:#f1f5f9; padding:1rem; border-radius:6px; margin-bottom:1.5rem;">
+        <div class="form-group">
+            <label>News Headline</label>
+            <input type="text" id="news-title" required placeholder="e.g. Admissions Open for 2026/2027 Academic Year">
+        </div>
+        <div class="form-group">
+            <label>News Content / Details</label>
+            <textarea id="news-content" rows="3" required placeholder="Write announcement details here..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Publish to Public Site</button>
+    </form>
 
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
+    <!-- TEACHER REGISTRATION -->
+    <h3 style="margin-top:1.5rem;">Register New Teacher</h3>
+    <form onsubmit="registerTeacher(event)" style="background:#f1f5f9; padding:1rem; border-radius:6px; margin-bottom:1.5rem;">
+        <div class="form-group">
+            <label>Teacher Full Name</label>
+            <input type="text" id="reg-t-name" required placeholder="e.g. Kwame Mensah">
+        </div>
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="reg-t-phone" required placeholder="+233 ...">
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="reg-t-email" required placeholder="teacher@emican.edu.gh">
+        </div>
+        <div class="form-group">
+            <label>Staff ID / Portal Number</label>
+            <input type="text" id="reg-t-id" required placeholder="e.g. TCH101">
+        </div>
+        <div class="form-group">
+            <label>Portal Password</label>
+            <input type="password" id="reg-t-pass" required placeholder="Set password">
+        </div>
+        <button type="submit" class="btn-primary">Save & Register Teacher</button>
+    </form>
 
-        function verifyAdminPass() {
-            const entered = document.getElementById('admin-pass-input').value;
-            if (entered === adminPass) {
-                closeModal('admin-auth-modal');
-                switchTab('admin');
-                renderAdminDashboard();
-            } else {
-                alert("Incorrect Password!");
-            }
-        }
+    <h3>Registered Teachers List</h3>
+    <div id="admin-teachers-list" style="margin-bottom:2rem;"></div>
 
-        function changeAdminPassword() {
-            const newP = prompt("Enter new Admin password:");
-            if (newP) {
-                adminPass = newP;
-                alert("Password updated successfully!");
-            }
-        }
+    <!-- STUDENT REGISTRATION -->
+    <h3 style="margin-top:1.5rem;">Register New Student</h3>
+    <form onsubmit="registerStudent(event)" style="background:#f1f5f9; padding:1rem; border-radius:6px; margin-bottom:1.5rem;">
+        <div class="form-group">
+            <label>Student Full Name</label>
+            <input type="text" id="reg-s-name" required placeholder="e.g. Abena Ankye">
+        </div>
+        <div class="form-group">
+            <label>Select Class</label>
+            <select id="reg-s-class" required>
+                <option value="">Select Class Level</option>
+                <option>Crèche 1</option>
+                <option>Crèche 2</option>
+                <option>Kindergarten 1</option>
+                <option>Kindergarten 2</option>
+                <option>Basic 1</option>
+                <option>Basic 2</option>
+                <option>Basic 3</option>
+                <option>Basic 4</option>
+                <option>Basic 5</option>
+                <option>Basic 6</option>
+                </select>
+        </div>
+        <div class="form-group">
+            <label>Student ID (for Parent Portal Login)</label>
+            <input type="text" id="reg-s-id" required placeholder="e.g. STU-1001">
+        </div>
+        <div class="form-group">
+            <label>Portal Password</label>
+            <input type="password" id="reg-s-pass" required placeholder="Set password">
+        </div>
+        <button type="submit" class="btn-primary">Save & Register Student</button>
+    </form>
 
-        function submitAdmission(e) {
-            e.preventDefault();
-            const record = {
-                title: document.getElementById('adm-title').value,
-                parent: document.getElementById('adm-parent-name').value,
-                child: document.getElementById('adm-child-name').value,
-                email: document.getElementById('adm-email').value,
-                phone: document.getElementById('adm-phone').value,
-                pref: document.getElementById('adm-contact-pref').value
-            };
-            admissions.push(record);
-            alert("Application submitted successfully!");
-            document.getElementById('admissions-form').reset();
-        }
+    <h3>Registered Students List</h3>
+    <div id="admin-students-list" style="margin-bottom:2rem;"></div>
 
-        function loginParent(e) {
-            e.preventDefault();
+    <h3 style="margin-top:1.5rem;">Pending Fee Bills for Approval</h3>
+    <div id="admin-pending-bills"></div>
+    
+    <h3 style="margin-top: 2rem;">Admissions Received</h3>
+    <div id="admin-admissions-list"></div>
+</div>
+</div>
+</div>
+
+<!-- ADMIN AUTH MODAL -->
+<div id="admin-auth-modal" class="modal">
+<div class="modal-content">
+    <h2>Admin Authentication</h2>
+    <p style="margin: 0.5rem 0;">Enter master admin password (default: <code>admin123</code>):</p>
+    <input type="password" id="admin-pass-input" style="width:100%; padding:0.6rem; margin:1rem 0; border:1px solid #ccc; border-radius:4px;">
+    <button onclick="verifyAdminPass()" class="btn-primary">Enter</button>
+    <button onclick="closeModal('admin-auth-modal')" style="background:#64748B; color:white; padding:0.6rem 1rem; border:none; border-radius:4px; margin-left:0.5rem; cursor:pointer;">Cancel</button>
+</div>
+</div>
+
+<script>
+let adminPass = "admin123";
+let bills = [];
+let admissions = [];
+
+let teachers = [
+    { name: "Kwame Mensah", phone: "+233 24 000 0000", email: "kwame@emican.edu.gh", id: "TCH101", pass: "TCH101" }
+];
+let students = [
+    { name: "Abena Ankye", classLevel: "Basic 1", id: "STU-1001", pass: "STU-1001" }
+];
+let newsArticles = [
+    { title: "Welcome to Emican Heritage Academy!", content: "We are officially open for admissions across all classes from Crèche to JHS 3 in Techiman.", date: "October 31, 2026" }
+];
+
+window.onload = function() {
+    renderPublicNews();
+};
+
+function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('nav button').forEach(el => el.classList.remove('active'));
+    document.getElementById('section-' + tab).style.display = 'block';
+    const btn = document.getElementById('nav-' + tab);
+    if (btn) btn.classList.add('active');
+    if(tab === 'home') renderPublicNews();
+}
+
+function openAdminAuth() {
+    document.getElementById('admin-pass-input').value = '';
+    document.getElementById('admin-auth-modal').style.display = 'flex';
+}
+
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+}
+
+function verifyAdminPass() {
+    const entered = document.getElementById('admin-pass-input').value;
+    if (entered === adminPass) {
+        closeModal('admin-auth-modal');
+        switchTab('admin');
+        renderAdminDashboard();
+    } else {
+        alert("Incorrect Password!");
+    }
+}
+
+function changeAdminPassword() {
+    const newP = prompt("Enter new Admin password:");
+    if (newP) {
+        adminPass = newP;
+        alert("Password updated successfully!");
+    }
+}
+
+function publishNews(e) {
+    e.preventDefault();
+    const title = document.getElementById('news-title').value;
+    const content = document.getElementById('news-content').value;
+    const dateStr = new Date().toLocaleDateString();
+    newsArticles.unshift({ title, content, date: dateStr });
+    alert("News article published successfully!");
+    e.target.reset();
+    renderPublicNews();
+}
+
+function renderPublicNews() {
+    const container = document.getElementById('public-news-container');
+    container.innerHTML = newsArticles.map(n => `
+        <div class="news-item">
+            <span class="news-date">${n.date}</span>
+            <h3 style="font-size:1.1rem; color:var(--navy-deep); margin:0.2rem 0;">${n.title}</h3>
+            <p style="font-size:0.95rem; color:#475569;">${n.content}</p>
+        </div>
+    `).join('') || '<p style="color:#64748B;">No news announcements at the moment.</p>';
+}
+
+function submitAdmission(e) {
+    e.preventDefault();
+    const record = {
+        title: document.getElementById('adm-title').value,
+        parent: document.getElementById('adm-parent-name').value,
+        child: document.getElementById('adm-child-name').value,
+        email: document.getElementById('adm-email').value,
+        phone: document.getElementById('adm-phone').value,
+        pref: document.getElementById('adm-contact-pref').value
+    };
+    admissions.push(record);
+    alert("Application submitted successfully!");
+    document.getElementById('admissions-form').reset();
+}
+
+function registerTeacher(e) {
+    e.preventDefault();
+    teachers.push({
+        name: document.getElementById('reg-t-name').value,
+        phone: document.getElementById('reg-t-phone').value,
+        email: document.getElementById('reg-t-email').value,
+        id: document.getElementById('reg-t-id').value,
+        pass: document.getElementById('reg-t-pass').value
+    });
+    alert("Teacher registered successfully!");
+    e.target.reset();
+    renderAdminDashboard();
+}
+
+function loginTeacher(e) {
+    e.preventDefault();
+    const id = document.getElementById('teacher-id').value;
+    const pass = document.getElementById('teacher-pass').value;
+    const found = teachers.find(t => t.id === id && t.pass === pass);
+    
+    if (found) {
+        document.getElementById('teacher-login-card').style.display = 'none';
+        document.getElementById('teacher-dashboard').style.display = 'block';
+        document.getElementById('teacher-logged-name').innerText = found.name;
+    } else {
+        alert("Invalid Staff ID or Password!");
+    }
+}
+
+function logoutTeacher() {
+    document.getElementById('teacher-dashboard').style.display = 'none';
+    document.getElementById('teacher-login-card').style.display = 'block';
+    document.getElementById('teacher-id').value = '';
+    document.getElementById('teacher-pass').value = '';
+}
+
+function registerStudent(e) {
+    e.preventDefault();
+    students.push({
+      name: document.getElementById('reg-s-name').value,
+            classLevel: document.getElementById('reg-s-class').value,
+            id: document.getElementById('reg-s-id').value,
+            pass: document.getElementById('reg-s-pass').value
+        });
+        alert("Student registered successfully!");
+        e.target.reset();
+        renderAdminDashboard();
+    }
+
+    function loginParent(e) {
+        e.preventDefault();
+        const id = document.getElementById('parent-id').value;
+        const pass = document.getElementById('parent-pass').value;
+        const found = students.find(s => s.id === id && s.pass === pass);
+
+        if (found) {
             document.getElementById('parent-login-card').style.display = 'none';
             document.getElementById('parent-dashboard').style.display = 'block';
-            document.getElementById('parent-student-name').innerText = document.getElementById('parent-id').value;
-            document.getElementById('parent-student-class').innerText = "Basic 1";
+            document.getElementById('parent-student-name').innerText = found.name;
+            document.getElementById('parent-student-class').innerText = found.classLevel;
+            document.getElementById('parent-student-id-disp').innerText = found.id;
             renderParentBills();
+        } else {
+            alert("Invalid Student ID or Password!");
         }
+    }
 
-        function logoutParent() {
-            document.getElementById('parent-dashboard').style.display = 'none';
-            document.getElementById('parent-login-card').style.display = 'block';
+    function logoutParent() {
+        document.getElementById('parent-dashboard').style.display = 'none';
+        document.getElementById('parent-login-card').style.display = 'block';
+        document.getElementById('parent-id').value = '';
+        document.getElementById('parent-pass').value = '';
+    }
+
+    function submitTeacherBill(e) {
+        e.preventDefault();
+        const stId = document.getElementById('bill-student-id').value;
+        const verifyStu = students.find(s => s.id === stId);
+        if (!verifyStu) {
+            alert("Warning: Student ID not found in registered students list. Bill submitted anyway for review.");
         }
+        bills.push({
+            id: Date.now(),
+            studentId: stId,
+            desc: document.getElementById('bill-desc').value,
+            amount: document.getElementById('bill-amount').value,
+            status: 'pending'
+        });
+        alert("Bill submitted to Admin for approval!");
+        e.target.reset();
+    }
 
-        function loginTeacher(e) {
-            e.preventDefault();
-            document.getElementById('teacher-login-card').style.display = 'none';
-            document.getElementById('teacher-dashboard').style.display = 'block';
-        }
+    function renderAdminDashboard() {
+        const tList = document.getElementById('admin-teachers-list');
+        tList.innerHTML = teachers.length > 0 ? `
+            <table>
+                <tr><th>Name</th><th>Staff ID</th><th>Phone</th><th>Email</th></tr>
+                ${teachers.map(t => `<tr><td>${t.name}</td><td>${t.id}</td><td>${t.phone}</td><td>${t.email}</td></tr>`).join('')}
+            </table>` : '<p style="color:#64748B;">No teachers registered yet.</p>';
 
-        function logoutTeacher() {
-            document.getElementById('teacher-dashboard').style.display = 'none';
-            document.getElementById('teacher-login-card').style.display = 'block';
-        }
+        const sList = document.getElementById('admin-students-list');
+        sList.innerHTML = students.length > 0 ? `
+            <table>
+                <tr><th>Student Name</th><th>Class Level</th><th>Student ID</th></tr>
+                ${students.map(s => `<tr><td>${s.name}</td><td><b>${s.classLevel}</b></td><td>${s.id}</td></tr>`).join('')}
+            </table>` : '<p style="color:#64748B;">No students registered yet.</p>';
 
-        function submitTeacherBill(e) {
-            e.preventDefault();
-            bills.push({
-                id: Date.now(),
-                studentId: document.getElementById('bill-student-id').value,
-                desc: document.getElementById('bill-desc').value,
-                amount: document.getElementById('bill-amount').value,
-                status: 'pending'
-            });
-            alert("Bill submitted to Admin for approval!");
-            e.target.reset();
-        }
+        const billsDiv = document.getElementById('admin-pending-bills');
+        billsDiv.innerHTML = bills.filter(b => b.status === 'pending').map(b => `
+            <div style="border:1px solid #cbd5e1; background:#f8fafc; padding:0.8rem; margin-top:0.5rem; border-radius:4px;">
+                <p><strong>Student ID:</strong> ${b.studentId} | <strong>Item:</strong> ${b.desc} | <strong>Amount:</strong> GHS ${b.amount}</p>
+                <button onclick="approveBill(${b.id})" class="btn-primary" style="padding:0.3rem 0.8rem; margin-top:0.5rem;">Approve</button>
+            </div>
+        `).join('') || '<p style="color:#64748B; margin-top:0.5rem;">No pending bills.</p>';
 
-        function renderAdminDashboard() {
-            const billsDiv = document.getElementById('admin-pending-bills');
-            billsDiv.innerHTML = bills.filter(b => b.status === 'pending').map(b => `
-                <div style="border:1px solid #cbd5e1; background:#f8fafc; padding:0.8rem; margin-top:0.5rem; border-radius:4px;">
-                    <p><strong>Student:</strong> ${b.studentId} | <strong>Item:</strong> ${b.desc} | <strong>Amount:</strong> GHS ${b.amount}</p>
-                    <button onclick="approveBill(${b.id})" class="btn-primary" style="padding:0.3rem 0.8rem; margin-top:0.5rem;">Approve</button>
-                </div>
-            `).join('') || '<p style="color:#64748B; margin-top:0.5rem;">No pending bills.</p>';
+        const admDiv = document.getElementById('admin-admissions-list');
+        admDiv.innerHTML = admissions.map(a => `
+            <div style="border:1px solid #cbd5e1; background:#f8fafc; padding:0.8rem; margin-top:0.5rem; border-radius:4px;">
+                <p><strong>Parent:</strong> ${a.title} ${a.parent} (${a.phone})</p>
+                <p><strong>Child:</strong> ${a.child} | <strong>Contact Pref:</strong> ${a.pref}</p>
+            </div>
+        `).join('') || '<p style="color:#64748B; margin-top:0.5rem;">No admissions submitted yet.</p>';
+    }
 
-            const admDiv = document.getElementById('admin-admissions-list');
-            admDiv.innerHTML = admissions.map(a => `
-                <div style="border:1px solid #cbd5e1; background:#f8fafc; padding:0.8rem; margin-top:0.5rem; border-radius:4px;">
-                    <p><strong>Parent:</strong> ${a.title} ${a.parent} (${a.phone})</p>
-                    <p><strong>Child:</strong> ${a.child} | <strong>Contact Pref:</strong> ${a.pref}</p>
-                </div>
-            `).join('') || '<p style="color:#64748B; margin-top:0.5rem;">No admissions submitted yet.</p>';
-        }
+    function approveBill(id) {
+        const b = bills.find(x => x.id === id);
+        if (b) b.status = 'approved';
+        renderAdminDashboard();
+    }
 
-        function approveBill(id) {
-            const b = bills.find(x => x.id === id);
-            if (b) b.status = 'approved';
-            renderAdminDashboard();
-        }
-
-       function renderParentBills() {
-            const list = document.getElementById('parent-bills-list');
-            const approved = bills.filter(b => b.status === 'approved');
-            list.innerHTML = approved.map(b => `
-                <div style="padding:0.6rem 0; border-bottom:1px solid #eee;">
-                    <p><strong>${b.desc}</strong> - GHS ${b.amount} <span style="color:green; font-size:0.85rem;">(Approved)</span></p>
-                </div>
-            `).join('') || '<p style="color:#64748B;">No approved bills available.</p>';
-        }
-    </script>
+    function renderParentBills() {
+        const list = document.getElementById('parent-bills-list');
+        const approved = bills.filter(b => b.status === 'approved');
+        list.innerHTML = approved.map(b => `
+            <div style="padding:0.6rem 0; border-bottom:1px solid #eee;">
+                <p><strong>${b.desc}</strong> - GHS ${b.amount} <span style="color:green; font-size:0.85rem;">(Approved)</span></p>
+            </div>
+        `).join('') || '<p style="color:#64748B;">No approved bills available.</p>';
+    }
+</script>
 </body>
 </html>
