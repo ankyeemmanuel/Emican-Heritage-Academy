@@ -322,7 +322,7 @@
 
             <div class="card">
                 <h2>Vision & Core Values</h2>
-                <p>To empower every student to arise in knowledge, explore endless possibilities, and grow into upright societal leaders with strong moral heritage.</p>
+                <p id="vision-text-display">To empower every student to arise in knowledge, explore endless possibilities, and grow into upright societal leaders...</p>
             </div>
 
             <div class="blueprint-grid">
@@ -384,7 +384,7 @@
         <div id="section-about" class="tab-content" style="display:none;">
             <div class="card">
                 <h2>About Emican Heritage Academy</h2>
-                <p>Located in Techiman, Bono East Region, Ghana, Emican Heritage Academy provides world-class foundational education structured around GES and NaCCA standards.</p>
+                <p id="about-text-display">Located in Techiman, Bono East Region, Ghana, Emican Heritage Academy provides world-class foundational education structured around GES standards.</p>
             </div>
         </div>
 
@@ -913,19 +913,34 @@ window.addEventListener('DOMContentLoaded', loadSchoolContent);
             const studentNotes = notes.filter(n => n.studentId === studentId && n.status === 'approved');
             nContainer.innerHTML = studentNotes.length > 0 ? studentNotes.map(n => `<p style="margin-bottom:0.5rem;">📝 <strong>Teacher Note:</strong> ${n.content}</p>`).join('') : '<p style="color:#64748B;">No teacher reports available.</p>';
         }
+function renderAdminDashboard() {
+  document.getElementById('admin-audit-logs').innerHTML = auditLogs.join('<br>');
 
-        function renderAdminDashboard() {
-            document.getElementById('admin-audit-logs').innerHTML = auditLogs.join('<br>');
+  const adminList = document.getElementById('admin-articles-list');
+  if (adminList) {
+    adminList.innerHTML = articles.length > 0 ? 
+      `<table style="width:100%; border-collapse:collapse;">
+        <tr>
+          <th style="text-align:left; padding:0.4rem;">Article Title</th>
+          <th style="text-align:right; padding:0.4rem;">Action</th>
+        </tr>
+        ${articles.map((art, idx) => `
+          <tr style="border-bottom:1px solid #cbd5e1;">
+            <td style="padding:0.4rem;">${art}</td>
+            <td style="text-align:right; padding:0.4rem;">
+              <button onclick="editArticle(${idx})" style="background:#d97706; color:#fff; border:none; padding:0.2rem 0.5rem; border-radius:4px; margin-right:0.3rem; cursor:pointer;">Edit</button>
+              <button onclick="deleteArticle(${idx})" style="background:#dc2626; color:#fff; border:none; padding:0.2rem 0.5rem; border-radius:4px; cursor:pointer;">Delete</button>
+            </td>
+          </tr>`).join('')}
+      </table>` : '<p>No articles.</p>';
+  }
 
-            document.getElementById('admin-articles-list').innerHTML = articles.length > 0 ? `
-                <table><tr><th>Article Title</th><th>Action</th></tr>
-                ${articles.map((art, idx) => `<tr><td>${art}</td><td><button onclick="deleteArticle(${idx})" style="background:#dc2626; color:white; border:none; padding:0.2rem 0.5rem; border-radius:3px; cursor:pointer;">Delete</button></td></tr>`).join('')}
-                </table>` : '<p>No articles.</p>';
-
-            document.getElementById('admin-teachers-list').innerHTML = teachers.length > 0 ? `
-                <table><tr><th>Name</th><th>Staff ID</th><th>Email</th><th>Password</th><th>Action</th></tr>
-                ${teachers.map((t, index) => `<tr><td>${t.name}</td><td>${t.id}</td><td>${t.email}</td><td><code>${t.pass}</code></td><td><button onclick="editTeacherPass(${index})" style="background:#d97706; color:white; border:none; padding:0.2rem 0.4rem; border-radius:3px; cursor:pointer; margin-right:5px;">Edit Pass</button><button onclick="deleteTeacher(${index})" style="background:#dc2626; color:white; border:none; padding:0.2rem 0.4rem; border-radius:3px; cursor:pointer;">Delete</button></td></tr>`).join('')}
-                </table>` : '<p>No teachers.</p>';
+  const teachersList = document.getElementById('admin-teachers-list');
+  if (teachersList) {
+    teachersList.innerHTML = teachers.length > 0 ? 
+      `<table><tr><th>Name</th><th>Staff ID</th><th>Email</th><th>Password</th><th>Action</th></tr>${teachers.map((t, index) => `<tr><td>${t.name}</td><td>${t.id}</td><td>${t.email}</td><td><code>${t.pass}</code></td><td><button onclick="deleteTeacher(${index})">Delete</button></td></tr>`).join('')}</table>` : '<p>No teachers.</p>';
+  }
+}
 
             document.getElementById('admin-students-list').innerHTML = students.length > 0 ? `
                 <table><tr><th>Name</th><th>Class</th><th>Parent Phone</th><th>Student ID</th><th>Password</th><th>Action</th></tr>
