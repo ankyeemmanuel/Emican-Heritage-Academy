@@ -1,1 +1,17 @@
+:root {
+    --deep-blue: #002366;
+    --sea-blue: #0077B6;
+    --gold: #D4AF37;
+    --white: #FFFFFF;
+}
+
+body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--white); }
+nav { background: var(--deep-blue); color: var(--gold); padding: 1.5rem; display: flex; justify-content: space-between; }
+nav a { color: var(--gold); text-decoration: none; margin-left: 20px; }
+#hero { padding: 50px; text-align: center; background: var(--sea-blue); color: var(--white); }
+button { background: var(--gold); border: none; padding: 10px; cursor: pointer; font-weight: bold; }
+input { padding: 10px; margin: 5px; }
+table { border-collapse: collapse; margin-top: 20px; }
+th { background: var(--deep-blue); color: var(--white); padding: 10px; }
+td { padding: 10px; border: 1px solid #ddd; }
 
