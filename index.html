@@ -9,7 +9,9 @@
             --navy-deep: #0f172a;        /* Deep Navy from uniforms & book covers */
             --navy-light: #1e293b;
             --gold-crest: #d97706;       /* Gold accents from the crest */
-            --sky-blue: #e0f2fe;         /* Sky blue matching student polo shirts */
+            --sky-blue: #0284c7;         /* Sea blue matching accents & buttons */
+            --sky-bg: #e0f2fe;           /* Light blue background tint */
+            --yellow-accent: #fcd116;    /* Gold/Yellow banner accent */
             --bg-light: #f8fafc;
             --text-dark: #1e293b;
             --white: #ffffff;
@@ -26,6 +28,12 @@
             background-color: var(--bg-light);
             color: var(--text-dark);
             line-height: 1.5;
+        }
+
+        .top-yellow-bar {
+            background-color: var(--yellow-accent);
+            height: 8px;
+            width: 100%;
         }
 
         header {
@@ -52,7 +60,7 @@
         }
 
         .gh-badge {
-            background: var(--sky-blue);
+            background: var(--sky-bg);
             color: var(--navy-deep);
             padding: 0.3rem 0.6rem;
             border-radius: 4px;
@@ -84,7 +92,7 @@
         }
 
         nav button:hover, nav button.active {
-            background-color: var(--sky-blue);
+            background-color: var(--sky-bg);
             color: var(--navy-deep);
         }
 
@@ -94,18 +102,9 @@
             padding: 0 1rem;
         }
 
-        /* Two-column blueprint layout */
         .blueprint-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .lower-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
@@ -124,8 +123,63 @@
         .card h2, .card h3 {
             color: var(--navy-deep);
             margin-bottom: 1rem;
-            border-bottom: 2px solid var(--sky-blue);
+            border-bottom: 2px solid var(--sky-bg);
             padding-bottom: 0.5rem;
+        }
+
+        .photo-showcase-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .photo-card-large {
+            background: #e2e8f0;
+            height: 240px;
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-card-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-card-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .photo-card-small {
+            background: #e2e8f0;
+            height: 112px;
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-card-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .section-header-banner {
+            background-color: var(--sky-blue);
+            color: var(--white);
+            padding: 0.6rem 1rem;
+            font-weight: bold;
+            border-radius: 4px 4px 0 0;
+            margin: -1.5rem -1.5rem 1rem -1.5rem;
+            font-size: 1.1rem;
         }
 
         .form-group {
@@ -148,17 +202,18 @@
         }
 
         .btn-primary {
-            background-color: var(--navy-deep);
+            background-color: var(--sky-blue);
             color: var(--white);
             padding: 0.7rem 1.5rem;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-weight: 600;
+            transition: background 0.2s;
         }
 
         .btn-primary:hover {
-            background-color: var(--navy-light);
+            background-color: #0369a1;
         }
 
         .modal {
@@ -199,23 +254,17 @@
             color: var(--white);
         }
 
-        .news-item {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid #E2E8F0;
-        }
-
-        .news-item:last-child {
-            border-bottom: none;
-        }
-
-        .news-date {
-            font-size: 0.8rem;
-            color: var(--gold-crest);
-            font-weight: 700;
+        .footer-address-box {
+            background-color: #0f766e;
+            color: white;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            font-size: 0.95rem;
         }
 
         @media (max-width: 768px) {
-            .blueprint-grid, .lower-grid {
+            .blueprint-grid, .photo-showcase-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -223,21 +272,19 @@
 </head>
 <body>
 
+    <div class="top-yellow-bar"></div>
+
     <header>
         <div class="header-container">
-            <!-- Left: GH Badge & Logo -->
             <div class="brand-section">
                 <div class="gh-badge">
-                    <svg width="18" height="12" viewBox="0 0 36 24" style="border-radius: 2px; box-shadow: 0 0 1px rgba(0,0,0,0.3);">
+                    <svg width="18" height="12" viewBox="0 0 36 24">
                         <rect width="36" height="8" fill="#006b3f"/>
                         <rect y="8" width="36" height="8" fill="#fcd116"/>
                         <rect y="16" width="36" height="8" fill="#ce1126"/>
-                        <polygon points="18,9 19.2,12.5 23,12.5 19.9,14.7 21.1,18.2 18,16 14.9,18.2 16.1,14.7 13,12.5 16.8,12.5" fill="#000000"/>
                     </svg>
-                    <span>GH</span>
+                    <span>GHA</span>
                 </div>
-                
-                <!-- Custom Transparent SVG Logo -->
                 <div style="width: 65px; height: 65px; display: flex; align-items: center; justify-content: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
                       <circle cx="250" cy="250" r="230" fill="none" stroke="#d97706" stroke-width="14"/>
@@ -247,20 +294,17 @@
                       <path d="M 250,340 C 220,330 190,290 200,260 C 210,230 240,240 250,260 C 260,240 290,230 300,260 C 310,290 280,330 250,340 Z" fill="#0f172a"/>
                     </svg>
                 </div>
-
                 <div>
                     <h1 style="font-size: 1.4rem; margin: 0; color: #ffffff; font-weight: bold;">EMICAN HERITAGE ACADEMY</h1>
-                    <p style="font-size: 0.75rem; margin: 0; color: #e0f2fe; font-style: italic; letter-spacing: 1px;">ASCEND - EXPLORE - GROW</p>
-                    <span style="font-size: 0.75rem; color: #d97706; font-weight: bold; letter-spacing: 1px;">TECHIMAN, GHANA</span>
+                    <p style="font-size: 0.75rem; margin: 0; color: #e0f2fe; font-style: italic;">ARISE - EXPLORE - GROW</p>
+                    <span style="font-size: 0.75rem; color: #d97706; font-weight: bold;" id="header-location-display">TECHIMAN-JONE PAST.</span>
                 </div>
             </div>
-
-            <!-- Right: Navigation Links / Portals -->
             <nav>
-                <button onclick="switchTab('home')" class="active" id="nav-home">Home</button>
+                <button onclick="switchTab('home')" class="active" id="nav-home">HOME</button>
                 <button onclick="switchTab('about')" id="nav-about">About</button>
-                <button onclick="switchTab('parents')" id="nav-parents">Parents Portal</button>
-                <button onclick="switchTab('teachers')" id="nav-teachers">Teachers Portal</button>
+                <button onclick="switchTab('parents')" id="nav-parents">Parents</button>
+                <button onclick="switchTab('teachers')" id="nav-teachers">Teachers</button>
                 <button onclick="openAdminAuth()" id="nav-admin" style="background: #d97706; color: #ffffff;">Admin</button>
             </nav>
         </div>
@@ -269,35 +313,35 @@
     <div class="container">
         <!-- HOME SECTION -->
         <div id="section-home" class="tab-content">
+            <div class="photo-showcase-grid">
+                <div class="photo-card-large">
+                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80" alt="Student">
+                </div>
+                <div class="photo-card-stack">
+                    <div class="photo-card-small">
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80" alt="Classroom">
+                    </div>
+                    <div class="photo-card-small">
+                        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=600&q=80" alt="Students">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Vision & Core Values</h2>
+                <p>To empower every student to arise in knowledge, explore endless possibilities, and grow into upright societal leaders with strong moral heritage.</p>
+            </div>
+
             <div class="blueprint-grid">
                 <div>
                     <div class="card">
-                        <h2>Welcome to Emican Heritage Academy</h2>
-                        <p>Welcome to Emican Heritage Academy, where we nurture leaders of tomorrow through holistic basic education in Techiman, Bono East Region.</p>
-                    </div>
-                    <div class="card">
-                        <h2>Vision & Core Values</h2>
-                        <p>To empower every student to ascend in knowledge, explore endless possibilities, and grow into upright societal leaders.</p>
-                    </div>
-                    <div class="card">
-                        <h2>Latest School News & Announcements</h2>
-                        <div id="public-news-container">
-                            <p style="color:#64748B;">Loading news...</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="card">
-                        <h2>Admissions & Inquiries</h2>
+                        <div class="section-header-banner">Admissions & Inquiries</div>
                         <form id="admissions-form" onsubmit="submitAdmission(event)">
                             <div class="form-group">
                                 <label>Title</label>
                                 <select id="adm-title" required>
                                     <option value="">Select Title</option>
-                                    <option>Mr.</option>
-                                    <option>Mrs.</option>
-                                    <option>Dr.</option>
-                                    <option>Rev.</option>
+                                    <option>Mr.</option><option>Mrs.</option><option>Dr.</option><option>Rev.</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -309,7 +353,7 @@
                                 <input type="text" id="adm-child-name" required placeholder="Enter child's name">
                             </div>
                             <div class="form-group">
-                                <label>Email Address</label>
+                                <label>Your Email</label>
                                 <input type="email" id="adm-email" required placeholder="example@email.com">
                             </div>
                             <div class="form-group">
@@ -319,13 +363,25 @@
                             <div class="form-group">
                                 <label>Preferred Contact Method</label>
                                 <select id="adm-contact-pref">
-                                    <option>Email</option>
-                                    <option>Phone Call</option>
+                                    <option>By email</option>
+                                    <option>By Phone call</option>
                                     <option>WhatsApp</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn-primary">Submit Application</button>
+                            <button type="submit" class="btn-primary">Submit ✓</button>
                         </form>
+                    </div>
+                </div>
+                <div>
+                    <div class="card">
+                        <div class="section-header-banner">Articles</div>
+                        <div id="public-articles-container"></div>
+                    </div>
+                    <div class="footer-address-box">
+                        <strong id="disp-school-name">Emican Heritage Academy</strong><br>
+                        Tel: <span id="disp-school-phone">+233 (0) 535 694-851</span><br>
+                        Email: <span id="disp-school-email">emicangh@gmail.com</span><br>
+                        <span id="disp-school-address">Techiman-Jone Past.</span>
                     </div>
                 </div>
             </div>
@@ -342,28 +398,41 @@
         <!-- PARENTS PORTAL -->
         <div id="section-parents" class="tab-content" style="display:none;">
             <div class="card" id="parent-login-card">
-                <h2>Parent & Student Portal Login</h2>
+                <h2>Parent Portal Login</h2>
+                <p style="font-size:0.85rem; color:#64748B; margin-bottom:1rem;">Use the phone number provided during registration as your login identifier and your Student ID as your initial password.</p>
                 <form onsubmit="loginParent(event)">
                     <div class="form-group">
-                        <label>Student ID</label>
-                        <input type="text" id="parent-id" required placeholder="e.g. STU-1001">
+                        <label>Phone Number</label>
+                        <input type="text" id="parent-phone-input" required placeholder="e.g. +233...">
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="parent-pass" required placeholder="Enter student password">
+                        <label>Password (Student ID)</label>
+                        <input type="password" id="parent-pass-input" required placeholder="Enter student ID">
                     </div>
                     <button type="submit" class="btn-primary">Login</button>
                 </form>
             </div>
             <div id="parent-dashboard" style="display:none;">
                 <div class="card">
-                    <h2>Welcome, <span id="parent-student-name"></span></h2>
-                    <p><strong>Class:</strong> <span id="parent-student-class"></span> | <strong>Student ID:</strong> <span id="parent-student-id-disp"></span></p>
+                    <h2>Welcome, <span id="parent-student-name"></span> (<span id="parent-student-class"></span>)</h2>
+                    <p><strong>Student ID:</strong> <span id="parent-student-id-disp"></span></p>
+                    <div style="margin-top:1rem; background:#f1f5f9; padding:1rem; border-radius:6px;">
+                        <h4>Change Your Portal Password</h4>
+                        <div class="form-group" style="margin-top:0.5rem;">
+                            <input type="password" id="new-parent-pass" placeholder="Enter new password">
+                        </div>
+                        <button onclick="updateParentPassword()" class="btn-primary">Save New Password</button>
+                    </div>
                     <button onclick="logoutParent()" class="btn-primary" style="margin-top:1rem; background:#dc2626;">Logout</button>
                 </div>
                 <div class="card">
-                    <h2>Approved Fee Bills & Statements</h2>
+                    <h2>Approved Fee Bills & Financial Records</h2>
                     <div id="parent-bills-list">No approved bills posted yet.</div>
+                </div>
+                <div class="card">
+                    <h2>Student Reports & Downloadable Documents</h2>
+                    <div id="parent-files-list">No files available.</div>
+                    <div id="parent-notes-display" style="margin-top:1rem; background:#f8fafc; padding:1rem; border:1px solid #cbd5e1; border-radius:4px;"></div>
                 </div>
             </div>
         </div>
@@ -374,12 +443,12 @@
                 <h2>Teacher Portal Login</h2>
                 <form onsubmit="loginTeacher(event)">
                     <div class="form-group">
-                        <label>Staff ID</label>
-                        <input type="text" id="teacher-id" required placeholder="e.g. TCH101">
+                        <label>Staff ID or Email</label>
+                        <input type="text" id="teacher-credential" required placeholder="TCH101 or email@emican.edu.gh">
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="teacher-pass" required placeholder="Enter staff password">
+                        <input type="password" id="teacher-pass" required placeholder="Enter password">
                     </div>
                     <button type="submit" class="btn-primary">Login</button>
                 </form>
@@ -388,21 +457,56 @@
                 <div class="card">
                     <h2>Teacher Dashboard (<span id="teacher-logged-name">Staff</span>)</h2>
                     <button onclick="logoutTeacher()" class="btn-primary" style="margin-bottom:1.5rem; background:#dc2626;">Logout</button>
-                    <h3>Submit Fee Bill / Bill Draft (Requires Admin Approval)</h3>
+                    
+                    <h3>Post / Update Student Fee Bill (Requires Admin Approval)</h3>
                     <form onsubmit="submitTeacherBill(event)">
                         <div class="form-group">
                             <label>Student ID</label>
                             <input type="text" id="bill-student-id" required placeholder="STU-1001">
                         </div>
                         <div class="form-group">
-                            <label>Description / Fee Item</label>
-                            <input type="text" id="bill-desc" required placeholder="Term 1 Tuition & Books">
+                            <label>Fee Description</label>
+                            <input type="text" id="bill-desc" required placeholder="Term 1 Tuition">
                         </div>
                         <div class="form-group">
-                            <label>Amount (GHS)</label>
+                            <label>Total Bill Amount (GHS)</label>
                             <input type="number" id="bill-amount" required placeholder="1500">
                         </div>
-                        <button type="submit" class="btn-primary">Submit for Admin Approval</button>
+                        <div class="form-group">
+                            <label>Amount Paid (GHS)</label>
+                            <input type="number" id="bill-paid" required placeholder="500">
+                        </div>
+                        <button type="submit" class="btn-primary">Submit Bill for Approval</button>
+                    </form>
+
+                    <h3 style="margin-top:2rem;">Upload PDF Document for Student</h3>
+                    <form onsubmit="uploadTeacherPDF(event)">
+                        <div class="form-group">
+                            <label>Student ID</label>
+                            <input type="text" id="pdf-student-id" required placeholder="STU-1001">
+                        </div>
+                        <div class="form-group">
+                            <label>Document Title</label>
+                            <input type="text" id="pdf-title" required placeholder="Term Report Card / Assignment">
+                        </div>
+                        <div class="form-group">
+                            <label>Select PDF File</label>
+                            <input type="file" id="pdf-file-input" accept="application/pdf" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Upload PDF</button>
+                    </form>
+
+                    <h3 style="margin-top:2rem;">Type Notes / Reports for Admin Approval</h3>
+                    <form onsubmit="submitTeacherNote(event)">
+                        <div class="form-group">
+                            <label>Student ID</label>
+                            <input type="text" id="note-student-id" required placeholder="STU-1001">
+                        </div>
+                        <div class="form-group">
+                            <label>Student Progress / Report Note</label>
+                            <textarea id="note-content" rows="3" required placeholder="Type notes here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Submit Note to Admin</button>
                     </form>
                 </div>
             </div>
@@ -415,91 +519,69 @@
                 <button onclick="changeAdminPassword()" class="btn-primary" style="margin-bottom: 1rem;">Change Admin Password</button>
                 <button onclick="switchTab('home')" class="btn-primary" style="margin-bottom: 1rem; background:#64748B;">Exit Admin</button>
 
-                <!-- PUBLISH NEWS ARTICLE -->
-                <h3 style="margin-top:1.5rem;">Publish News / Announcement</h3>
-                <form onsubmit="publishNews(event)" style="background:#f1f5f9; padding:1rem; border-radius:6px; margin-bottom:1.5rem;">
-                    <div class="form-group">
-                        <label>News Headline</label>
-                        <input type="text" id="news-title" required placeholder="e.g. Admissions Open for 2026/2027 Academic Year">
-                    </div>
-                    <div class="form-group">
-                        <label>News Content / Details</label>
-                        <textarea id="news-content" rows="3" required placeholder="Write announcement details here..."></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Publish to Public Site</button>
+                <!-- System Audit Logs -->
+                <h3 style="margin-top:1.5rem;">Account Activity & Login/Logout Logs</h3>
+                <div id="admin-audit-logs" style="margin-bottom:2rem; max-height:200px; overflow-y:auto; background:#1e293b; color:#38bdf8; padding:1rem; border-radius:6px; font-family:monospace; font-size:0.85rem;"></div>
+
+                <!-- Contact & Address Editor -->
+                <h3 style="margin-top:1.5rem;">Edit Site Contact & Address</h3>
+                <form onsubmit="saveSchoolContactInfo(event)" style="background:#f1f5f9; padding:1rem; border-radius:6px; margin-bottom:1.5rem;">
+                    <div class="form-group"><label>School Name</label><input type="text" id="admin-sch-name" value="Emican Heritage Academy" required></div>
+                    <div class="form-group"><label>Telephone Number</label><input type="text" id="admin-sch-phone" value="+233 (0) 535 694-851" required></div>
+                    <div class="form-group"><label>Email Address</label><input type="email" id="admin-sch-email" value="emicangh@gmail.com" required></div>
+                    <div class="form-group"><label>Physical Address</label><input type="text" id="admin-sch-address" value="Techiman-Jone Past." required></div>
+                    <button type="submit" class="btn-primary">Update School Info</button>
                 </form>
 
-                <!-- TEACHER REGISTRATION -->
+                <!-- Articles Management -->
+                <h3 style="margin-top:1.5rem;">Manage Articles & Announcements</h3>
+                <form onsubmit="addArticle(event)" style="background:#f1f5f9; padding:1rem; border-radius:6px; margin-bottom:1rem;">
+                    <div class="form-group"><label>Article Title</label><input type="text" id="new-art-title" required placeholder="Article title"></div>
+                    <button type="submit" class="btn-primary">Add Article</button>
+                </form>
+                <div id="admin-articles-list" style="margin-bottom:2rem;"></div>
+
+                <!-- Teacher Registration -->
                 <h3 style="margin-top:1.5rem;">Register New Teacher</h3>
                 <form onsubmit="registerTeacher(event)" style="background:#f1f5f9; padding:1rem; border-radius:6px; margin-bottom:1.5rem;">
-                    <div class="form-group">
-                        <label>Teacher Full Name</label>
-                        <input type="text" id="reg-t-name" required placeholder="e.g. Kwame Mensah">
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" id="reg-t-phone" required placeholder="+233 ...">
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" id="reg-t-email" required placeholder="teacher@emican.edu.gh">
-                    </div>
-                    <div class="form-group">
-                        <label>Staff ID / Portal Number</label>
-                        <input type="text" id="reg-t-id" required placeholder="e.g. TCH101">
-                    </div>
-                    <div class="form-group">
-                        <label>Portal Password</label>
-                        <input type="password" id="reg-t-pass" required placeholder="Set password">
-                    </div>
-                    <button type="submit" class="btn-primary">Save & Register Teacher</button>
+                    <div class="form-group"><label>Full Name</label><input type="text" id="reg-t-name" required></div>
+                    <div class="form-group"><label>Phone Number</label><input type="tel" id="reg-t-phone" required></div>
+                    <div class="form-group"><label>Email Address</label><input type="email" id="reg-t-email" required></div>
+                    <div class="form-group"><label>Staff ID</label><input type="text" id="reg-t-id" required placeholder="TCH101"></div>
+                    <div class="form-group"><label>Password</label><input type="text" id="reg-t-pass" required></div>
+                    <button type="submit" class="btn-primary">Register Teacher</button>
                 </form>
-
-                <h3>Registered Teachers List</h3>
+                <h3>Registered Teachers & Passwords</h3>
                 <div id="admin-teachers-list" style="margin-bottom:2rem;"></div>
 
-                <!-- STUDENT REGISTRATION -->
-                <h3 style="margin-top:1.5rem;">Register New Student</h3>
+                <!-- Student Registration -->
+                <h3 style="margin-top:1.5rem;">Register New Student (Crèche to JHS 3)</h3>
                 <form onsubmit="registerStudent(event)" style="background:#f1f5f9; padding:1rem; border-radius:6px; margin-bottom:1.5rem;">
-                    <div class="form-group">
-                        <label>Student Full Name</label>
-                        <input type="text" id="reg-s-name" required placeholder="e.g. Abena Ankye">
-                    </div>
+                    <div class="form-group"><label>Student Full Name</label><input type="text" id="reg-s-name" required></div>
                     <div class="form-group">
                         <label>Select Class</label>
                         <select id="reg-s-class" required>
-                            <option value="">Select Class Level</option>
-                            <option>Crèche 1</option>
-                            <option>Crèche 2</option>
-                            <option>Kindergarten 1</option>
-                            <option>Kindergarten 2</option>
-                            <option>Basic 1</option>
-                            <option>Basic 2</option>
-                            <option>Basic 3</option>
-                            <option>Basic 4</option>
-                            <option>Basic 5</option>
-                            <option>Basic 6</option>
-                            <option>JHS 1</option>
-                            <option>JHS 2</option>
-                            <option>JHS 3</option>
-                        </select> 
+                            <option value="">Select Class</option>
+                            <option>Crèche 1</option><option>Crèche 2</option>
+                            <option>Kindergarten 1</option><option>Kindergarten 2</option>
+                            <option>Basic 1</option><option>Basic 2</option><option>Basic 3</option>
+                            <option>Basic 4</option><option>Basic 5</option><option>Basic 6</option>
+                            <option>JHS 1</option><option>JHS 2</option><option>JHS 3</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label>Student ID (for Parent Portal Login)</label>
-                        <input type="text" id="reg-s-id" required placeholder="e.g. STU-1001">
-                    </div>
-                    <div class="form-group">
-                        <label>Portal Password</label>
-                        <input type="password" id="reg-s-pass" required placeholder="Set password">
-                    </div>
-                    <button type="submit" class="btn-primary">Save & Register Student</button>
+                    <div class="form-group"><label>Parent Phone Number (Portal Login ID)</label><input type="text" id="reg-s-phone" required placeholder="+233..."></div>
+                    <div class="form-group"><label>Unique Student ID (Initial Password)</label><input type="text" id="reg-s-id" required placeholder="STU-1001"></div>
+                    <button type="submit" class="btn-primary">Register Student</button>
                 </form>
-
-                <h3>Registered Students List</h3>
+                <h3>Registered Students, Passwords & Credentials</h3>
                 <div id="admin-students-list" style="margin-bottom:2rem;"></div>
 
-                <h3 style="margin-top:1.5rem;">Pending Fee Bills for Approval</h3>
-                <div id="admin-pending-bills"></div>
+                <!-- Pending Approvals -->
+                <h3 style="margin-top:1.5rem;">Pending Teacher Fee Bills For Approval</h3>
+                <div id="admin-pending-bills" style="margin-bottom:2rem;"></div>
+
+                <h3 style="margin-top:1.5rem;">Pending Teacher Notes / Reports For Approval</h3>
+                <div id="admin-pending-notes" style="margin-bottom:2rem;"></div>
                 
                 <h3 style="margin-top: 2rem;">Admissions Received</h3>
                 <div id="admin-admissions-list"></div>
@@ -520,22 +602,34 @@
 
     <script>
         let adminPass = "admin123";
-        let bills = [];
-        let admissions = [];
+        let auditLogs = [];
+        let schoolInfo = { name: "Emican Heritage Academy", phone: "+233 (0) 535 694-851", email: "emicangh@gmail.com", address: "Techiman-Jone Past." };
 
         let teachers = [
-            { name: "Kwame Mensah", phone: "+233 24 000 0000", email: "kwame@emican.edu.gh", id: "TCH101", pass: "TCH101" }
+            { name: "Kwame Mensah", phone: "+233240000000", email: "kwame@emican.edu.gh", id: "TCH101", pass: "TCH101" }
         ];
+        
         let students = [
-            { name: "Abena Ankye", classLevel: "Basic 1", id: "STU-1001", pass: "STU-1001" }
-        ];
-        let newsArticles = [
-            { title: "Welcome to Emican Heritage Academy!", content: "We are officially open for admissions across all classes from Crèche to JHS 3 in Techiman.", date: "October 31, 2026" }
+            { name: "Abena Ankye", classLevel: "Basic 1", phone: "+233200000000", id: "STU-1001", pass: "STU-1001" }
         ];
 
+        let articles = ["The Importance of Values", "Upcoming School Events", "Meet our new Teachers", "Alumni Success Story", "Parent's Corner"];
+        let bills = [];
+        let pdfFiles = [];
+        let notes = [];
+        let admissions = [];
+        let loggedInParent = null;
+
         window.onload = function() {
-            renderPublicNews();
+            renderPublicArticles();
+            updateSchoolDisplayInfo();
+            logActivity("System initialized.");
         };
+
+        function logActivity(text) {
+            const timeStr = new Date().toLocaleTimeString();
+            auditLogs.unshift(`[${timeStr}] ${text}`);
+        }
 
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
@@ -543,7 +637,8 @@
             document.getElementById('section-' + tab).style.display = 'block';
             const btn = document.getElementById('nav-' + tab);
             if (btn) btn.classList.add('active');
-            if(tab === 'home') renderPublicNews();
+            if(tab === 'home') renderPublicArticles();
+            if(tab === 'admin') renderAdminDashboard();
         }
 
         function openAdminAuth() {
@@ -551,16 +646,14 @@
             document.getElementById('admin-auth-modal').style.display = 'flex';
         }
 
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
         function verifyAdminPass() {
             const entered = document.getElementById('admin-pass-input').value;
             if (entered === adminPass) {
+                logActivity("Admin logged in successfully.");
                 closeModal('admin-auth-modal');
                 switchTab('admin');
-                renderAdminDashboard();
             } else {
                 alert("Incorrect Password!");
             }
@@ -568,47 +661,54 @@
 
         function changeAdminPassword() {
             const newP = prompt("Enter new Admin password:");
-            if (newP) {
-                adminPass = newP;
-                alert("Password updated successfully!");
-            }
+            if (newP) { adminPass = newP; alert("Admin password updated!"); logActivity("Admin password changed."); }
         }
 
-        function publishNews(e) {
+        function saveSchoolContactInfo(e) {
             e.preventDefault();
-            const title = document.getElementById('news-title').value;
-            const content = document.getElementById('news-content').value;
-            const dateStr = new Date().toLocaleDateString();
-            newsArticles.unshift({ title, content, date: dateStr });
-            alert("News article published successfully!");
-            e.target.reset();
-            renderPublicNews();
+            schoolInfo.name = document.getElementById('admin-sch-name').value;
+            schoolInfo.phone = document.getElementById('admin-sch-phone').value;
+            schoolInfo.email = document.getElementById('admin-sch-email').value;
+            schoolInfo.address = document.getElementById('admin-sch-address').value;
+            updateSchoolDisplayInfo();
+            alert("School information updated successfully!");
         }
 
-        function renderPublicNews() {
-            const container = document.getElementById('public-news-container');
-            container.innerHTML = newsArticles.map(n => `
-                <div class="news-item">
-                    <span class="news-date">${n.date}</span>
-                    <h3 style="font-size:1.1rem; color:var(--navy-deep); margin:0.2rem 0;">${n.title}</h3>
-                    <p style="font-size:0.95rem; color:#475569;">${n.content}</p>
-                </div>
-            `).join('') || '<p style="color:#64748B;">No news announcements at the moment.</p>';
+        function updateSchoolDisplayInfo() {
+            document.getElementById('disp-school-name').innerText = schoolInfo.name;
+            document.getElementById('disp-school-phone').innerText = schoolInfo.phone;
+            document.getElementById('disp-school-email').innerText = schoolInfo.email;
+            document.getElementById('disp-school-address').innerText = schoolInfo.address;
+            document.getElementById('header-location-display').innerText = schoolInfo.address.toUpperCase();
+        }
+
+        function addArticle(e) {
+            e.preventDefault();
+            articles.push(document.getElementById('new-art-title').value);
+            document.getElementById('new-art-title').value = '';
+            renderAdminDashboard();
+            renderPublicArticles();
+        }
+
+        function deleteArticle(idx) { articles.splice(idx, 1); renderAdminDashboard(); renderPublicArticles(); }
+
+        function renderPublicArticles() {
+            const container = document.getElementById('public-articles-container');
+            container.innerHTML = articles.map(art => `<div style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0; font-weight: 500;">• ${art}</div>`).join('') || '<p>No articles.</p>';
         }
 
         function submitAdmission(e) {
             e.preventDefault();
-            const record = {
+            admissions.push({
                 title: document.getElementById('adm-title').value,
                 parent: document.getElementById('adm-parent-name').value,
                 child: document.getElementById('adm-child-name').value,
                 email: document.getElementById('adm-email').value,
                 phone: document.getElementById('adm-phone').value,
                 pref: document.getElementById('adm-contact-pref').value
-            };
-            admissions.push(record);
+            });
             alert("Application submitted successfully!");
-            document.getElementById('admissions-form').reset();
+            e.target.reset();
         }
 
         function registerTeacher(e) {
@@ -620,40 +720,38 @@
                 id: document.getElementById('reg-t-id').value,
                 pass: document.getElementById('reg-t-pass').value
             });
-            alert("Teacher registered successfully!");
+            alert("Teacher registered!");
             e.target.reset();
             renderAdminDashboard();
         }
 
+        function deleteTeacher(idx) { teachers.splice(idx, 1); renderAdminDashboard(); }
+        function editTeacherPass(idx) {
+            const np = prompt("Enter new password for teacher:", teachers[idx].pass);
+            if(np) { teachers[idx].pass = np; renderAdminDashboard(); alert("Password updated."); }
+        }
+
         function loginTeacher(e) {
             e.preventDefault();
-            const id = document.getElementById('teacher-id').value;
+            const cred = document.getElementById('teacher-credential').value;
             const pass = document.getElementById('teacher-pass').value;
-            const found = teachers.find(t => t.id === id && t.pass === pass);
-            
+            const found = teachers.find(t => (t.id === cred || t.email === cred) && t.pass === pass);
             if (found) {
+                logActivity(`Teacher logged in: ${found.name}`);
                 document.getElementById('teacher-login-card').style.display = 'none';
                 document.getElementById('teacher-dashboard').style.display = 'block';
                 document.getElementById('teacher-logged-name').innerText = found.name;
             } else {
-                alert("Invalid Staff ID or Password!");
+                alert("Invalid Staff ID/Email or Password!");
             }
         }
 
         function logoutTeacher() {
+            logActivity("Teacher logged out.");
             document.getElementById('teacher-dashboard').style.display = 'none';
             document.getElementById('teacher-login-card').style.display = 'block';
-            document.getElementById('teacher-id').value = '';
+            document.getElementById('teacher-credential').value = '';
             document.getElementById('teacher-pass').value = '';
-        }
-
-        function togglePasswordVisibility(inputId) {
-            const passwordInput = document.getElementById(inputId);
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-            } else {
-                passwordInput.type = 'password';
-            }
         }
 
         function registerStudent(e) {
@@ -661,117 +759,163 @@
             students.push({
                 name: document.getElementById('reg-s-name').value,
                 classLevel: document.getElementById('reg-s-class').value,
+                phone: document.getElementById('reg-s-phone').value,
                 id: document.getElementById('reg-s-id').value,
-                pass: document.getElementById('reg-s-pass').value
+                pass: document.getElementById('reg-s-id').value
             });
             alert("Student registered successfully!");
             e.target.reset();
             renderAdminDashboard();
         }
 
+        function deleteStudent(idx) { students.splice(idx, 1); renderAdminDashboard(); }
+        function editStudentPass(idx) {
+            const np = prompt("Enter new password for student/parent portal:", students[idx].pass);
+            if(np) { students[idx].pass = np; renderAdminDashboard(); alert("Password updated."); }
+        }
+
         function loginParent(e) {
             e.preventDefault();
-            const id = document.getElementById('parent-id').value;
-            const pass = document.getElementById('parent-pass').value;
-            const found = students.find(s => s.id === id && s.pass === pass);
+            const phone = document.getElementById('parent-phone-input').value;
+            const pass = document.getElementById('parent-pass-input').value;
+            const found = students.find(s => s.phone === phone && s.pass === pass);
 
             if (found) {
+                loggedInParent = found;
+                logActivity(`Parent logged in for student: ${found.name}`);
                 document.getElementById('parent-login-card').style.display = 'none';
                 document.getElementById('parent-dashboard').style.display = 'block';
                 document.getElementById('parent-student-name').innerText = found.name;
                 document.getElementById('parent-student-class').innerText = found.classLevel;
                 document.getElementById('parent-student-id-disp').innerText = found.id;
-                renderParentBills();
+                renderParentPortalData(found.id);
             } else {
-                alert("Invalid Student ID or Password!");
+                alert("Invalid Phone Number or Password!");
+            }
+        }
+
+        function updateParentPassword() {
+            const np = document.getElementById('new-parent-pass').value;
+            if (np && loggedInParent) {
+                loggedInParent.pass = np;
+                alert("Password updated successfully!");
+                logActivity(`Parent updated password for student ID: ${loggedInParent.id}`);
+                document.getElementById('new-parent-pass').value = '';
+            } else {
+                alert("Please enter a valid password.");
             }
         }
 
         function logoutParent() {
+            logActivity(`Parent logged out for student: ${loggedInParent ? loggedInParent.name : ''}`);
+            loggedInParent = null;
             document.getElementById('parent-dashboard').style.display = 'none';
             document.getElementById('parent-login-card').style.display = 'block';
-            document.getElementById('parent-id').value = '';
-            document.getElementById('parent-pass').value = '';
+            document.getElementById('parent-phone-input').value = '';
+            document.getElementById('parent-pass-input').value = '';
         }
 
         function submitTeacherBill(e) {
             e.preventDefault();
-            const stId = document.getElementById('bill-student-id').value;
-            const verifyStu = students.find(s => s.id === stId);
-            if (!verifyStu) {
-                alert("Warning: Student ID not found in registered students list. Bill submitted anyway for review.");
-            }
             bills.push({
                 id: Date.now(),
-                studentId: stId,
+                studentId: document.getElementById('bill-student-id').value,
                 desc: document.getElementById('bill-desc').value,
-                amount: document.getElementById('bill-amount').value,
+                amount: parseFloat(document.getElementById('bill-amount').value),
+                paid: parseFloat(document.getElementById('bill-paid').value),
                 status: 'pending'
             });
             alert("Bill submitted to Admin for approval!");
             e.target.reset();
         }
 
+        function uploadTeacherPDF(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('pdf-file-input');
+            pdfFiles.push({
+                id: Date.now(),
+                studentId: document.getElementById('pdf-student-id').value,
+                title: document.getElementById('pdf-title').value,
+                fileName: fileInput.files[0] ? fileInput.files[0].name : "Document.pdf"
+            });
+            alert("PDF uploaded successfully!");
+            e.target.reset();
+        }
+
+        function submitTeacherNote(e) {
+            e.preventDefault();
+            notes.push({
+                id: Date.now(),
+                studentId: document.getElementById('note-student-id').value,
+                content: document.getElementById('note-content').value,
+                status: 'pending'
+            });
+            alert("Note submitted to Admin for approval!");
+            e.target.reset();
+        }
+
+        function approveBill(id) { const b = bills.find(x => x.id === id); if(b) b.status = 'approved'; renderAdminDashboard(); }
+        function approveNote(id) { const n = notes.find(x => x.id === id); if(n) n.status = 'approved'; renderAdminDashboard(); }
+
+        function renderParentPortalData(studentId) {
+            // Bills
+            const bContainer = document.getElementById('parent-bills-list');
+            const studentBills = bills.filter(b => b.studentId === studentId && b.status === 'approved');
+            bContainer.innerHTML = studentBills.length > 0 ? studentBills.map(b => {
+                const balance = b.amount - b.paid;
+                return `<div style="padding:0.5rem 0; border-bottom:1px solid #eee;">
+                    <strong>${b.desc}</strong><br>
+                    Total Bill: GHS ${b.amount} | Paid: GHS ${b.paid} | <strong style="color:#dc2626;">Balance: GHS ${balance}</strong> <span style="color:green; font-weight:bold;">(Approved)</span>
+                </div>`;
+            }).join('') : '<p style="color:#64748B;">No approved fee bills posted yet.</p>';
+
+            // Files
+            const fContainer = document.getElementById('parent-files-list');
+            const studentFiles = pdfFiles.filter(f => f.studentId === studentId);
+            fContainer.innerHTML = studentFiles.length > 0 ? studentFiles.map(f => `
+                <div style="padding:0.4rem 0;"><a href="#" onclick="alert('Downloading ${f.fileName}...'); return false;" style="color:var(--sky-blue); font-weight:600;">📥 Download PDF: ${f.title} (${f.fileName})</a></div>
+            `).join('') : '<p style="color:#64748B;">No documents uploaded.</p>';
+
+            // Notes
+            const nContainer = document.getElementById('parent-notes-display');
+            const studentNotes = notes.filter(n => n.studentId === studentId && n.status === 'approved');
+            nContainer.innerHTML = studentNotes.length > 0 ? studentNotes.map(n => `<p style="margin-bottom:0.5rem;">📝 <strong>Teacher Note:</strong> ${n.content}</p>`).join('') : '<p style="color:#64748B;">No teacher reports available.</p>';
+        }
+
         function renderAdminDashboard() {
-            const tList = document.getElementById('admin-teachers-list');
-            tList.innerHTML = teachers.length > 0 ? `
-                <table>
-                    <tr><th>Name</th><th>Staff ID</th><th>Phone</th><th>Action</th></tr>
-                    ${teachers.map((t, index) => `<tr><td>${t.name}</td><td>${t.id}</td><td>${t.phone}</td><td><button onclick="deleteTeacher(${index})" style="background:#dc2626; color:white; border:none; padding:0.2rem 0.5rem; border-radius:3px; cursor:pointer;">Delete</button></td></tr>`).join('')}
-                </table>` : '<p style="color:#64748B;">No teachers registered yet.</p>';
+            document.getElementById('admin-audit-logs').innerHTML = auditLogs.join('<br>');
 
-            const sList = document.getElementById('admin-students-list');
-            sList.innerHTML = students.length > 0 ? `
-                <table>
-                    <tr><th>Student Name</th><th>Class Level</th><th>Student ID</th><th>Action</th></tr>
-                    ${students.map((s, index) => `<tr><td>${s.name}</td><td><b>${s.classLevel}</b></td><td>${s.id}</td><td><button onclick="deleteStudent(${index})" style="background:#dc2626; color:white; border:none; padding:0.2rem 0.5rem; border-radius:3px; cursor:pointer;">Delete</button></td></tr>`).join('')}
-                </table>` : '<p style="color:#64748B;">No students registered yet.</p>';
+            document.getElementById('admin-articles-list').innerHTML = articles.length > 0 ? `
+                <table><tr><th>Article Title</th><th>Action</th></tr>
+                ${articles.map((art, idx) => `<tr><td>${art}</td><td><button onclick="deleteArticle(${idx})" style="background:#dc2626; color:white; border:none; padding:0.2rem 0.5rem; border-radius:3px; cursor:pointer;">Delete</button></td></tr>`).join('')}
+                </table>` : '<p>No articles.</p>';
 
-            const billsDiv = document.getElementById('admin-pending-bills');
-            billsDiv.innerHTML = bills.filter(b => b.status === 'pending').map(b => `
-                <div style="border:1px solid #cbd5e1; background:#f8fafc; padding:0.8rem; margin-top:0.5rem; border-radius:4px;">
-                    <p><strong>Student ID:</strong> ${b.studentId} | <strong>Item:</strong> ${b.desc} | <strong>Amount:</strong> GHS ${b.amount}</p>
-                    <button onclick="approveBill(${b.id})" class="btn-primary" style="padding:0.3rem 0.8rem; margin-top:0.5rem;">Approve</button>
-                </div>
-            `).join('') || '<p style="color:#64748B; margin-top:0.5rem;">No pending bills.</p>';
+            document.getElementById('admin-teachers-list').innerHTML = teachers.length > 0 ? `
+                <table><tr><th>Name</th><th>Staff ID</th><th>Email</th><th>Password</th><th>Action</th></tr>
+                ${teachers.map((t, index) => `<tr><td>${t.name}</td><td>${t.id}</td><td>${t.email}</td><td><code>${t.pass}</code></td><td><button onclick="editTeacherPass(${index})" style="background:#d97706; color:white; border:none; padding:0.2rem 0.4rem; border-radius:3px; cursor:pointer; margin-right:5px;">Edit Pass</button><button onclick="deleteTeacher(${index})" style="background:#dc2626; color:white; border:none; padding:0.2rem 0.4rem; border-radius:3px; cursor:pointer;">Delete</button></td></tr>`).join('')}
+                </table>` : '<p>No teachers.</p>';
 
-            const admDiv = document.getElementById('admin-admissions-list');
-            admDiv.innerHTML = admissions.map(a => `
-                <div style="border:1px solid #cbd5e1; background:#f8fafc; padding:0.8rem; margin-top:0.5rem; border-radius:4px;">
-                    <p><strong>Parent:</strong> ${a.title} ${a.parent} (${a.phone})</p>
-                    <p><strong>Child:</strong> ${a.child} | <strong>Contact Pref:</strong> ${a.pref}</p>
-                </div>
-            `).join('') || '<p style="color:#64748B; margin-top:0.5rem;">No admissions submitted yet.</p>';
-        }
+            document.getElementById('admin-students-list').innerHTML = students.length > 0 ? `
+                <table><tr><th>Name</th><th>Class</th><th>Parent Phone</th><th>Student ID</th><th>Password</th><th>Action</th></tr>
+                ${students.map((s, index) => `<tr><td>${s.name}</td><td>${s.classLevel}</td><td>${s.phone}</td><td>${s.id}</td><td><code>${s.pass}</code></td><td><button onclick="editStudentPass(${index})" style="background:#d97706; color:white; border:none; padding:0.2rem 0.4rem; border-radius:3px; cursor:pointer; margin-right:5px;">Edit Pass</button><button onclick="deleteStudent(${index})" style="background:#dc2626; color:white; border:none; padding:0.2rem 0.4rem; border-radius:3px; cursor:pointer;">Delete</button></td></tr>`).join('')}
+                </table>` : '<p>No students.</p>';
 
-        function deleteTeacher(index) {
-            if(confirm("Are you sure you want to delete this teacher?")) {
-                teachers.splice(index, 1);
-                renderAdminDashboard();
-            }
-        }
+            const pendingBills = bills.filter(b => b.status === 'pending');
+            document.getElementById('admin-pending-bills').innerHTML = pendingBills.length > 0 ? `
+                <table><tr><th>Student ID</th><th>Description</th><th>Amount</th><th>Paid</th><th>Action</th></tr>
+                ${pendingBills.map(b => `<tr><td>${b.studentId}</td><td>${b.desc}</td><td>${b.amount}</td><td>${b.paid}</td><td><button onclick="approveBill(${b.id})" style="background:#16a34a; color:white; border:none; padding:0.2rem 0.5rem; border-radius:3px; cursor:pointer;">Approve</button></td></tr>`).join('')}
+                </table>` : '<p>No pending bills.</p>';
 
-        function deleteStudent(index) {
-            if(confirm("Are you sure you want to delete this student?")) {
-                students.splice(index, 1);
-                renderAdminDashboard();
-            }
-        }
+            const pendingNotes = notes.filter(n => n.status === 'pending');
+            document.getElementById('admin-pending-notes').innerHTML = pendingNotes.length > 0 ? `
+                <table><tr><th>Student ID</th><th>Note Content</th><th>Action</th></tr>
+                ${pendingNotes.map(n => `<tr><td>${n.studentId}</td><td>${n.content}</td><td><button onclick="approveNote(${n.id})" style="background:#16a34a; color:white; border:none; padding:0.2rem 0.5rem; border-radius:3px; cursor:pointer;">Approve</button></td></tr>`).join('')}
+                </table>` : '<p>No pending notes.</p>';
 
-        function approveBill(id) {
-            const b = bills.find(x => x.id === id);
-            if (b) b.status = 'approved';
-            renderAdminDashboard();
-        }
-
-        function renderParentBills() {
-            const list = document.getElementById('parent-bills-list');
-            const approved = bills.filter(b => b.status === 'approved');
-            list.innerHTML = approved.map(b => `
-                <div style="padding:0.6rem 0; border-bottom:1px solid #eee;">
-                    <p><strong>${b.desc}</strong> - GHS ${b.amount} <span style="color:green; font-size:0.85rem;">(Approved)</span></p>
-                </div>
-            `).join('') || '<p style="color:#64748B;">No approved bills available.</p>';
+            document.getElementById('admin-admissions-list').innerHTML = admissions.length > 0 ? `
+                <table><tr><th>Parent</th><th>Child</th><th>Email</th><th>Phone</th></tr>
+                ${admissions.map(a => `<tr><td>${a.title} ${a.parent}</td><td>${a.child}</td><td>${a.email}</td><td>${a.phone}</td></tr>`).join('')}
+                </table>` : '<p>No admissions.</p>';
         }
     </script>
 </body>
