@@ -327,14 +327,14 @@
         <div id="section-home" class="tab-content">
             <div class="photo-showcase-grid">
                 <div class="photo-card-large">
-                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80" alt="Student">
+                 <img src="emipic.jpec" alt="Emican Heritage Academy Students"> 
                 </div>
                 <div class="photo-card-stack">
                     <div class="photo-card-small">
-                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80" alt="Classroom">
+                        <img src="emipic.jpec" alt="Emican Heritage Academy Students">
                     </div>
                     <div class="photo-card-small">
-                        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=600&q=80" alt="Students">
+                      <img src="emipic.jpec" alt="Emican Heritage Academy Students">  
                     </div>
                 </div>
             </div>
@@ -690,14 +690,19 @@
         }
 
         function saveSchoolContactInfo(e) {
-            e.preventDefault();
-            schoolInfo.name = document.getElementById('admin-sch-name').value;
-            schoolInfo.phone = document.getElementById('admin-sch-phone').value;
-            schoolInfo.email = document.getElementById('admin-sch-email').value;
-            schoolInfo.address = document.getElementById('admin-sch-address').value;
-            updateSchoolDisplayInfo();
-            alert("School information updated successfully!");
-        }
+    e.preventDefault();
+    const phone = document.getElementById('admin-sch-phone').value;
+    const email = document.getElementById('admin-sch-email').value;
+    const address = document.getElementById('admin-sch-address').value;
+    
+    const contactData = { phone, email, address };
+    localStorage.setItem('emican_contact_info', JSON.stringify(contactData));
+    
+    if (typeof updateSchoolDisplayInfo === 'function') {
+        updateSchoolDisplayInfo();
+    }
+    alert("School information updated successfully!");
+}
 function saveSchoolContent(e) {
   e.preventDefault();
   const aboutText = document.getElementById('admin-about-text').value;
