@@ -33,6 +33,11 @@
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #0A1128; }
         ::-webkit-scrollbar-thumb { background: #008080; border-radius: 3px; }
+        .carousel-wrapper { position: relative; width: 100%; height: 380px; border-radius: 1rem; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2); background: #0A1128; }
+        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(10, 17, 40, 0.7); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.4); padding: 10px 14px; border-radius: 50%; cursor: pointer; transition: 0.3s; z-index: 20; }
+        .carousel-btn:hover { background: #0A1128; color: #fff; }
+        .carousel-btn.prev { left: 15px; }
+        .carousel-btn.next { right: 15px; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50">
@@ -67,8 +72,9 @@
             <!-- School Brand / Dynamic Logo -->
             <div class="flex items-center gap-3.5 cursor-pointer" onclick="switchTab('home')">
                 <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-gold-accent bg-sea-blue flex items-center justify-center shadow-md">
-    <img src="Emilogo.jpeg" alt="Emican Heritage Academy Logo" class="w-full h-full object-cover">
-</div>
+                    <img src="Emilogo.jpeg" alt="Emican Heritage Academy Logo" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <span id="logo-text-icon" class="hidden font-black text-white text-xs">EHA</span>
+                </div>
                 <div>
                     <h1 class="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
                         EMICAN HERITAGE ACADEMY
@@ -101,24 +107,18 @@
         <!-- ==================== VIEW 1: HOME PAGE ==================== -->
         <section id="view-home" class="space-y-8">
             
-            <!-- SWIPEABLE PHOTO CAROUSEL SLIDER (5 Illustrated Cards with Black School Kids) -->
             <!-- SWIPEABLE PHOTO CAROUSEL SLIDER -->
-        <div class="carousel-wrapper">
-            <div class="carousel-slide" id="carousel-slide">
-                <img src="EH1.jpeg" alt="Emican Heritage Academy - Classroom">
-                <img src="EH2.jpeg" alt="Emican Heritage Academy - Student Uniform">
-                <img src="EH3.jpeg" alt="Emican Heritage Academy - Sports Activities">
-                <img src="EH4.jpeg" alt="Emican Heritage Academy - Staff and Students">
-                <img src="EH5.jpeg" alt="Emican Heritage Academy - School Crest">
+            <div class="carousel-wrapper">
+                <div id="carousel-slides" class="absolute inset-0"></div>
+                <button class="carousel-btn prev" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="carousel-btn next" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+                <div id="carousel-dots" class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-20"></div>
             </div>
-            <button class="carousel-btn prev" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-            <button class="carousel-btn next" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
 
-            <!-- OVERVIEW SECTION (Admin Controlled) -->
+            <!-- OVERVIEW SECTION -->
             <div class="bg-gradient-to-r from-deep-blue via-slate-900 to-sea-blue text-white rounded-2xl p-6 sm:p-8 shadow-xl border-l-8 border-gold-accent relative overflow-hidden">
                 <div class="relative z-10">
-                    <span class="bg-gold-accent/20 text-gold-accent font-semibold text-xs px-3 py-1 rounded-full uppercase tracking-wider border border-gold-accent/30">Official Overview</span>
+                    <span class="bg-gold-accent/20 text-gold-accent font-semibold text-xs px-3 py-1 rounded-full uppercase tracking-wider border border-gold-accent/35">Official Overview</span>
                     <h2 class="text-2xl sm:text-3xl font-extrabold mt-2 mb-3 text-white">Welcome to Emican Heritage Academy</h2>
                     <p id="display-overview" class="text-slate-200 leading-relaxed text-base sm:text-lg"></p>
                 </div>
@@ -127,7 +127,7 @@
 
             <!-- ABOUT, VISION & VALUES GRID -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- About Section (200+ words) -->
+                <!-- About Section -->
                 <div class="md:col-span-2 bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-slate-200 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-3 mb-4">
@@ -136,9 +136,8 @@
                             </div>
                             <h3 class="text-xl font-extrabold text-deep-blue">About Emican Heritage Academy</h3>
                         </div>
-                        <div id="display-about" class="text-slate-700 leading-relaxed space-y-3 text-sm sm:text-base"></div>
+                        <div id="display-about" class="text-slate-700 leading-relaxed space-y-3 text-sm sm:text-base whitespace-pre-line"></div>
                     </div>
-                    <!-- Contact Box inside About -->
                     <div class="mt-6 pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-700">
                         <div><strong class="text-deep-blue"><i class="fa-solid fa-map-pin text-gold-accent mr-1"></i> Location:</strong> <span id="display-address"></span></div>
                         <div><strong class="text-deep-blue"><i class="fa-solid fa-phone text-gold-accent mr-1"></i> Contact:</strong> <span id="display-contact"></span></div>
@@ -270,7 +269,6 @@
             </div>
         </section>
 
-
         <!-- ==================== VIEW 2: PARENTS PORTAL ==================== -->
         <section id="view-parents" class="space-y-6 hidden">
             <!-- Parent Login View -->
@@ -283,7 +281,6 @@
                     <p class="text-xs text-slate-500 mt-1">Access child reports, fees & teacher communications</p>
                 </div>
 
-                <!-- Helper Logins -->
                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs mb-4">
                     <span class="font-bold text-sea-blue block mb-1"><i class="fa-solid fa-circle-info mr-1"></i> Demo Parent Credentials:</span>
                     <p class="text-slate-600">Student ID: <code class="bg-white px-1 border rounded font-bold text-deep-blue">STU-1001</code></p>
@@ -310,9 +307,8 @@
                 </form>
             </div>
 
-            <!-- Parent Dashboard (When Logged In) -->
+            <!-- Parent Dashboard -->
             <div id="parent-dashboard" class="hidden space-y-6">
-                <!-- Top Info Header -->
                 <div class="bg-deep-blue text-white rounded-2xl p-6 shadow-xl flex flex-wrap justify-between items-center gap-4 border-l-4 border-gold-accent">
                     <div class="flex items-center gap-4">
                         <div class="w-16 h-16 rounded-2xl bg-gold-accent/20 text-gold-accent font-bold text-2xl flex items-center justify-center border border-gold-accent/40">
@@ -339,7 +335,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- School Fees Breakdown Card -->
+                    <!-- Fees Breakdown Card -->
                     <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
                         <h3 class="text-lg font-extrabold text-deep-blue border-b pb-3 mb-4 flex items-center justify-between">
                             <span><i class="fa-solid fa-file-invoice-dollar text-sea-blue mr-2"></i> Fees Breakdown</span>
@@ -381,9 +377,7 @@
                         <h3 class="text-lg font-extrabold text-deep-blue border-b pb-3 mb-4 flex items-center gap-2">
                             <i class="fa-solid fa-file-pdf text-red-500"></i> Exam & Test Results (PDF)
                         </h3>
-                        <div id="p-results-container" class="space-y-3">
-                            <!-- JS loaded reports -->
-                        </div>
+                        <div id="p-results-container" class="space-y-3"></div>
                     </div>
 
                     <!-- Teacher Comments / Queries & Reply Thread -->
@@ -392,11 +386,8 @@
                             <h3 class="text-lg font-extrabold text-deep-blue border-b pb-3 mb-4 flex items-center gap-2">
                                 <i class="fa-solid fa-comments text-sea-blue"></i> Teacher Remarks & Complaints
                             </h3>
-                            <div id="p-comments-thread" class="space-y-3 max-h-64 overflow-y-auto pr-1">
-                                <!-- JS Comments -->
-                            </div>
+                            <div id="p-comments-thread" class="space-y-3 max-h-64 overflow-y-auto pr-1"></div>
                         </div>
-                        <!-- Parent Reply Box -->
                         <div class="mt-4 pt-3 border-t border-slate-200">
                             <label class="block text-xs font-bold text-slate-700 mb-1">Reply to Comments / Complaints:</label>
                             <div class="flex gap-2">
@@ -411,7 +402,6 @@
             </div>
         </section>
 
-
         <!-- ==================== VIEW 3: TEACHERS PORTAL ==================== -->
         <section id="view-teachers" class="space-y-6 hidden">
             <!-- Teacher Login -->
@@ -424,11 +414,10 @@
                     <p class="text-xs text-slate-500 mt-1">Class management, upload test results & fee entry</p>
                 </div>
 
-                <!-- Helper Credentials -->
                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs mb-4">
                     <span class="font-bold text-sea-blue block mb-1"><i class="fa-solid fa-circle-info mr-1"></i> Default Teacher Credentials:</span>
                     <p class="text-slate-600">Email: <code class="bg-white px-1 border rounded font-bold text-deep-blue">boakye@emican.edu.gh</code></p>
-                    <p class="text-slate-600">Staff ID: <code class="bg-white px-1 border rounded font-bold text-deep-blue">TCH-201</code></p>
+                    <p class="text-slate-600">Staff ID: <code class="bg-white px-1 border rounded font-bold text-deep-blue">EHA-TCH-201</code></p>
                     <p class="text-slate-600">Password: <code class="bg-white px-1 border rounded font-bold text-deep-blue">0245998877</code></p>
                 </div>
 
@@ -439,7 +428,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Staff ID Number *</label>
-                        <input type="text" id="teacher-login-staffid" required placeholder="TCH-201" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sea-blue text-sm uppercase">
+                        <input type="text" id="teacher-login-staffid" required placeholder="EHA-TCH-201" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sea-blue text-sm uppercase">
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Password *</label>
@@ -498,18 +487,14 @@
 
                 <!-- Main Workstation Layout -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Student Roster List -->
                     <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
                         <h3 class="font-extrabold text-deep-blue text-base border-b pb-3 mb-3 flex items-center justify-between">
                             <span>Students Directory</span>
                             <span id="t-student-count" class="bg-sea-blue text-white text-xs px-2 py-0.5 rounded-full font-bold">0</span>
                         </h3>
-                        <div id="t-students-roster" class="space-y-2 max-h-[500px] overflow-y-auto pr-1">
-                            <!-- Loaded via JS -->
-                        </div>
+                        <div id="t-students-roster" class="space-y-2 max-h-[500px] overflow-y-auto pr-1"></div>
                     </div>
 
-                    <!-- Student Detail Workstation -->
                     <div id="t-workstation" class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-md border border-slate-200">
                         <div class="text-center py-16 text-slate-400">
                             <i class="fa-solid fa-user-pen text-5xl mb-3 text-slate-300"></i>
@@ -519,7 +504,6 @@
                 </div>
             </div>
         </section>
-
 
         <!-- ==================== VIEW 4: ADMIN PORTAL ==================== -->
         <section id="view-admin" class="space-y-6 hidden">
@@ -533,7 +517,6 @@
                     <p class="text-xs text-slate-500 mt-1">Master Control Panel for Emican Heritage Academy</p>
                 </div>
 
-                <!-- EASY DEFAULT CREDENTIALS NOTICE -->
                 <div class="bg-amber-50 p-3.5 rounded-xl border border-amber-300 text-xs text-slate-800 mb-5">
                     <div class="font-extrabold text-amber-900 mb-1 flex items-center gap-1.5">
                         <i class="fa-solid fa-key text-gold-accent"></i> Pre-loaded Admin Credentials:
@@ -559,7 +542,6 @@
 
             <!-- Admin Masterpiece Dashboard -->
             <div id="admin-dashboard" class="hidden space-y-6">
-                <!-- Admin Header Bar -->
                 <div class="bg-deep-blue text-white rounded-2xl p-6 shadow-xl flex flex-wrap justify-between items-center gap-4 border-b-4 border-gold-accent">
                     <div>
                         <span class="text-[11px] bg-gold-accent text-black font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">Super Administrator</span>
@@ -588,7 +570,6 @@
                 <!-- ADMIN SUB-TAB 1: CONTENT MANAGEMENT -->
                 <div id="admin-sec-content" class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-6">
                     <h3 class="text-lg font-bold text-deep-blue border-b pb-2"><i class="fa-solid fa-pen-to-square text-sea-blue mr-2"></i> Edit Home Page Content, About (>200 words) & Branding</h3>
-                    
                     <form onsubmit="saveHomeContent(event)" class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -600,22 +581,18 @@
                                 <input type="text" id="edit-contact-info" class="w-full text-sm p-2.5 border rounded-xl">
                             </div>
                         </div>
-
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Welcome Overview Text:</label>
                             <textarea id="edit-overview" rows="3" class="w-full text-sm p-2.5 border rounded-xl"></textarea>
                         </div>
-
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">About the School (>200 words):</label>
+                            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">About School (Min 200 words):</label>
                             <textarea id="edit-about" rows="6" class="w-full text-sm p-2.5 border rounded-xl leading-relaxed"></textarea>
                         </div>
-
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Vision & Values:</label>
                             <textarea id="edit-vision" rows="3" class="w-full text-sm p-2.5 border rounded-xl"></textarea>
                         </div>
-
                         <button type="submit" class="px-6 py-2.5 bg-sea-blue hover:bg-teal-700 text-white text-sm font-bold rounded-xl transition shadow">
                             Save Changes To Site
                         </button>
@@ -637,9 +614,7 @@
                                     <th class="p-3 text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="admin-admissions-list" class="divide-y text-slate-700">
-                                <!-- Loaded via JS -->
-                            </tbody>
+                            <tbody id="admin-admissions-list" class="divide-y text-slate-700"></tbody>
                         </table>
                     </div>
                 </div>
@@ -647,7 +622,6 @@
                 <!-- ADMIN SUB-TAB 3: REGISTER STUDENTS -->
                 <div id="admin-sec-students" class="hidden bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-6">
                     <h3 class="text-lg font-bold text-deep-blue border-b pb-2"><i class="fa-solid fa-user-plus text-sea-blue mr-2"></i> Register New Student & Generate Parent Credentials</h3>
-                    
                     <form onsubmit="handleAdminRegisterStudent(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">Student Full Name *</label>
@@ -703,9 +677,7 @@
                                     <th class="p-2.5 text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="admin-students-list" class="divide-y text-slate-700">
-                                <!-- Loaded via JS -->
-                            </tbody>
+                            <tbody id="admin-students-list" class="divide-y text-slate-700"></tbody>
                         </table>
                     </div>
                 </div>
@@ -713,7 +685,6 @@
                 <!-- ADMIN SUB-TAB 4: REGISTER TEACHERS -->
                 <div id="admin-sec-teachers" class="hidden bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-6">
                     <h3 class="text-lg font-bold text-deep-blue border-b pb-2"><i class="fa-solid fa-chalkboard-user text-sea-blue mr-2"></i> Register Teaching Staff</h3>
-                    
                     <form onsubmit="handleAdminRegisterTeacher(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">Teacher Full Name *</label>
@@ -746,9 +717,7 @@
                                     <th class="p-2.5 text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="admin-teachers-list" class="divide-y text-slate-700">
-                                <!-- Loaded via JS -->
-                            </tbody>
+                            <tbody id="admin-teachers-list" class="divide-y text-slate-700"></tbody>
                         </table>
                     </div>
                 </div>
@@ -770,18 +739,14 @@
                                         <th class="p-2.5">Current Password in Database</th>
                                     </tr>
                                 </thead>
-                                <tbody id="admin-passwords-audit" class="divide-y">
-                                    <!-- JS Loaded -->
-                                </tbody>
+                                <tbody id="admin-passwords-audit" class="divide-y"></tbody>
                             </table>
                         </div>
                     </div>
 
                     <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
                         <h3 class="text-lg font-bold text-deep-blue border-b pb-2 mb-4"><i class="fa-solid fa-clock-rotate-left text-sea-blue mr-2"></i> Real-Time Activity Logs</h3>
-                        <div class="bg-slate-900 text-emerald-400 p-4 rounded-xl font-mono text-xs max-h-64 overflow-y-auto space-y-1.5" id="admin-audit-logs">
-                            <!-- Logs JS -->
-                        </div>
+                        <div class="bg-slate-900 text-emerald-400 p-4 rounded-xl font-mono text-xs max-h-64 overflow-y-auto space-y-1.5" id="admin-audit-logs"></div>
                     </div>
                 </div>
             </div>
@@ -834,77 +799,20 @@
         </div>
     </div>
     
-<script>
-    
-  function handlePasswordChangeSubmit(event) {
-            event.preventDefault();
-            const newPass = document.getElementById('changepass-new').value;
-            if (!newPass) {
-                alert("Please enter a new password.");
-                return;
-           
-            admin.pass = newPass;
-            DB.set('eha_admin', admin);
-            alert("Success! Password updated successfully.");
-            const modal = document.getElementById('changepass-modal');
-            if (modal) modal.style.display = 'none';
-        }
-      </script>
-
-    // Default SVG Visual Cards for Black Ghanaian School Children in Sea-Blue Top & Blue-Black Uniforms
+    <script>
         const DEFAULT_SVG_SLIDES = [
-            `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
-                <rect width="800" height="400" fill="%230A1128"/>
-                <circle cx="400" cy="200" r="160" fill="%23008080" opacity="0.3"/>
-                <!-- Student 1 -->
-                <circle cx="280" cy="150" r="45" fill="%233d2314"/> <!-- Black Skin -->
-                <path d="M 235 150 Q 280 100 325 150 Z" fill="%23111"/> <!-- Hair -->
-                <path d="M 220 280 L 340 280 L 320 195 L 240 195 Z" fill="%23008080"/> <!-- Sea Blue Top -->
-                <path d="M 230 280 L 330 280 L 330 380 L 230 380 Z" fill="%23050914"/> <!-- Blue Black Bottom -->
-                <!-- Student 2 -->
-                <circle cx="520" cy="150" r="45" fill="%234a2e1b"/> <!-- Black Skin -->
-                <circle cx="520" cy="110" r="25" fill="%23111"/> <!-- Hair bun -->
-                <path d="M 460 280 L 580 280 L 560 195 L 480 195 Z" fill="%23008080"/> <!-- Sea Blue Top -->
-                <path d="M 470 280 L 570 280 L 570 380 L 470 380 Z" fill="%23050914"/> <!-- Blue Black Skirt -->
-                <!-- Gold Accent Emblem -->
-                <polygon points="400,120 410,140 430,140 415,152 420,172 400,160 380,172 385,152 370,140 390,140" fill="%23D4AF37"/>
-                <text x="400" y="340" fill="%23FFFFFF" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">Excellence in Sea Blue & Blue-Black Uniforms</text>
-            </svg>`,
-            `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
-                <rect width="800" height="400" fill="%23008080"/>
-                <circle cx="200" cy="100" r="220" fill="%230A1128" opacity="0.4"/>
-                <!-- Black Kids studying -->
-                <circle cx="400" cy="160" r="50" fill="%23311b0e"/>
-                <path d="M 330 320 L 470 320 L 450 210 L 350 210 Z" fill="%23008080" stroke="%23D4AF37" stroke-width="3"/>
-                <rect x="360" y="280" width="80" height="100" fill="%230A1128"/>
-                <text x="400" y="360" fill="%23D4AF37" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Nurturing Leaders in Techiman</text>
-            </svg>`,
-            `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
-                <rect width="800" height="400" fill="%23101F42"/>
-                <circle cx="400" cy="140" r="40" fill="%233d2314"/>
-                <path d="M 340 260 L 460 260 L 440 180 L 360 180 Z" fill="%23008080"/>
-                <text x="400" y="320" fill="%23FFFFFF" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">Creche, Primary & JHS Curriculum</text>
-            </svg>`,
-            `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
-                <rect width="800" height="400" fill="%230A1128"/>
-                <rect x="100" y="50" width="600" height="300" rx="20" fill="%23008080" opacity="0.2"/>
-                <circle cx="400" cy="160" r="45" fill="%232b170c"/>
-                <path d="M 340 270 L 460 270 L 440 205 L 360 205 Z" fill="%23008080"/>
-                <text x="400" y="330" fill="%23D4AF37" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">Discipline & Ghanaian Cultural Values</text>
-            </svg>`,
-            `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
-                <rect width="800" height="400" fill="%23008080"/>
-                <circle cx="400" cy="150" r="45" fill="%23422616"/>
-                <path d="M 340 260 L 460 260 L 440 195 L 360 195 Z" fill="%230A1128"/>
-                <text x="400" y="330" fill="%23FFFFFF" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">Emican Heritage Academy - Techiman</text>
-            </svg>`
+            `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%"><rect width="800" height="400" fill="%230A1128"/><circle cx="400" cy="200" r="160" fill="%23008080" opacity="0.3"/><circle cx="280" cy="150" r="45" fill="%233d2314"/><path d="M 235 150 Q 280 100 325 150 Z" fill="%23111"/><path d="M 220 280 L 340 280 L 320 195 L 240 195 Z" fill="%23008080"/><path d="M 230 280 L 330 280 L 330 380 L 230 380 Z" fill="%23050914"/><circle cx="520" cy="150" r="45" fill="%234a2e1b"/><circle cx="520" cy="110" r="25" fill="%23111"/><path d="M 460 280 L 580 280 L 560 195 L 480 195 Z" fill="%23008080"/><path d="M 470 280 L 570 280 L 570 380 L 470 380 Z" fill="%23050914"/><polygon points="400,120 410,140 430,140 415,152 420,172 400,160 380,172 385,152 370,140 390,140" fill="%23D4AF37"/><text x="400" y="340" fill="%23FFFFFF" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">Excellence in Sea Blue & Blue-Black Uniforms</text></svg>`,
+            `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%"><rect width="800" height="400" fill="%23008080"/><circle cx="200" cy="100" r="220" fill="%230A1128" opacity="0.4"/><circle cx="400" cy="160" r="50" fill="%23311b0e"/><path d="M 330 320 L 470 320 L 450 210 L 350 210 Z" fill="%23008080" stroke="%23D4AF37" stroke-width="3"/><rect x="360" y="280" width="80" height="100" fill="%230A1128"/><text x="400" y="360" fill="%23D4AF37" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Nurturing Leaders in Techiman</text></svg>`,
+            `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%"><rect width="800" height="400" fill="%23101F42"/><circle cx="400" cy="140" r="40" fill="%233d2314"/><path d="M 340 260 L 460 260 L 440 180 L 360 180 Z" fill="%23008080"/><text x="400" y="320" fill="%23FFFFFF" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">Creche, Primary & JHS Curriculum</text></svg>`,
+            `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%"><rect width="800" height="400" fill="%230A1128"/><rect x="100" y="50" width="600" height="300" rx="20" fill="%23008080" opacity="0.2"/><circle cx="400" cy="160" r="45" fill="%232b170c"/><path d="M 340 270 L 460 270 L 440 205 L 360 205 Z" fill="%23008080"/><text x="400" y="330" fill="%23D4AF37" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">Discipline & Ghanaian Cultural Values</text></svg>`,
+            `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%"><rect width="800" height="400" fill="%23008080"/><circle cx="400" cy="150" r="45" fill="%23422616"/><path d="M 340 260 L 460 260 L 440 195 L 360 195 Z" fill="%230A1128"/><text x="400" y="330" fill="%23FFFFFF" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">Emican Heritage Academy - Techiman</text></svg>`
         ];
 
         const DEFAULT_STATE = {
             logoUrl: "EHA",
             contactInfo: "+233(0) 535 694851 | emicangh@gmail.com",
             overview: "Emican Heritage Academy is a leading educational institution in Techiman, Bono East Regional Capital. We deliver outstanding academic, moral, and cultural grounding for pupils across Crèche, Kindergarten, Primary, and J.H.S levels.",
-            about: "Emican Heritage Academy was established in the Bono East Regional Capital of Techiman with a firm commitment to educational excellence and character development. Our academy blends rigorous national curriculum standards with Ghanaian heritage, technology literacy, and moral discipline.\n\nOur pupils wear top sea-blue and deep blue-black uniforms symbolizing pride, neatness, and unity. Guided by dedicated staff and a vision of holistic growth, we foster an engaging environment where every child thrives academically and socially from Creche to Junior High School.",
+            about: "Emican Heritage Academy was established in the Bono East Regional Capital of Techiman with a firm commitment to educational excellence and character development. Our academy blends rigorous national curriculum standards with Ghanaian heritage, technology literacy, and moral discipline.\n\nOur pupils wear top sea-blue and deep blue-black uniforms symbolizing pride, neatness, and unity. Guided by dedicated staff and a vision of holistic growth, we foster an engaging environment where every child thrives academically and socially from Creche to Junior High School.\n\nWe provide modern classrooms, dedicated teaching staff, structured sports and cultural activities, and continuous assessment to ensure every child reaches their absolute maximum potential.",
             vision: "• Vision: To be the premier basic educational institution in Techiman and the Bono East Region.\n• Values: Excellence, Integrity, Heritage, Discipline & Respect.",
             slides: DEFAULT_SVG_SLIDES,
             admissions: [
@@ -918,14 +826,14 @@
                     className: "Basic 3",
                     parentName: "Kwadwo Owusu",
                     parentPhone: "0551234567",
-                    password: "0551234567", // Phone as initial pass
+                    password: "0551234567",
                     fees: { school: 600, printing: 50, maintenance: 80, paid: 400 },
                     reports: [{ term: "1st Term Terminal Exam Report 2026", url: "#", date: "2026-12-15" }],
                     comments: [{ sender: "Teacher", text: "Kofi shows brilliant performance in Mathematics and Science.", time: "2026-11-01 10:30" }]
                 }
             ],
             teachers: [
-                { id: "TCH-201", name: "Mr. Ebenezer Boakye", email: "boakye@emican.edu.gh", phone: "0245998877", password: "0245998877" }
+                { id: "EHA-TCH-201", name: "Mr. Ebenezer Boakye", email: "boakye@emican.edu.gh", phone: "0245998877", password: "0245998877" }
             ],
             admin: {
                 username: "admin",
@@ -963,7 +871,6 @@
             if(db.logs.length > 100) db.logs.pop();
         }
 
-        // NAVIGATION
         function switchTab(tab) {
             ['home', 'parents', 'teachers', 'admin'].forEach(t => {
                 document.getElementById(`view-${t}`).classList.add('hidden');
@@ -974,7 +881,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // CAROUSEL
         function renderCarousel() {
             const container = document.getElementById('carousel-slides');
             const dotsContainer = document.getElementById('carousel-dots');
@@ -999,13 +905,13 @@
         }
 
         function nextSlide() {
-            const len = (db.slides && db.slides.length) ? db.slides.length : 5;
+            const len = 5;
             currentSlide = (currentSlide + 1) % len;
             renderCarousel();
         }
 
         function prevSlide() {
-            const len = (db.slides && db.slides.length) ? db.slides.length : 5;
+            const len = 5;
             currentSlide = (currentSlide - 1 + len) % len;
             renderCarousel();
         }
@@ -1015,7 +921,6 @@
             slideInterval = setInterval(nextSlide, 5000);
         }
 
-        // HOME / ADMISSIONS
         function handleAdmissionSubmit(e) {
             e.preventDefault();
             const captcha = document.getElementById('adm-captcha').checked;
@@ -1076,7 +981,6 @@
             }
         }
 
-        // PARENTS PORTAL
         function handleParentLogin(e) {
             e.preventDefault();
             const id = document.getElementById('parent-login-id').value.trim().toUpperCase();
@@ -1118,7 +1022,6 @@
             document.getElementById('p-fee-paid').innerText = paid.toFixed(2);
             document.getElementById('p-fee-balance').innerText = balance.toFixed(2);
 
-            // Reports
             const rContainer = document.getElementById('p-results-container');
             rContainer.innerHTML = '';
             if(!s.reports || s.reports.length === 0) {
@@ -1182,14 +1085,13 @@
             renderParentComments();
         }
 
-        // TEACHERS PORTAL
         function handleTeacherLogin(e) {
             e.preventDefault();
             const email = document.getElementById('teacher-login-email').value.trim().toLowerCase();
             const staffId = document.getElementById('teacher-login-staffid').value.trim().toUpperCase();
             const pass = document.getElementById('teacher-login-pass').value;
 
-            const teacher = db.teachers.find(t => t.email.toLowerCase() === email && t.id === staffId && t.password === pass);
+            const teacher = db.teachers.find(t => t.email.toLowerCase() === email && t.id.toUpperCase() === staffId && t.password === pass);
 
             if(teacher) {
                 activeUser = { role: 'teacher', data: teacher };
@@ -1261,7 +1163,6 @@
                         <span class="bg-sea-blue text-white text-xs px-3 py-1 rounded-full font-bold">${s.className}</span>
                     </div>
 
-                    <!-- FEES EDITING -->
                     <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
                         <h4 class="font-bold text-xs uppercase text-deep-blue flex items-center gap-2">
                             <i class="fa-solid fa-calculator text-gold-accent"></i> Enter Fee Details Manually
@@ -1290,7 +1191,6 @@
                         </div>
                     </div>
 
-                    <!-- UPLOAD RESULT PDF -->
                     <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
                         <h4 class="font-bold text-xs uppercase text-deep-blue flex items-center gap-2">
                             <i class="fa-solid fa-file-pdf text-red-500"></i> Upload PDF Exam Result
@@ -1301,18 +1201,17 @@
                         </div>
                     </div>
 
-                    <!-- COMMENTS & REPLIES -->
                     <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
                         <h4 class="font-bold text-xs uppercase text-deep-blue flex items-center gap-2">
                             <i class="fa-solid fa-comments text-sea-blue"></i> Post Remarks / Replies
                         </h4>
-                        <div id="t-comments-thread" class="space-y-2 max-h-48 overflow-y-auto bg-white p-3 rounded-lg border">
+                        <div class="space-y-2 max-h-48 overflow-y-auto bg-white p-3 rounded-lg border">
                             ${(s.comments || []).map(c => `
                                 <div class="p-2 text-xs rounded ${c.sender==='Teacher'?'bg-teal-50 text-slate-800':'bg-amber-100 text-slate-900'}">
                                     <div class="flex justify-between font-bold"><span>${c.sender}</span><span class="text-[10px] text-slate-400">${c.time}</span></div>
                                     <p>${c.text}</p>
                                 </div>
-                            `).join('')}
+                             reservasdf ? '' : ''}.join('')}
                         </div>
                         <div class="flex gap-2">
                             <input type="text" id="t-remark-input" placeholder="Type complaint or remark..." class="flex-grow p-2 text-xs border rounded-lg">
@@ -1368,13 +1267,11 @@
             selectTeacherStudent(id);
         }
 
-        // ADMIN PORTAL
         function handleAdminLogin(e) {
             e.preventDefault();
             const inputUser = document.getElementById('admin-login-email').value.trim().toLowerCase();
             const inputPass = document.getElementById('admin-login-pass').value;
 
-            // Allow 'admin' or 'admin@emican.edu.gh'
             const validUser = inputUser === db.admin.username.toLowerCase() || inputUser === db.admin.email.toLowerCase();
 
             if(validUser && inputPass === db.admin.password) {
@@ -1423,7 +1320,6 @@
         }
 
         function renderAdminTables() {
-            // Admissions
             const admBody = document.getElementById('admin-admissions-list');
             admBody.innerHTML = '';
             db.admissions.forEach((a, idx) => {
@@ -1449,7 +1345,6 @@
                 `;
             });
 
-            // Students
             const stuBody = document.getElementById('admin-students-list');
             stuBody.innerHTML = '';
             db.students.forEach((s, idx) => {
@@ -1467,7 +1362,6 @@
                 `;
             });
 
-            // Teachers
             const tchBody = document.getElementById('admin-teachers-list');
             tchBody.innerHTML = '';
             db.teachers.forEach((t, idx) => {
@@ -1484,7 +1378,6 @@
                 `;
             });
 
-            // Password Security
             const passBody = document.getElementById('admin-passwords-audit');
             passBody.innerHTML = `
                 <tr class="bg-amber-50">
@@ -1517,7 +1410,6 @@
                 `;
             });
 
-            // Logs
             document.getElementById('admin-audit-logs').innerHTML = (db.logs || []).map(l => `<div>${l}</div>`).join('');
         }
 
@@ -1608,7 +1500,6 @@
             }
         }
 
-        // PASSWORD CHANGE MODAL
         function openChangePassModal(type) {
             document.getElementById('changepass-user-type').value = type;
             document.getElementById('changepass-modal').classList.remove('hidden');
@@ -1632,7 +1523,7 @@
                 logActivity(`Parent of ${activeUser.data.id} changed password`);
             } else if(type === 'admin' && activeUser.role === 'admin') {
                 db.admin.password = newPass;
-                logActivity(`Admin password updated`);
+                logActivity(`Admin password updated successfully`);
             }
 
             saveDatabase();
@@ -1657,9 +1548,7 @@
             saveDatabase();
         }
 
-        // UI REFRESH
         function refreshUI() {
-            document.getElementById('logo-text-icon').innerText = db.logoUrl || "EHA";
             document.getElementById('display-overview').innerText = db.overview;
             document.getElementById('display-about').innerText = db.about;
             document.getElementById('display-vision').innerText = db.vision;
