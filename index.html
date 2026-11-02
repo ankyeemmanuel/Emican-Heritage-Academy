@@ -102,22 +102,18 @@
         <section id="view-home" class="space-y-8">
             
             <!-- SWIPEABLE PHOTO CAROUSEL SLIDER (5 Illustrated Cards with Black School Kids) -->
-            <div class="relative bg-deep-blue rounded-2xl overflow-hidden shadow-2xl border border-slate-800 group h-[340px] sm:h-[420px]">
-                <div id="carousel-slides" class="w-full h-full relative">
-                    <!-- Loaded via JS dynamically -->
-                </div>
-                <!-- Carousel Controls -->
-                <button onclick="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-slate-900/70 hover:bg-gold-accent hover:text-black text-white p-3 rounded-full transition z-20 shadow">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-slate-900/70 hover:bg-gold-accent hover:text-black text-white p-3 rounded-full transition z-20 shadow">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
-                <!-- Carousel Indicators -->
-                <div id="carousel-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-                    <!-- Dots loaded via JS -->
-                </div>
+            <!-- SWIPEABLE PHOTO CAROUSEL SLIDER -->
+        <div class="carousel-wrapper">
+            <div class="carousel-slide" id="carousel-slide">
+                <img src="EH1.jpeg" alt="Emican Heritage Academy - Classroom">
+                <img src="EH2.jpeg" alt="Emican Heritage Academy - Student Uniform">
+                <img src="EH3.jpeg" alt="Emican Heritage Academy - Sports Activities">
+                <img src="EH4.jpeg" alt="Emican Heritage Academy - Staff and Students">
+                <img src="EH5.jpeg" alt="Emican Heritage Academy - School Crest">
             </div>
+            <button class="carousel-btn prev" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="carousel-btn next" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
 
             <!-- OVERVIEW SECTION (Admin Controlled) -->
             <div class="bg-gradient-to-r from-deep-blue via-slate-900 to-sea-blue text-white rounded-2xl p-6 sm:p-8 shadow-xl border-l-8 border-gold-accent relative overflow-hidden">
