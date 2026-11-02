@@ -69,7 +69,7 @@
     <!-- MAIN HEADER & NAVIGATION -->
     <header class="sticky top-0 z-40 bg-deep-blue border-b border-sea-blue/30 shadow-lg text-white">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <!-- School Brand / Dynamic Logo -->
+            <!-- School Brand / Logo -->
             <div class="flex items-center gap-3.5 cursor-pointer" onclick="switchTab('home')">
                 <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-gold-accent bg-sea-blue flex items-center justify-center shadow-md">
                     <img src="Emilogo.jpeg" alt="Emican Heritage Academy Logo" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -106,7 +106,6 @@
 
         <!-- ==================== VIEW 1: HOME PAGE ==================== -->
         <section id="view-home" class="space-y-8">
-            
             <!-- SWIPEABLE PHOTO CAROUSEL SLIDER -->
             <div class="carousel-wrapper">
                 <div id="carousel-slides" class="absolute inset-0"></div>
@@ -127,7 +126,6 @@
 
             <!-- ABOUT, VISION & VALUES GRID -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- About Section -->
                 <div class="md:col-span-2 bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-slate-200 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-3 mb-4">
@@ -144,7 +142,6 @@
                     </div>
                 </div>
 
-                <!-- Vision & Core Values -->
                 <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-slate-200 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-3 mb-4">
@@ -186,7 +183,6 @@
                     </div>
                 </div>
 
-                <!-- Form Inputs -->
                 <div class="lg:col-span-3 p-6 sm:p-8 bg-slate-50">
                     <form id="admission-form" onsubmit="handleAdmissionSubmit(event)" class="space-y-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -271,7 +267,6 @@
 
         <!-- ==================== VIEW 2: PARENTS PORTAL ==================== -->
         <section id="view-parents" class="space-y-6 hidden">
-            <!-- Parent Login View -->
             <div id="parent-login-card" class="max-w-md mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-8">
                 <div class="text-center mb-6">
                     <div class="w-14 h-14 bg-sea-blue/10 text-sea-blue rounded-full flex items-center justify-center mx-auto mb-3 text-2xl font-bold">
@@ -307,7 +302,6 @@
                 </form>
             </div>
 
-            <!-- Parent Dashboard -->
             <div id="parent-dashboard" class="hidden space-y-6">
                 <div class="bg-deep-blue text-white rounded-2xl p-6 shadow-xl flex flex-wrap justify-between items-center gap-4 border-l-4 border-gold-accent">
                     <div class="flex items-center gap-4">
@@ -335,7 +329,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Fees Breakdown Card -->
                     <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
                         <h3 class="text-lg font-extrabold text-deep-blue border-b pb-3 mb-4 flex items-center justify-between">
                             <span><i class="fa-solid fa-file-invoice-dollar text-sea-blue mr-2"></i> Fees Breakdown</span>
@@ -367,12 +360,8 @@
                                 <span>GH₵ <span id="p-fee-balance">0.00</span></span>
                             </div>
                         </div>
-                        <p class="text-[11px] text-slate-400 mt-4 italic">
-                            * NOTE: No online payment mode is added. ALL fee amounts are paid directly at the school office and entered manually by teachers/admin.
-                        </p>
                     </div>
 
-                    <!-- Exam Results & Reports -->
                     <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
                         <h3 class="text-lg font-extrabold text-deep-blue border-b pb-3 mb-4 flex items-center gap-2">
                             <i class="fa-solid fa-file-pdf text-red-500"></i> Exam & Test Results (PDF)
@@ -380,7 +369,6 @@
                         <div id="p-results-container" class="space-y-3"></div>
                     </div>
 
-                    <!-- Teacher Comments / Queries & Reply Thread -->
                     <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 flex flex-col justify-between">
                         <div>
                             <h3 class="text-lg font-extrabold text-deep-blue border-b pb-3 mb-4 flex items-center gap-2">
@@ -404,7 +392,6 @@
 
         <!-- ==================== VIEW 3: TEACHERS PORTAL ==================== -->
         <section id="view-teachers" class="space-y-6 hidden">
-            <!-- Teacher Login -->
             <div id="teacher-login-card" class="max-w-md mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-8">
                 <div class="text-center mb-6">
                     <div class="w-14 h-14 bg-sea-blue/10 text-sea-blue rounded-full flex items-center justify-center mx-auto mb-3 text-2xl font-bold">
@@ -440,7 +427,6 @@
                 </form>
             </div>
 
-            <!-- Teacher Dashboard -->
             <div id="teacher-dashboard" class="hidden space-y-6">
                 <div class="bg-deep-blue text-white rounded-2xl p-6 shadow-xl flex flex-wrap justify-between items-center gap-4 border-l-4 border-sea-blue">
                     <div>
@@ -455,7 +441,6 @@
                     </div>
                 </div>
 
-                <!-- Search and Filter Bar -->
                 <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Select Class:</label>
@@ -485,7 +470,6 @@
                     </div>
                 </div>
 
-                <!-- Main Workstation Layout -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
                         <h3 class="font-extrabold text-deep-blue text-base border-b pb-3 mb-3 flex items-center justify-between">
@@ -507,7 +491,6 @@
 
         <!-- ==================== VIEW 4: ADMIN PORTAL ==================== -->
         <section id="view-admin" class="space-y-6 hidden">
-            <!-- Admin Login Card -->
             <div id="admin-login-card" class="max-w-md mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-8">
                 <div class="text-center mb-6">
                     <div class="w-14 h-14 bg-deep-blue text-gold-accent rounded-full flex items-center justify-center mx-auto mb-3 text-2xl font-bold border-2 border-gold-accent shadow">
@@ -521,7 +504,7 @@
                     <div class="font-extrabold text-amber-900 mb-1 flex items-center gap-1.5">
                         <i class="fa-solid fa-key text-gold-accent"></i> Pre-loaded Admin Credentials:
                     </div>
-                    <p>Username / Email: <code class="bg-white px-1.5 py-0.5 border rounded font-bold text-deep-blue select-all">admin</code> or <code class="bg-white px-1.5 py-0.5 border rounded font-bold text-deep-blue select-all">admin@emican.edu.gh</code></p>
+                    <p>Username / Email: <code class="bg-white px-1.5 py-0.5 border rounded font-bold text-deep-blue select-all">admin</code></p>
                     <p class="mt-1">Password: <code class="bg-white px-1.5 py-0.5 border rounded font-bold text-deep-blue select-all">admin123</code></p>
                 </div>
 
@@ -540,7 +523,6 @@
                 </form>
             </div>
 
-            <!-- Admin Masterpiece Dashboard -->
             <div id="admin-dashboard" class="hidden space-y-6">
                 <div class="bg-deep-blue text-white rounded-2xl p-6 shadow-xl flex flex-wrap justify-between items-center gap-4 border-b-4 border-gold-accent">
                     <div>
@@ -558,7 +540,6 @@
                     </div>
                 </div>
 
-                <!-- Admin Navigation Sub-Tabs -->
                 <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-2">
                     <button onclick="switchAdminTab('content')" id="atab-content" class="px-4 py-2 text-xs font-bold rounded-xl bg-deep-blue text-white transition">Home Content & Logo</button>
                     <button onclick="switchAdminTab('admissions')" id="atab-admissions" class="px-4 py-2 text-xs font-bold rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 transition">Admissions & Inquiries</button>
@@ -567,7 +548,6 @@
                     <button onclick="switchAdminTab('security')" id="atab-security" class="px-4 py-2 text-xs font-bold rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 transition">Security & Passwords</button>
                 </div>
 
-                <!-- ADMIN SUB-TAB 1: CONTENT MANAGEMENT -->
                 <div id="admin-sec-content" class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-6">
                     <h3 class="text-lg font-bold text-deep-blue border-b pb-2"><i class="fa-solid fa-pen-to-square text-sea-blue mr-2"></i> Edit Home Page Content, About (>200 words) & Branding</h3>
                     <form onsubmit="saveHomeContent(event)" class="space-y-4">
@@ -599,7 +579,6 @@
                     </form>
                 </div>
 
-                <!-- ADMIN SUB-TAB 2: ADMISSIONS & INQUIRIES MANAGEMENT -->
                 <div id="admin-sec-admissions" class="hidden bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-4">
                     <h3 class="text-lg font-bold text-deep-blue border-b pb-2"><i class="fa-solid fa-inbox text-sea-blue mr-2"></i> Admission Applications & Inquiries</h3>
                     <div class="overflow-x-auto">
@@ -619,7 +598,6 @@
                     </div>
                 </div>
 
-                <!-- ADMIN SUB-TAB 3: REGISTER STUDENTS -->
                 <div id="admin-sec-students" class="hidden bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-6">
                     <h3 class="text-lg font-bold text-deep-blue border-b pb-2"><i class="fa-solid fa-user-plus text-sea-blue mr-2"></i> Register New Student & Generate Parent Credentials</h3>
                     <form onsubmit="handleAdminRegisterStudent(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
@@ -682,7 +660,6 @@
                     </div>
                 </div>
 
-                <!-- ADMIN SUB-TAB 4: REGISTER TEACHERS -->
                 <div id="admin-sec-teachers" class="hidden bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-6">
                     <h3 class="text-lg font-bold text-deep-blue border-b pb-2"><i class="fa-solid fa-chalkboard-user text-sea-blue mr-2"></i> Register Teaching Staff</h3>
                     <form onsubmit="handleAdminRegisterTeacher(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
@@ -722,7 +699,6 @@
                     </div>
                 </div>
 
-                <!-- ADMIN SUB-TAB 5: SECURITY & PASSWORDS -->
                 <div id="admin-sec-security" class="hidden space-y-6">
                     <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
                         <h3 class="text-lg font-bold text-deep-blue border-b pb-2 mb-4 flex items-center justify-between">
@@ -767,7 +743,7 @@
         </div>
     </footer>
 
-    <!-- MODAL 1: CHECK APPLICATION STATUS (HOME) -->
+    <!-- MODAL 1: STATUS -->
     <div id="status-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative border border-slate-200">
             <button onclick="closeStatusModal()" class="absolute right-4 top-4 text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
@@ -783,7 +759,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: CHANGE PASSWORD (PARENT / ADMIN) -->
+    <!-- MODAL 2: CHANGE PASSWORD -->
     <div id="changepass-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative border border-slate-200">
             <button onclick="closeChangePassModal()" class="absolute right-4 top-4 text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
@@ -845,727 +821,4 @@
 
         let db = {};
         let currentSlide = 0;
-        let slideInterval;
-        let activeUser = { role: null, data: null };
-
-        function loadDatabase() {
-            const saved = localStorage.getItem('emican_academy_db');
-            if (saved) {
-                try { db = JSON.parse(saved); } catch(e) { db = DEFAULT_STATE; }
-            } else {
-                db = DEFAULT_STATE;
-                saveDatabase();
-            }
-            logActivity("System initialized successfully");
-        }
-
-        function saveDatabase() {
-            localStorage.setItem('emican_academy_db', JSON.stringify(db));
-            refreshUI();
-        }
-
-        function logActivity(text) {
-            const timestamp = new Date().toLocaleString();
-            if(!db.logs) db.logs = [];
-            db.logs.unshift(`[${timestamp}] ${text}`);
-            if(db.logs.length > 100) db.logs.pop();
-        }
-
-        function switchTab(tab) {
-            ['home', 'parents', 'teachers', 'admin'].forEach(t => {
-                document.getElementById(`view-${t}`).classList.add('hidden');
-                document.getElementById(`tab-${t}`).classList.remove('active');
-            });
-            document.getElementById(`view-${tab}`).classList.remove('hidden');
-            document.getElementById(`tab-${tab}`).classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function renderCarousel() {
-            const container = document.getElementById('carousel-slides');
-            const dotsContainer = document.getElementById('carousel-dots');
-            if (!container || !dotsContainer) return;
-
-            container.innerHTML = '';
-            dotsContainer.innerHTML = '';
-
-            const slidesToRender = (db.slides && db.slides.length === 5) ? db.slides : DEFAULT_SVG_SLIDES;
-
-            slidesToRender.forEach((url, idx) => {
-                const slide = document.createElement('div');
-                slide.className = `absolute inset-0 transition-opacity duration-700 ease-in-out ${idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`;
-                slide.innerHTML = `<img src="${url}" class="w-full h-full object-cover">`;
-                container.appendChild(slide);
-
-                const dot = document.createElement('button');
-                dot.className = `h-3 rounded-full transition-all ${idx === currentSlide ? 'bg-gold-accent w-8' : 'bg-white/50 w-3'}`;
-                dot.onclick = () => { currentSlide = idx; renderCarousel(); };
-                dotsContainer.appendChild(dot);
-            });
-        }
-
-        function nextSlide() {
-            const len = 5;
-            currentSlide = (currentSlide + 1) % len;
-            renderCarousel();
-        }
-
-        function prevSlide() {
-            const len = 5;
-            currentSlide = (currentSlide - 1 + len) % len;
-            renderCarousel();
-        }
-
-        function startSlideTimer() {
-            clearInterval(slideInterval);
-            slideInterval = setInterval(nextSlide, 5000);
-        }
-
-        function handleAdmissionSubmit(e) {
-            e.preventDefault();
-            const captcha = document.getElementById('adm-captcha').checked;
-            if(!captcha) { alert('Please check I AM NOT A ROBOT'); return; }
-
-            const newAdm = {
-                id: "ADM-" + Math.floor(100 + Math.random() * 900),
-                parentName: document.getElementById('adm-parent-name').value,
-                parentPhone: document.getElementById('adm-parent-phone').value,
-                childName: document.getElementById('adm-child-name').value,
-                dob: document.getElementById('adm-child-dob').value,
-                className: document.getElementById('adm-class').value,
-                term: document.getElementById('adm-term').value,
-                year: document.getElementById('adm-year').value,
-                status: "Pending",
-                reply: "Application received and under review by the Headteacher."
-            };
-
-            db.admissions.unshift(newAdm);
-            logActivity(`New Application submitted for ${newAdm.childName}`);
-            saveDatabase();
-            document.getElementById('admission-form').reset();
-            alert(`Application Submitted Successfully! Your Reference ID is ${newAdm.id}. You can track status on the homepage.`);
-        }
-
-        function openStatusModal() { document.getElementById('status-modal').classList.remove('hidden'); }
-        function closeStatusModal() { document.getElementById('status-modal').classList.add('hidden'); }
-
-        function performStatusLookup() {
-            const query = document.getElementById('status-search-query').value.trim().toLowerCase();
-            const container = document.getElementById('status-results');
-            container.innerHTML = '';
-
-            if(!query) { container.innerHTML = '<p class="text-xs text-red-500 font-bold">Please enter phone number or child name.</p>'; return; }
-
-            const matches = db.admissions.filter(a => 
-                a.parentPhone.toLowerCase().includes(query) || 
-                a.childName.toLowerCase().includes(query) ||
-                a.id.toLowerCase().includes(query)
-            );
-
-            if(matches.length === 0) {
-                container.innerHTML = '<p class="text-xs text-slate-500">No application record found.</p>';
-            } else {
-                matches.forEach(m => {
-                    let badge = m.status === 'Admitted' ? 'bg-green-100 text-green-800' : (m.status === 'Not Admitted' ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800');
-                    container.innerHTML += `
-                        <div class="p-3 bg-slate-50 border rounded-xl space-y-1 text-xs">
-                            <div class="flex justify-between items-center">
-                                <span class="font-bold text-deep-blue">${m.childName} (${m.className})</span>
-                                <span class="px-2 py-0.5 rounded font-extrabold ${badge}">${m.status}</span>
-                            </div>
-                            <p class="text-slate-500">Ref: ${m.id} | Parent: ${m.parentName} (${m.parentPhone})</p>
-                            <p class="bg-white p-2 border rounded text-slate-700"><strong>Note:</strong> ${m.reply}</p>
-                        </div>
-                    `;
-                });
-            }
-        }
-
-        function handleParentLogin(e) {
-            e.preventDefault();
-            const id = document.getElementById('parent-login-id').value.trim().toUpperCase();
-            const dob = document.getElementById('parent-login-dob').value;
-            const pass = document.getElementById('parent-login-pass').value;
-
-            const student = db.students.find(s => s.id === id && s.dob === dob && s.password === pass);
-
-            if(student) {
-                activeUser = { role: 'parent', data: student };
-                logActivity(`Parent of Student ${student.name} (${student.id}) logged in`);
-                renderParentDashboard();
-            } else {
-                alert('Invalid Student ID, Date of Birth or Password.');
-            }
-        }
-
-        function renderParentDashboard() {
-            document.getElementById('parent-login-card').classList.add('hidden');
-            document.getElementById('parent-dashboard').classList.remove('hidden');
-
-            const s = activeUser.data;
-            document.getElementById('p-student-name').innerText = s.name;
-            document.getElementById('p-student-id').innerText = s.id;
-            document.getElementById('p-student-dob').innerText = s.dob;
-            document.getElementById('p-student-class').innerText = s.className;
-
-            const school = s.fees.school || 0;
-            const printing = s.fees.printing || 0;
-            const maint = s.fees.maintenance || 0;
-            const paid = s.fees.paid || 0;
-            const total = school + printing + maint;
-            const balance = total - paid;
-
-            document.getElementById('p-fee-school').innerText = school.toFixed(2);
-            document.getElementById('p-fee-printing').innerText = printing.toFixed(2);
-            document.getElementById('p-fee-maint').innerText = maint.toFixed(2);
-            document.getElementById('p-fee-total').innerText = total.toFixed(2);
-            document.getElementById('p-fee-paid').innerText = paid.toFixed(2);
-            document.getElementById('p-fee-balance').innerText = balance.toFixed(2);
-
-            const rContainer = document.getElementById('p-results-container');
-            rContainer.innerHTML = '';
-            if(!s.reports || s.reports.length === 0) {
-                rContainer.innerHTML = '<p class="text-xs text-slate-400">No terminal PDF results uploaded yet.</p>';
-            } else {
-                s.reports.forEach(r => {
-                    rContainer.innerHTML += `
-                        <div class="flex items-center justify-between p-3 bg-slate-50 border rounded-xl">
-                            <div>
-                                <p class="text-xs font-bold text-deep-blue">${r.term}</p>
-                                <span class="text-[10px] text-slate-400">Uploaded: ${r.date}</span>
-                            </div>
-                            <button onclick="alert('Viewing/Printing Terminal Report PDF for ${s.name}')" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg shadow flex items-center gap-1">
-                                <i class="fa-solid fa-file-pdf"></i> Print PDF
-                            </button>
-                        </div>
-                    `;
-                });
-            }
-
-            renderParentComments();
-        }
-
-        function renderParentComments() {
-            const cContainer = document.getElementById('p-comments-thread');
-            cContainer.innerHTML = '';
-            const comments = activeUser.data.comments || [];
-
-            if(comments.length === 0) {
-                cContainer.innerHTML = '<p class="text-xs text-slate-400">No remarks logged.</p>';
-            } else {
-                comments.forEach(c => {
-                    const isTeacher = c.sender === 'Teacher';
-                    cContainer.innerHTML += `
-                        <div class="p-3 rounded-xl border text-xs ${isTeacher ? 'bg-teal-50 border-sea-blue/30 text-slate-800' : 'bg-amber-50 border-amber-300 text-slate-900 ml-4'}">
-                            <div class="flex justify-between font-bold mb-1">
-                                <span>${c.sender}</span>
-                                <span class="text-[10px] text-slate-400 font-normal">${c.time}</span>
-                            </div>
-                            <p>${c.text}</p>
-                        </div>
-                    `;
-                });
-            }
-        }
-
-        function sendParentReply() {
-            const input = document.getElementById('p-reply-input');
-            const text = input.value.trim();
-            if(!text) return;
-
-            const time = new Date().toISOString().replace('T',' ').substring(0,16);
-            activeUser.data.comments.push({ sender: 'Parent', text: text, time: time });
-
-            const idx = db.students.findIndex(s => s.id === activeUser.data.id);
-            if(idx !== -1) db.students[idx] = activeUser.data;
-
-            logActivity(`Parent replied for Student ${activeUser.data.id}`);
-            saveDatabase();
-            input.value = '';
-            renderParentComments();
-        }
-
-        function handleTeacherLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('teacher-login-email').value.trim().toLowerCase();
-            const staffId = document.getElementById('teacher-login-staffid').value.trim().toUpperCase();
-            const pass = document.getElementById('teacher-login-pass').value;
-
-            const teacher = db.teachers.find(t => t.email.toLowerCase() === email && t.id.toUpperCase() === staffId && t.password === pass);
-
-            if(teacher) {
-                activeUser = { role: 'teacher', data: teacher };
-                logActivity(`Teacher ${teacher.name} logged in`);
-                renderTeacherDashboard();
-            } else {
-                alert('Invalid Teacher Credentials.');
-            }
-        }
-
-        function renderTeacherDashboard() {
-            document.getElementById('teacher-login-card').classList.add('hidden');
-            document.getElementById('teacher-dashboard').classList.remove('hidden');
-
-            document.getElementById('t-teacher-name').innerText = activeUser.data.name;
-            document.getElementById('t-teacher-email').innerText = `Staff ID: ${activeUser.data.id} | Email: ${activeUser.data.email}`;
-
-            loadTeacherStudentsList();
-        }
-
-        function loadTeacherStudentsList() {
-            const filterClass = document.getElementById('t-filter-class').value;
-            const search = document.getElementById('t-search-student').value.toLowerCase();
-            const roster = document.getElementById('t-students-roster');
-            roster.innerHTML = '';
-
-            let filtered = db.students.filter(s => {
-                const matchClass = filterClass === 'ALL' || s.className === filterClass;
-                const matchSearch = s.name.toLowerCase().includes(search) || s.id.toLowerCase().includes(search);
-                return matchClass && matchSearch;
-            });
-
-            document.getElementById('t-student-count').innerText = filtered.length;
-
-            if(filtered.length === 0) {
-                roster.innerHTML = '<p class="text-xs text-slate-400 p-2">No students found.</p>';
-                return;
-            }
-
-            filtered.forEach(s => {
-                roster.innerHTML += `
-                    <div onclick="selectTeacherStudent('${s.id}')" class="p-3 border rounded-xl cursor-pointer hover:bg-teal-50 transition flex items-center justify-between text-xs">
-                        <div>
-                            <p class="font-bold text-deep-blue">${s.name}</p>
-                            <span class="text-slate-400">${s.id} • ${s.className}</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right text-slate-300"></i>
-                    </div>
-                `;
-            });
-        }
-
-        function selectTeacherStudent(id) {
-            const s = db.students.find(st => st.id === id);
-            if(!s) return;
-
-            const total = (s.fees.school || 0) + (s.fees.printing || 0) + (s.fees.maintenance || 0);
-            const balance = total - (s.fees.paid || 0);
-
-            const ws = document.getElementById('t-workstation');
-            ws.innerHTML = `
-                <div class="space-y-6">
-                    <div class="border-b pb-3 flex justify-between items-center">
-                        <div>
-                            <h3 class="text-xl font-bold text-deep-blue">${s.name}</h3>
-                            <p class="text-xs text-slate-500">ID: ${s.id} | DOB: ${s.dob} | Class: ${s.className}</p>
-                            <p class="text-xs text-slate-500">Parent: ${s.parentName} (${s.parentPhone})</p>
-                        </div>
-                        <span class="bg-sea-blue text-white text-xs px-3 py-1 rounded-full font-bold">${s.className}</span>
-                    </div>
-
-                    <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
-                        <h4 class="font-bold text-xs uppercase text-deep-blue flex items-center gap-2">
-                            <i class="fa-solid fa-calculator text-gold-accent"></i> Enter Fee Details Manually
-                        </h4>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                            <div>
-                                <label class="block font-semibold mb-1">School Fees (GH₵)</label>
-                                <input type="number" id="t-edit-fee-school" value="${s.fees.school || 0}" class="w-full p-2 border rounded-lg">
-                            </div>
-                            <div>
-                                <label class="block font-semibold mb-1">Printing Fees (GH₵)</label>
-                                <input type="number" id="t-edit-fee-printing" value="${s.fees.printing || 0}" class="w-full p-2 border rounded-lg">
-                            </div>
-                            <div>
-                                <label class="block font-semibold mb-1">Maintenance (GH₵)</label>
-                                <input type="number" id="t-edit-fee-maint" value="${s.fees.maintenance || 0}" class="w-full p-2 border rounded-lg">
-                            </div>
-                            <div>
-                                <label class="block font-semibold mb-1">Amount Paid (GH₵)</label>
-                                <input type="number" id="t-edit-fee-paid" value="${s.fees.paid || 0}" class="w-full p-2 border rounded-lg">
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center pt-2">
-                            <span class="text-xs font-bold text-red-600">Calculated Balance: GH₵ ${balance.toFixed(2)}</span>
-                            <button onclick="saveTeacherFees('${s.id}')" class="px-4 py-2 bg-sea-blue text-white font-bold text-xs rounded-lg hover:bg-teal-700 transition">Save Fee Record</button>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
-                        <h4 class="font-bold text-xs uppercase text-deep-blue flex items-center gap-2">
-                            <i class="fa-solid fa-file-pdf text-red-500"></i> Upload PDF Exam Result
-                        </h4>
-                        <div class="flex gap-2">
-                            <input type="text" id="t-report-title" placeholder="e.g. 2027 1st Term Assessment Report" class="flex-grow p-2 text-xs border rounded-lg">
-                            <button onclick="uploadTeacherReport('${s.id}')" class="px-4 py-2 bg-deep-blue text-gold-accent font-bold text-xs rounded-lg hover:bg-slate-900 transition">Attach Report</button>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 p-4 rounded-xl border space-y-3">
-                        <h4 class="font-bold text-xs uppercase text-deep-blue flex items-center gap-2">
-                            <i class="fa-solid fa-comments text-sea-blue"></i> Post Remarks / Replies
-                        </h4>
-                        <div class="space-y-2 max-h-48 overflow-y-auto bg-white p-3 rounded-lg border">
-                            ${(s.comments || []).map(c => `
-                                <div class="p-2 text-xs rounded ${c.sender==='Teacher'?'bg-teal-50 text-slate-800':'bg-amber-100 text-slate-900'}">
-                                    <div class="flex justify-between font-bold"><span>${c.sender}</span><span class="text-[10px] text-slate-400">${c.time}</span></div>
-                                    <p>${c.text}</p>
-                                </div>
-                             reservasdf ? '' : ''}.join('')}
-                        </div>
-                        <div class="flex gap-2">
-                            <input type="text" id="t-remark-input" placeholder="Type complaint or remark..." class="flex-grow p-2 text-xs border rounded-lg">
-                            <button onclick="sendTeacherRemark('${s.id}')" class="px-4 py-2 bg-sea-blue text-white font-bold text-xs rounded-lg hover:bg-teal-700 transition">Post Comment</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function saveTeacherFees(id) {
-            const s = db.students.find(st => st.id === id);
-            if(!s) return;
-
-            s.fees.school = parseFloat(document.getElementById('t-edit-fee-school').value) || 0;
-            s.fees.printing = parseFloat(document.getElementById('t-edit-fee-printing').value) || 0;
-            s.fees.maintenance = parseFloat(document.getElementById('t-edit-fee-maint').value) || 0;
-            s.fees.paid = parseFloat(document.getElementById('t-edit-fee-paid').value) || 0;
-
-            logActivity(`Teacher updated fee ledger for Student ${id}`);
-            saveDatabase();
-            alert('Fee ledger saved successfully!');
-            selectTeacherStudent(id);
-        }
-
-        function uploadTeacherReport(id) {
-            const title = document.getElementById('t-report-title').value.trim();
-            if(!title) return;
-            const s = db.students.find(st => st.id === id);
-            if(!s) return;
-
-            if(!s.reports) s.reports = [];
-            s.reports.unshift({ term: title, url: "#", date: new Date().toISOString().split('T')[0] });
-
-            logActivity(`Teacher uploaded report "${title}" for Student ${id}`);
-            saveDatabase();
-            alert('Report attached!');
-            selectTeacherStudent(id);
-        }
-
-        function sendTeacherRemark(id) {
-            const text = document.getElementById('t-remark-input').value.trim();
-            if(!text) return;
-            const s = db.students.find(st => st.id === id);
-            if(!s) return;
-
-            if(!s.comments) s.comments = [];
-            const time = new Date().toISOString().replace('T',' ').substring(0,16);
-            s.comments.push({ sender: 'Teacher', text: text, time: time });
-
-            logActivity(`Teacher posted remark for Student ${id}`);
-            saveDatabase();
-            selectTeacherStudent(id);
-        }
-
-        function handleAdminLogin(e) {
-            e.preventDefault();
-            const inputUser = document.getElementById('admin-login-email').value.trim().toLowerCase();
-            const inputPass = document.getElementById('admin-login-pass').value;
-
-            const validUser = inputUser === db.admin.username.toLowerCase() || inputUser === db.admin.email.toLowerCase();
-
-            if(validUser && inputPass === db.admin.password) {
-                activeUser = { role: 'admin', data: db.admin };
-                logActivity("Headteacher Admin logged into control panel");
-                renderAdminDashboard();
-            } else {
-                alert('Invalid Admin Username/Email or Password. Default is admin / admin123');
-            }
-        }
-
-        function renderAdminDashboard() {
-            document.getElementById('admin-login-card').classList.add('hidden');
-            document.getElementById('admin-dashboard').classList.remove('hidden');
-
-            document.getElementById('edit-logo-url').value = db.logoUrl;
-            document.getElementById('edit-contact-info').value = db.contactInfo;
-            document.getElementById('edit-overview').value = db.overview;
-            document.getElementById('edit-about').value = db.about;
-            document.getElementById('edit-vision').value = db.vision;
-
-            renderAdminTables();
-        }
-
-        function switchAdminTab(sec) {
-            ['content', 'admissions', 'students', 'teachers', 'security'].forEach(s => {
-                document.getElementById(`admin-sec-${s}`).classList.add('hidden');
-                document.getElementById(`atab-${s}`).className = "px-4 py-2 text-xs font-bold rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 transition";
-            });
-
-            document.getElementById(`admin-sec-${sec}`).classList.remove('hidden');
-            document.getElementById(`atab-${sec}`).className = "px-4 py-2 text-xs font-bold rounded-xl bg-deep-blue text-white transition";
-        }
-
-        function saveHomeContent(e) {
-            e.preventDefault();
-            db.logoUrl = document.getElementById('edit-logo-url').value;
-            db.contactInfo = document.getElementById('edit-contact-info').value;
-            db.overview = document.getElementById('edit-overview').value;
-            db.about = document.getElementById('edit-about').value;
-            db.vision = document.getElementById('edit-vision').value;
-
-            logActivity("Admin updated site branding and text");
-            saveDatabase();
-            alert("Site content saved!");
-        }
-
-        function renderAdminTables() {
-            const admBody = document.getElementById('admin-admissions-list');
-            admBody.innerHTML = '';
-            db.admissions.forEach((a, idx) => {
-                admBody.innerHTML += `
-                    <tr>
-                        <td class="p-3 font-bold">${a.childName}<br><span class="text-[10px] text-slate-400">DOB: ${a.dob}</span></td>
-                        <td class="p-3">${a.parentName}<br><span class="text-slate-400">${a.parentPhone}</span></td>
-                        <td class="p-3">${a.className}<br><span class="text-slate-400">${a.term} ${a.year}</span></td>
-                        <td class="p-3">
-                            <select onchange="updateAdmStatus(${idx}, this.value)" class="p-1 border rounded text-xs font-bold">
-                                <option value="Pending" ${a.status==='Pending'?'selected':''}>Pending</option>
-                                <option value="Admitted" ${a.status==='Admitted'?'selected':''}>Admitted</option>
-                                <option value="Not Admitted" ${a.status==='Not Admitted'?'selected':''}>Not Admitted</option>
-                            </select>
-                        </td>
-                        <td class="p-3">
-                            <input type="text" value="${a.reply || ''}" onchange="updateAdmReply(${idx}, this.value)" placeholder="Type response..." class="w-full p-1 border rounded text-xs">
-                        </td>
-                        <td class="p-3 text-right">
-                            <button onclick="deleteAdmission(${idx})" class="text-red-600 hover:text-red-800 font-bold"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            const stuBody = document.getElementById('admin-students-list');
-            stuBody.innerHTML = '';
-            db.students.forEach((s, idx) => {
-                stuBody.innerHTML += `
-                    <tr>
-                        <td class="p-2.5 font-bold text-sea-blue">${s.id}</td>
-                        <td class="p-2.5 font-bold">${s.name}</td>
-                        <td class="p-2.5">${s.dob}</td>
-                        <td class="p-2.5">${s.className}</td>
-                        <td class="p-2.5">${s.parentName} (${s.parentPhone})</td>
-                        <td class="p-2.5 text-right">
-                            <button onclick="deleteStudent(${idx})" class="text-red-600 font-bold hover:underline"><i class="fa-solid fa-trash"></i> Delete</button>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            const tchBody = document.getElementById('admin-teachers-list');
-            tchBody.innerHTML = '';
-            db.teachers.forEach((t, idx) => {
-                tchBody.innerHTML += `
-                    <tr>
-                        <td class="p-2.5 font-bold text-sea-blue">${t.id}</td>
-                        <td class="p-2.5 font-bold">${t.name}</td>
-                        <td class="p-2.5">${t.email}</td>
-                        <td class="p-2.5">${t.phone}</td>
-                        <td class="p-2.5 text-right">
-                            <button onclick="deleteTeacher(${idx})" class="text-red-600 font-bold hover:underline"><i class="fa-solid fa-trash"></i> Delete</button>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            const passBody = document.getElementById('admin-passwords-audit');
-            passBody.innerHTML = `
-                <tr class="bg-amber-50">
-                    <td class="p-2.5 font-bold text-amber-800">Admin</td>
-                    <td class="p-2.5 font-mono font-bold">${db.admin.username} / ${db.admin.email}</td>
-                    <td class="p-2.5 font-bold">Headteacher</td>
-                    <td class="p-2.5 font-mono font-black text-red-600">${db.admin.password}</td>
-                </tr>
-            `;
-
-            db.teachers.forEach(t => {
-                passBody.innerHTML += `
-                    <tr>
-                        <td class="p-2.5 font-semibold text-teal-700">Teacher</td>
-                        <td class="p-2.5 font-mono">${t.id}</td>
-                        <td class="p-2.5">${t.name}</td>
-                        <td class="p-2.5 font-mono font-bold text-slate-800">${t.password}</td>
-                    </tr>
-                `;
-            });
-
-            db.students.forEach(s => {
-                passBody.innerHTML += `
-                    <tr>
-                        <td class="p-2.5 font-semibold text-blue-700">Parent (${s.parentName})</td>
-                        <td class="p-2.5 font-mono">${s.id}</td>
-                        <td class="p-2.5">Child: ${s.name}</td>
-                        <td class="p-2.5 font-mono font-bold text-slate-800">${s.password}</td>
-                    </tr>
-                `;
-            });
-
-            document.getElementById('admin-audit-logs').innerHTML = (db.logs || []).map(l => `<div>${l}</div>`).join('');
-        }
-
-        function updateAdmStatus(idx, val) {
-            db.admissions[idx].status = val;
-            logActivity(`Admission status for ${db.admissions[idx].childName} updated to ${val}`);
-            saveDatabase();
-        }
-
-        function updateAdmReply(idx, val) {
-            db.admissions[idx].reply = val;
-            saveDatabase();
-        }
-
-        function deleteAdmission(idx) {
-            if(confirm('Delete this record?')) {
-                db.admissions.splice(idx, 1);
-                saveDatabase();
-            }
-        }
-
-        function handleAdminRegisterStudent(e) {
-            e.preventDefault();
-            const name = document.getElementById('reg-stu-name').value.trim();
-            const dob = document.getElementById('reg-stu-dob').value;
-            const className = document.getElementById('reg-stu-class').value;
-            const parentName = document.getElementById('reg-stu-pname').value.trim();
-            const parentPhone = document.getElementById('reg-stu-pphone').value.trim();
-
-            const autoId = "STU-" + Math.floor(1000 + Math.random() * 9000);
-
-            const newStudent = {
-                id: autoId,
-                name: name,
-                dob: dob,
-                className: className,
-                parentName: parentName,
-                parentPhone: parentPhone,
-                password: parentPhone,
-                fees: { school: 0, printing: 0, maintenance: 0, paid: 0 },
-                reports: [],
-                comments: []
-            };
-
-            db.students.unshift(newStudent);
-            logActivity(`Admin registered student ${name} (${autoId})`);
-            saveDatabase();
-            alert(`Student Registered! Student ID: ${autoId}. Parent can log in with Student ID (${autoId}), DOB (${dob}), and initial password (${parentPhone}).`);
-            e.target.reset();
-        }
-
-        function deleteStudent(idx) {
-            if(confirm('Delete student account?')) {
-                logActivity(`Admin deleted student ${db.students[idx].name}`);
-                db.students.splice(idx, 1);
-                saveDatabase();
-            }
-        }
-
-        function handleAdminRegisterTeacher(e) {
-            e.preventDefault();
-            const name = document.getElementById('reg-tch-name').value.trim();
-            const email = document.getElementById('reg-tch-email').value.trim();
-            const phone = document.getElementById('reg-tch-phone').value.trim();
-
-            const staffId = "EHA-TCH-" + Math.floor(100 + Math.random() * 900);
-
-            const newTeacher = {
-                id: staffId,
-                name: name,
-                email: email,
-                phone: phone,
-                password: phone
-            };
-
-            db.teachers.unshift(newTeacher);
-            logActivity(`Admin registered teacher ${name} (${staffId})`);
-            saveDatabase();
-            alert(`Teacher Registered! Staff ID: ${staffId}. Initial Password is phone number (${phone}).`);
-            e.target.reset();
-        }
-
-        function deleteTeacher(idx) {
-            if(confirm('Delete teacher record?')) {
-                logActivity(`Admin removed teacher ${db.teachers[idx].name}`);
-                db.teachers.splice(idx, 1);
-                saveDatabase();
-            }
-        }
-
-        function openChangePassModal(type) {
-            document.getElementById('changepass-user-type').value = type;
-            document.getElementById('changepass-modal').classList.remove('hidden');
-        }
-
-        function closeChangePassModal() {
-            document.getElementById('changepass-modal').classList.add('hidden');
-        }
-
-        function handlePasswordChangeSubmit(e) {
-            e.preventDefault();
-            const type = document.getElementById('changepass-user-type').value;
-            const newPass = document.getElementById('changepass-new').value.trim();
-
-            if(!newPass) return;
-
-            if(type === 'parent' && activeUser.role === 'parent') {
-                activeUser.data.password = newPass;
-                const idx = db.students.findIndex(s => s.id === activeUser.data.id);
-                if(idx !== -1) db.students[idx].password = newPass;
-                logActivity(`Parent of ${activeUser.data.id} changed password`);
-            } else if(type === 'admin' && activeUser.role === 'admin') {
-                db.admin.password = newPass;
-                logActivity(`Admin password updated successfully`);
-            }
-
-            saveDatabase();
-            closeChangePassModal();
-            alert('Password changed successfully!');
-        }
-
-        function logout(role) {
-            logActivity(`${role.toUpperCase()} logged out`);
-            activeUser = { role: null, data: null };
-            
-            if(role === 'parent') {
-                document.getElementById('parent-dashboard').classList.add('hidden');
-                document.getElementById('parent-login-card').classList.remove('hidden');
-            } else if(role === 'teacher') {
-                document.getElementById('teacher-dashboard').classList.add('hidden');
-                document.getElementById('teacher-login-card').classList.remove('hidden');
-            } else if(role === 'admin') {
-                document.getElementById('admin-dashboard').classList.add('hidden');
-                document.getElementById('admin-login-card').classList.remove('hidden');
-            }
-            saveDatabase();
-        }
-
-        function refreshUI() {
-            document.getElementById('display-overview').innerText = db.overview;
-            document.getElementById('display-about').innerText = db.about;
-            document.getElementById('display-vision').innerText = db.vision;
-            document.getElementById('display-contact').innerText = db.contactInfo;
-            document.getElementById('display-address').innerText = "Techiman - Bono East Regional Capital, Ghana";
-
-            renderCarousel();
-
-            if(activeUser.role === 'admin') renderAdminTables();
-            if(activeUser.role === 'parent') renderParentDashboard();
-        }
-
-        window.onload = function () {
-            loadDatabase();
-            renderCarousel();
-            startSlideTimer();
-        };
-    </script>
-</body>
-</html>
+        let slide
