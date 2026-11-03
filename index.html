@@ -1663,37 +1663,46 @@ let siteData = JSON.parse(localStorage.getItem('EHA_SITE_DATA')) || {
             }
         }
 
-        function registerNewStudent(e) {
-            e.preventDefault();
-            const name = document.getElementById('reg-s-name').value.trim();
-            const dob = document.getElementById('reg-s-dob').value;
-            const cls = document.getElementById('reg-s-class').value;
-            const phone = document.getElementById('reg-s-phone').value.trim();
+       async function registerNewStudent(e) {
+    e.preventDefault();
+    const name = document.getElementById('reg-s-name').value.trim();
+    const dob = document.getElementById('reg-s-dob').value;
+    const cls = document.getElementById('reg-s-class').value;
+    const phone = document.getElementById('reg-s-phone').value.trim();
 
-            const studentId = 'EHA-' + new Date().getFullYear() + '-' + Math.floor(100 + Math.random() * 900);
+    const studentId = 'EHA-' + new Date().getFullYear() + '-' + Math.floor(100 + Math.random() * 900);
 
-            const newStudent = {
-                id: studentId,
-                name,
-                dob,
-                class: cls,
-                phone,
-                pass: phone, // Initial password
-                lastLogin: "Never",
-                fees: { tuition: 0, printing: 0, maint: 0, paid: 0 },
-                results: [],
-                complaints: []
-            };
+    const newStudent = {
+        id: studentId,
+        name: name,
+        dob: dob,
+        class_name: cls,
+        phone: phone,
+        pass: phone,
+        last_login: 'Never',
+        fees: { tuition: 0, printing: 0, maint: 0, paid: 0 },
+        results: [],
+        complaints: []
+    };
 
-            students.push(newStudent);
-            addLog(`Admin registered new student ${name} (${studentId})`);
-            saveData();
-            updateAdminDashboard();
-            alert(`Student Registered!\nStudent ID: ${studentId}\nInitial Password: ${phone}`);
-            
-            document.getElementById('reg-s-name').value = '';
-            document.getElementById('reg-s-phone').value = '';
-        }
+    const { data, error } = await _supabase.from('students').insert([newStudent]);
+
+    if (error) {
+        alert('Error saving to cloud database: ' + error.message);
+        return;
+    }
+
+    addLog(`Admin registered new student ${name} (${studentId})`);
+    alert(`Student Registered!\nStudent ID: ${studentId}\nInitial Password: ${phone}`);
+    
+    document.getElementById('reg-s-name').value = '';
+    document.getElementById('reg-s-dob').value = '';
+    document.getElementById('reg-s-phone').value = '';
+    
+    if (typeof closeRegisterStudentModal === 'function') closeRegisterStudentModal();
+    if (typeof updateAdminDashboard === 'function') updateAdminDashboard();
+}
+          
 
         function deleteStudent(sId) {
             if (confirm(`Are you sure you want to delete student ${sId}?`)) {
