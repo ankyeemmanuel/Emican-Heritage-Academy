@@ -1250,27 +1250,46 @@ let siteData = JSON.parse(localStorage.getItem('EHA_SITE_DATA')) || {
         }
 
         // --- PARENT PORTAL LOGIC ---
-        function handleParentLogin(e) {
-            e.preventDefault();
-            const id = document.getElementById('parent-login-id').value.trim();
-            const dob = document.getElementById('parent-login-dob').value;
-            const pass = document.getElementById('parent-login-pass').value.trim();
+       async function handleParentLogin(e) {
+    e.preventDefault();
+    const id = document.getElementById('parent-login-id').value.trim();
+    const dob = document.getElementById('parent-login-dob').value;
+    const pass = document.getElementById('parent-login-pass').value.trim();
 
-            const student = students.find(s => s.id.toLowerCase() === id.toLowerCase() && s.dob === dob && s.pass === pass);
+    // Query Supabase for matching student credentials
+    const { data: studentsList, error } = await _supabase
+        .from('students')
+        .select('*')
+        .ilike('id', id)
+        .eq('dob', dob)
+        .eq('pass', pass);
 
-            if (student) {
-                currentUser = { type: 'parent', data: student };
-                student.lastLogin = new Date().toLocaleString();
-                addLog(`Parent logged in for student ${student.name} (${student.id})`);
-                saveData();
+    if (error || !studentsList || studentsList.length === 0) {
+        alert('Invalid Student ID, Date of Birth, or Password.');
+        return;
+    }
 
-                document.getElementById('parent-login-card').classList.add('hidden');
-                document.getElementById('parent-dashboard').classList.remove('hidden');
-                renderParentDashboard();
-            } else {
-                alert('Invalid Student ID, Date of Birth, or Password.');
-            }
-        }
+    const student = studentsList[0];
+    currentUser = { type: 'parent', data: student };
+    
+    const lastLoginTime = new Date().toLocaleString();
+
+    // Update last_login in Supabase
+    await _supabase
+        .from('students')
+        .update({ last_login: lastLoginTime })
+        .eq('id', student.id);
+
+    student.last_login = lastLoginTime;
+
+    if (typeof addLog === 'function') {
+        addLog(`Parent logged in for student ${student.name} (${student.id})`);
+    }
+
+    document.getElementById('parent-login-card').classList.add('hidden');
+    document.getElementById('parent-dashboard').classList.remove('hidden');
+    if (typeof renderParentDashboard === 'function') renderParentDashboard();
+}
 
         function renderParentDashboard() {
             const s = currentUser.data;
