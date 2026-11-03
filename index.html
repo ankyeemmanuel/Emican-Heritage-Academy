@@ -1571,29 +1571,49 @@ let siteData = JSON.parse(localStorage.getItem('EHA_SITE_DATA')) || {
             }
         }
 
-        async function updateAdminDashboard() {
-    // Fetch live data from Supabase tables
-    const { data: studentsData, error: sError } = await _supabase.from('students').select('*');
-    const { data: teachersData, error: tError } = await _supabase.from('teachers').select('*');
+    async function updateAdminDashboard() {
+    try {
+        if (typeof _supabase !== 'undefined') {
+            const { data: sData } = await _supabase.from('students').select('*');
+            const { data: tData } = await _supabase.from('teachers').select('*');
+            if (sData) students = sData;
+            if (tData) teachers = tData;
+        }
+    } catch (err) {
+        console.error('Supabase fetch error:', err);
+    }
 
-    if (!sError && studentsData) students = studentsData;
-    if (!tError && teachersData) teachers = teachersData;
-
-    // Subtab 1 Data (Site Editor)
     if (typeof siteData !== 'undefined') {
-        document.getElementById('admin-edit-logo').value = siteData.logo || '';
-        document.getElementById('admin-edit-overview').value = siteData.overview || '';
-        document.getElementById('admin-edit-about').value = siteData.about || '';
-        document.getElementById('admin-edit-vision').value = siteData.vision || '';
-        document.getElementById('admin-edit-values').value = siteData.values || '';
-    }
+        const logoEl = document.getElementById('admin-edit-logo');
+        const overviewEl = document.getElementById('admin-edit-overview');
+        const aboutEl = document.getElementById('admin-edit-about');
+        const visionEl = document.getElementById('admin-edit-vision');
+        const valuesEl = document.getElementById('admin-edit-values');
 
-    // Word Count
-    if (typeof siteData !== 'undefined' && siteData.about) {
-        const words = siteData.about.trim().split(/\s+/).length;
-        const wordCountEl = document.getElementById('about-word-count');
-        if (wordCountEl) wordCountEl.textContent = words;
+        if (logoEl) logoEl.value = siteData.logo || '';
+        if (overviewEl) overviewEl.value = siteData.overview || '';
+        if (aboutEl) aboutEl.value = siteData.about || '';
+        if (visionEl) visionEl.value = siteData.vision || '';
+        if (valuesEl) valuesEl.value = siteData.values || '';
+
+        if (siteData.about) {
+            const words = siteData.about.trim().split(/\s+/).length;
+            const wordCountEl = document.getElementById('about-word-count');
+            if (wordCountEl) wordCountEl.textContent = words;
+        }
+
+        const photosContainer = document.getElementById('admin-photos-list');
+        if (photosContainer && siteData.photos) {
+            photosContainer.innerHTML = siteData.photos.map(function(p, idx) {
+                return '<div class="grid grid-cols-1 sm:grid-cols-12 gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200 items-center">' +
+                    '<span class="sm:col-span-1 font-bold text-slate-500 self-center">#' + (idx + 1) + '</span>' +
+                    '<input type="text" id="photo-url-' + idx + '" value="' + (p.url || '') + '" class="sm:col-span-6 px-3 py-1.5 border rounded-lg text-sm">' +
+                    '<input type="text" id="photo-cap-' + idx + '" value="' + (p.caption || '') + '" class="sm:col-span-5 px-3 py-1.5 border rounded-lg text-sm">' +
+                    '</div>';
+            }).join('');
+        }
     }
+} 
 
     // Photos Form Generator
     const photosContainer = document.getElementById('admin-photos-list');
