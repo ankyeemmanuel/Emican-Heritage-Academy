@@ -1634,10 +1634,19 @@ if (!siteData.photos || siteData.photos.length < 8) {
 
             students.push(newStudent);
             if (_supabase) {
-                try {
-                    await _supabase.from('students').insert([newStudent]);
-                } catch (err) { console.warn(err); }
+        try {
+            const { data, error } = await _supabase.from('students').insert([newStudent]);
+            if (error) {
+                console.error("Supabase Error:", error);
+                alert("Supabase Insert Error: " + error.message);
+            } else {
+                console.log("Successfully inserted into Supabase:", data);
             }
+        } catch (err) {
+            console.warn("Catch Error:", err);
+            alert("Network/Code Error: " + err.message);
+        }
+    }
             saveDataLocally();
 
             addLog(`Admin registered new student ${name} (${studentId})`);
