@@ -901,19 +901,19 @@
 
         const DEFAULT_ABOUT = `Emican Heritage Academy is a premier educational institution located in Techiman, the vibrant Bono East Regional Capital of Ghana. Our academy is committed to providing world-class basic education ranging from Crèche and Kindergarten through Primary to Junior High School (J.H.S). We believe that every child possesses unique potential, and our holistic curriculum blends rigorous academic standards with character formation, moral discipline, and cultural heritage. Our dedicated staff members are trained to cultivate critical thinking, creativity, and leadership skills in our students within a safe, supportive, and technologically modern learning environment. At Emican Heritage Academy, we take immense pride in our vibrant school culture, symbolized by our smart Sea-Blue and Deep Blue-Black uniforms worn with pride by our students. We maintain transparent partnerships with parents to ensure that every student receives individual attention, guidance, and encouragement needed to achieve excellence in national examination standards and beyond.`;
 
-      const DEFAULT_PHOTOS = [
-  { url: "EH1.jpeg", caption: "Students line up during morning assembly in sea-blue uniform." },
-  { url: "EH2.jpeg", caption: "Interactive computer & science lesson in progress." },
-  { url: "EH3.jpeg", caption: "Cultural performance and sports day showcase." },
-  { url: "EH4.jpeg", caption: "Crèche and KG children enjoying interactive learning." },
-  { url: "EH5.jpeg", caption: "JHS graduating class celebrating academic excellence." },
-  { url: "", caption: "" },
-  { url: "", caption: "" },
-  { url: "", caption: "" }
+    const DEFAULT_PHOTOS = [
+  { url: "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH1.jpeg", caption: "Students line up during morning assembly in sea-blue uniform." },
+  { url: "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH2.jpeg", caption: "Interactive computer & science lesson in progress." },
+  { url: "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH3.jpeg", caption: "Cultural performance and sports day showcase." },
+  { url: "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH4.jpeg", caption: "Crèche and KG children enjoying interactive learning." },
+  { url: "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH5.jpeg", caption: "JHS graduating class celebrating academic excellence." },
+  { url: "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/ehapen1.jpeg", caption: "Emican Heritage Academy activities" },
+  { url: "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/master.png", caption: "Emican Heritage Academy Emblem" },
+  { url: "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/SirEHA.jpeg", caption: "Teaching & Administrative Leadership" }
 ];
 
 let siteData = JSON.parse(localStorage.getItem('EHA_SITE_DATA')) || {
-  logo: "Emilogo.jpeg",
+  logo: "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/Emilogo.jpeg",
   overview: "Welcome to Emican Heritage Academy in Techiman, Bono East Region. Empowering future leaders through academic excellence, character building, and cultural integrity.",
   about: DEFAULT_ABOUT,
   vision: "To be the leading basic educational benchmark in the Bono East Region, nurturing well-rounded citizens equipped for global challenges.",
