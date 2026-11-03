@@ -34,7 +34,6 @@
         .ghana-flag {
             background: linear-gradient(to bottom, #ce1126 33.3%, #fcd116 33.3%, #fcd116 66.6%, #006b3f 66.6%);
         }
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0b1329; }
         ::-webkit-scrollbar-thumb { background: #0077b6; border-radius: 4px; }
@@ -43,7 +42,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-    <!-- ================= TOP CONTACT & GHANA FLAG BAR ================= -->
+    <!-- TOP CONTACT & GHANA FLAG BAR -->
     <div class="bg-blue-black text-slate-200 text-xs sm:text-sm py-2 px-4 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
             <div class="flex flex-wrap items-center gap-4 sm:gap-6">
@@ -51,8 +50,6 @@
                 <a href="mailto:emicangh@gmail.com" class="hover:text-gold-accent transition flex items-center gap-1.5"><i class="fa-solid fa-envelope text-gold-accent"></i> emicangh@gmail.com</a>
                 <a href="tel:+233535694851" class="hover:text-gold-accent transition flex items-center gap-1.5"><i class="fa-solid fa-phone text-gold-accent"></i> +233(0) 535 694851</a>
             </div>
-            
-            <!-- Ghana Flag Badge -->
             <div class="flex items-center gap-2 bg-slate-900/80 px-2.5 py-1 rounded-full border border-slate-700/60 shadow-inner">
                 <span class="text-xs font-semibold tracking-wider text-slate-300">GHANA</span>
                 <div class="w-7 h-4 rounded-sm overflow-hidden ghana-flag relative flex items-center justify-center shadow">
@@ -62,10 +59,9 @@
         </div>
     </div>
 
-    <!-- ================= HEADER / NAVIGATION ================= -->
+    <!-- HEADER / NAVIGATION -->
     <header class="bg-blue-black-light text-white sticky top-0 z-40 shadow-xl border-b border-sea-blue/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand Logo & Title -->
             <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
                 <img id="site-logo" src="Emilogo.jpeg" alt="Emican Heritage Academy Logo" class="h-12 w-12 object-contain"> 
                 <div>
@@ -76,7 +72,6 @@
                 </div>
             </div>
 
-            <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 font-medium text-sm">
                 <button onclick="switchTab('home')" class="nav-btn px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-sea-blue/30 transition flex items-center gap-2" id="nav-home">
                     <i class="fa-solid fa-house text-gold-accent"></i> Home
@@ -92,13 +87,11 @@
                 </button>
             </nav>
 
-            <!-- Mobile Menu Hamburger -->
             <button onclick="toggleMobileNav()" class="md:hidden text-slate-200 p-2 rounded-lg hover:bg-slate-800 focus:outline-none">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
         </div>
 
-        <!-- Mobile Navigation Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-blue-black border-t border-slate-800 px-4 pt-2 pb-4 space-y-2">
             <button onclick="switchTab('home'); toggleMobileNav();" class="w-full text-left px-3 py-2.5 rounded-lg text-slate-200 hover:bg-sea-blue/20 flex items-center gap-2 font-medium">
                 <i class="fa-solid fa-house text-gold-accent"></i> Home Page
@@ -115,17 +108,13 @@
         </div>
     </header>
 
-    <!-- ================= MAIN CONTENT WRAPPER ================= -->
+    <!-- MAIN CONTENT WRAPPER -->
     <main class="flex-1">
 
-        <!-- ================= PAGE 1: HOME PAGE ================= -->
+        <!-- PAGE 1: HOME PAGE -->
         <section id="page-home" class="page-view space-y-12 pb-16">
-            
-            <!-- Hero Carousel Header -->
             <div class="relative bg-blue-black text-white overflow-hidden py-12 lg:py-16 border-b-4 border-gold-accent">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                    
-                    <!-- Left Hero Intro -->
                     <div class="lg:col-span-6 space-y-5 text-center lg:text-left">
                         <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sea-blue/30 text-gold-accent border border-sea-blue/50 text-xs font-bold uppercase tracking-wider">
                             <i class="fa-solid fa-award"></i> Premier Basic Education in Bono East
@@ -146,10 +135,8 @@
                         </div>
                     </div>
 
-                    <!-- Right Swipeable Photo Carousel -->
                     <div class="lg:col-span-6">
                         <div class="relative bg-slate-900 rounded-2xl border-2 border-sea-blue/40 shadow-2xl overflow-hidden group max-w-md mx-auto">
-                            <!-- Image Container -->
                             <div class="relative h-64 sm:h-80 w-full overflow-hidden">
                                 <img id="carousel-img" src="EH1.jpeg" alt="School Kids Uniform" class="w-full h-full object-contain bg-slate-950 transition-all duration-500 transform hover:scale-105">
                                 <div class="absolute inset-0 bg-gradient-to-t from-blue-black/90 via-transparent to-transparent"></div>
@@ -157,40 +144,27 @@
                                     Photo Caption
                                 </p>
                             </div>
-
-                            <!-- Swipe Controls -->
                             <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-blue-black/80 hover:bg-gold-accent hover:text-blue-black text-white flex items-center justify-center shadow transition border border-slate-700">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </button>
                             <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-blue-black/80 hover:bg-gold-accent hover:text-blue-black text-white flex items-center justify-center shadow transition border border-slate-700">
                                 <i class="fa-solid fa-chevron-right"></i>
                             </button>
-
-                            <!-- Indicators -->
-                            <div id="carousel-indicators" class="absolute top-3 right-3 flex space-x-1.5 bg-blue-black/80 px-2 py-1 rounded-full border border-slate-700">
-                                <!-- Dynamic dots -->
-                            </div>
+                            <div id="carousel-indicators" class="absolute top-3 right-3 flex space-x-1.5 bg-blue-black/80 px-2 py-1 rounded-full border border-slate-700"></div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
-            <!-- About Section & Values -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-                
-                <!-- About Grid -->
                 <div class="bg-white rounded-2xl shadow-lg border border-slate-200/80 p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                     <div class="lg:col-span-8 space-y-4">
                         <div class="flex items-center gap-3">
                             <span class="w-2 h-8 bg-gold-accent rounded-full"></span>
                             <h3 class="text-2xl sm:text-3xl font-extrabold text-blue-black">About Emican Heritage Academy</h3>
                         </div>
-                        <div id="display-about-text" class="text-slate-600 leading-relaxed text-sm sm:text-base space-y-3">
-                            <!-- Populated dynamically via JS -->
-                        </div>
+                        <div id="display-about-text" class="text-slate-600 leading-relaxed text-sm sm:text-base space-y-3"></div>
                     </div>
-                    
                     <div class="lg:col-span-4 bg-slate-900 text-white rounded-xl p-6 space-y-4 border border-sea-blue/30">
                         <h4 class="text-lg font-bold text-gold-accent border-b border-slate-800 pb-2 flex items-center gap-2">
                             <i class="fa-solid fa-address-book"></i> School Contact & Location
@@ -212,16 +186,13 @@
                     </div>
                 </div>
 
-                <!-- Core Values & Vision -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-gradient-to-br from-blue-black to-blue-black-light text-white p-8 rounded-2xl shadow-md border border-slate-800 relative overflow-hidden">
                         <div class="w-12 h-12 rounded-xl bg-sea-blue/30 text-gold-accent flex items-center justify-center text-2xl mb-4">
                             <i class="fa-solid fa-eye"></i>
                         </div>
                         <h4 class="text-2xl font-bold mb-3 text-white">Our Vision</h4>
-                        <p id="display-vision" class="text-slate-300 text-sm leading-relaxed">
-                            Loading Vision...
-                        </p>
+                        <p id="display-vision" class="text-slate-300 text-sm leading-relaxed">Loading Vision...</p>
                     </div>
 
                     <div class="bg-gradient-to-br from-blue-black to-blue-black-light text-white p-8 rounded-2xl shadow-md border border-slate-800 relative overflow-hidden">
@@ -229,13 +200,10 @@
                             <i class="fa-solid fa-star"></i>
                         </div>
                         <h4 class="text-2xl font-bold mb-3 text-white">Our Core Values</h4>
-                        <p id="display-values" class="text-slate-300 text-sm leading-relaxed">
-                            Loading Values...
-                        </p>
+                        <p id="display-values" class="text-slate-300 text-sm leading-relaxed">Loading Values...</p>
                     </div>
                 </div>
 
-                <!-- Admission & Inquiries Application Form -->
                 <div id="admission-form" class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10 max-w-4xl mx-auto space-y-6">
                     <div class="text-center space-y-2 border-b border-slate-200 pb-6">
                         <span class="px-3 py-1 rounded-full bg-sea-blue/10 text-sea-blue font-bold text-xs">ENROLLMENT OPEN</span>
@@ -303,7 +271,6 @@
                             </div>
                         </div>
 
-                        <!-- CAPTCHA -->
                         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-center justify-between max-w-sm">
                             <label class="flex items-center gap-3 cursor-pointer">
                                 <input type="checkbox" id="adm-captcha" required class="w-5 h-5 text-sea-blue rounded border-slate-300 focus:ring-sea-blue">
@@ -312,7 +279,6 @@
                             <i class="fa-solid fa-robot text-2xl text-slate-400"></i>
                         </div>
 
-                        <!-- Submit Button -->
                         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
                             <button type="submit" class="w-full sm:w-auto px-8 py-3.5 bg-sea-blue hover:bg-sea-blue-light text-white font-bold rounded-xl shadow-md transition flex items-center justify-center gap-2">
                                 <span>SEND APPLICATION</span> <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -323,14 +289,11 @@
                         </div>
                     </form>
                 </div>
-
             </div>
         </section>
 
-        <!-- ================= PAGE 2: PARENTS PORTAL ================= -->
+        <!-- PAGE 2: PARENTS PORTAL -->
         <section id="page-parent" class="page-view hidden py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            
-            <!-- Parent Login Box (When NOT logged in) -->
             <div id="parent-login-card" class="max-w-md mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-8 space-y-6">
                 <div class="text-center space-y-2">
                     <div class="w-16 h-16 rounded-2xl bg-sea-blue/10 text-sea-blue mx-auto flex items-center justify-center text-2xl">
@@ -359,9 +322,7 @@
                 </form>
             </div>
 
-            <!-- Parent Dashboard (When logged in) -->
             <div id="parent-dashboard" class="hidden space-y-8">
-                <!-- Top Info Bar -->
                 <div class="bg-blue-black text-white p-6 rounded-2xl shadow-lg border border-slate-800 flex flex-wrap items-center justify-between gap-4">
                     <div class="flex items-center gap-4">
                         <div class="w-14 h-14 rounded-2xl bg-gold-accent text-blue-black font-black flex items-center justify-center text-xl">
@@ -376,7 +337,6 @@
                             </p>
                         </div>
                     </div>
-                    
                     <div class="flex items-center gap-3">
                         <button onclick="openParentPasswordModal()" class="px-4 py-2 text-xs font-bold bg-slate-800 hover:bg-slate-700 text-gold-accent border border-gold-accent/40 rounded-lg transition">
                             <i class="fa-solid fa-key mr-1"></i> Change Password
@@ -388,8 +348,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    
-                    <!-- Left: Financial Ledger -->
                     <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-6">
                         <div class="flex items-center justify-between border-b border-slate-200 pb-4">
                             <h4 class="text-lg font-bold text-blue-black flex items-center gap-2">
@@ -424,36 +382,21 @@
                                 <span id="p-fee-balance" class="font-black text-base">GH₵ 0.00</span>
                             </div>
                         </div>
-
-                        <p class="text-xs text-slate-500 italic bg-slate-50 p-3 rounded-lg border border-slate-200">
-                            <strong>NOTE:</strong> No online payment mode is added. All fee amounts are manually recorded at the admin office.
-                        </p>
                     </div>
 
-                    <!-- Right: Results & Complaints -->
                     <div class="lg:col-span-7 space-y-6">
-                        
-                        <!-- Test Results PDF Download/Print Simulator -->
                         <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-4">
                             <h4 class="text-lg font-bold text-blue-black flex items-center gap-2 border-b border-slate-200 pb-3">
                                 <i class="fa-solid fa-file-pdf text-red-500"></i> Test & Exam Results
                             </h4>
-
-                            <div id="p-results-container">
-                                <!-- Results content populated by JS -->
-                            </div>
+                            <div id="p-results-container"></div>
                         </div>
 
-                        <!-- Teacher Complaints & Replies -->
                         <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-4">
                             <h4 class="text-lg font-bold text-blue-black flex items-center gap-2 border-b border-slate-200 pb-3">
                                 <i class="fa-solid fa-comments text-sea-blue"></i> Teacher Remarks & Parent Reply
                             </h4>
-
-                            <div id="p-complaints-list" class="space-y-4 max-h-80 overflow-y-auto pr-1">
-                                <!-- Dynamic comments and replies -->
-                            </div>
-
+                            <div id="p-complaints-list" class="space-y-4 max-h-80 overflow-y-auto pr-1"></div>
                             <form onsubmit="submitParentReply(event)" class="pt-4 border-t border-slate-200 space-y-2">
                                 <label class="block text-xs font-bold text-slate-700 uppercase">Send Reply / Query to Teacher</label>
                                 <textarea id="p-reply-input" required rows="2" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-sea-blue focus:outline-none" placeholder="Type your response or inquiry here..."></textarea>
@@ -462,18 +405,13 @@
                                 </button>
                             </form>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-
         </section>
 
-        <!-- ================= PAGE 3: TEACHERS PORTAL ================= -->
+        <!-- PAGE 3: TEACHERS PORTAL -->
         <section id="page-teacher" class="page-view hidden py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            
-            <!-- Teacher Login Card -->
             <div id="teacher-login-card" class="max-w-md mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-8 space-y-6">
                 <div class="text-center space-y-2">
                     <div class="w-16 h-16 rounded-2xl bg-gold-accent/20 text-gold-accent mx-auto flex items-center justify-center text-2xl">
@@ -502,9 +440,7 @@
                 </form>
             </div>
 
-            <!-- Teacher Dashboard -->
             <div id="teacher-dashboard" class="hidden space-y-8">
-                <!-- Top Teacher Header -->
                 <div class="bg-blue-black text-white p-6 rounded-2xl shadow-lg border border-slate-800 flex flex-wrap items-center justify-between gap-4">
                     <div>
                         <h3 class="text-xl font-bold text-white flex items-center gap-2">
@@ -519,7 +455,6 @@
                     </button>
                 </div>
 
-                <!-- Class & Student Selection -->
                 <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
                     <div class="md:col-span-5">
                         <label class="block text-xs font-bold text-slate-700 uppercase mb-1">1. Select Class</label>
@@ -555,13 +490,8 @@
                     </div>
                 </div>
 
-                <!-- Active Student Portal Editor -->
                 <div id="t-student-editor" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    
-                    <!-- Left: Post Remarks & Financials -->
                     <div class="lg:col-span-6 space-y-6">
-                        
-                        <!-- Fees Management Form -->
                         <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-4">
                             <h4 class="text-base font-bold text-blue-black border-b border-slate-200 pb-3 flex items-center justify-between">
                                 <span><i class="fa-solid fa-coins text-gold-accent"></i> Update Student Fees & Payments</span>
@@ -591,7 +521,6 @@
                             </form>
                         </div>
 
-                        <!-- Test Results PDF Uploader Simulator -->
                         <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-4">
                             <h4 class="text-base font-bold text-blue-black border-b border-slate-200 pb-3">
                                 <i class="fa-solid fa-file-arrow-up text-sea-blue"></i> Upload Exam / Test Results (PDF)
@@ -604,1283 +533,4 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-600 mb-1">PDF Document Link / URL</label>
-                                    <input type="text" id="t-result-url" required class="w-full px-3 py-2 border rounded-lg text-sm" placeholder="https://example.com/result.pdf or placeholder">
-                                </div>
-                                <button type="submit" class="w-full py-2.5 bg-sea-blue hover:bg-sea-blue-light text-white font-bold text-xs rounded-lg transition shadow">
-                                    Publish Results PDF
-                                </button>
-                            </form>
-                        </div>
-
-                    </div>
-
-                    <!-- Right: Complaints & Live Chat -->
-                    <div class="lg:col-span-6 bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-4">
-                        <h4 class="text-base font-bold text-blue-black border-b border-slate-200 pb-3">
-                            <i class="fa-solid fa-comment-dots text-sea-blue"></i> Post Complaints & Parent Queries
-                        </h4>
-
-                        <div id="t-complaints-thread" class="space-y-3 max-h-80 overflow-y-auto pr-1">
-                            <!-- Thread loaded here -->
-                        </div>
-
-                        <form onsubmit="teacherPostComment(event)" class="pt-3 border-t border-slate-200 space-y-2">
-                            <label class="block text-xs font-bold text-slate-700 uppercase">Post New Remark / Complaint</label>
-                            <textarea id="t-comment-input" required rows="2" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" placeholder="Describe child's performance or conduct..."></textarea>
-                            <button type="submit" class="px-5 py-2 bg-blue-black hover:bg-slate-800 text-white font-bold text-xs rounded-lg transition shadow">
-                                Submit Remark
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-
-        </section>
-
-        <!-- ================= PAGE 4: ADMIN / HEADTEACHER PORTAL ================= -->
-        <section id="page-admin" class="page-view hidden py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            
-            <!-- Admin Login Card -->
-            <div id="admin-login-card" class="max-w-md mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-8 space-y-6">
-                <div class="text-center space-y-2">
-                    <div class="w-16 h-16 rounded-2xl bg-blue-black text-gold-accent mx-auto flex items-center justify-center text-2xl border border-gold-accent/40">
-                        <i class="fa-solid fa-user-shield"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-blue-black">Headteacher Admin Control</h3>
-                    <p class="text-xs text-slate-500">Master portal to edit site content & monitor system.</p>
-                </div>
-
-                <div class="bg-amber-50 p-3 rounded-lg border border-amber-200 text-xs text-amber-800 space-y-1">
-                    <p><strong>Default Credentials:</strong></p>
-                    <p>Username: <code class="bg-amber-100 px-1 rounded font-bold">admin</code></p>
-                    <p>Password: <code class="bg-amber-100 px-1 rounded font-bold">admin123</code></p>
-                </div>
-
-                <form onsubmit="handleAdminLogin(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Username</label>
-                        <input type="text" id="admin-login-user" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-gold-accent text-sm" placeholder="admin">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Password</label>
-                        <input type="password" id="admin-login-pass" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-gold-accent text-sm" placeholder="••••••••">
-                    </div>
-                    <button type="submit" class="w-full py-3 bg-gold-accent hover:bg-gold-light text-blue-black font-extrabold rounded-xl shadow transition">
-                        ENTER MASTER PORTAL
-                    </button>
-                </form>
-            </div>
-
-            <!-- Admin Dashboard -->
-            <div id="admin-dashboard" class="hidden space-y-8">
-                
-                <!-- Admin Header Bar -->
-                <div class="bg-blue-black text-white p-6 rounded-2xl shadow-lg border border-slate-800 flex flex-wrap items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-gold-accent text-blue-black font-black flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-crown"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">Headteacher Master Control Panel</h3>
-                            <p class="text-xs text-gold-accent">Full Admin Privileges Active</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <button onclick="openAdminPasswordModal()" class="px-4 py-2 text-xs font-bold bg-slate-800 hover:bg-slate-700 text-gold-accent border border-gold-accent/40 rounded-lg transition">
-                            <i class="fa-solid fa-key mr-1"></i> Change Admin Password
-                        </button>
-                        <button onclick="logoutUser()" class="px-4 py-2 text-xs font-bold bg-red-600 hover:bg-red-700 text-white rounded-lg transition">
-                            <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Admin Tab Navigation -->
-                <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-3">
-                    <button onclick="switchAdminSubtab('content')" class="admin-tab-btn active px-4 py-2.5 rounded-lg text-xs font-bold bg-blue-black text-white shadow" id="atab-content">
-                        <i class="fa-solid fa-pen-to-square mr-1"></i> Home Content & Logo
-                    </button>
-                    <button onclick="switchAdminSubtab('admissions')" class="admin-tab-btn px-4 py-2.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border" id="atab-admissions">
-                        <i class="fa-solid fa-inbox mr-1"></i> Applications & Inquiries (<span id="adm-pending-count">0</span>)
-                    </button>
-                    <button onclick="switchAdminSubtab('reg-student')" class="admin-tab-btn px-4 py-2.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border" id="atab-reg-student">
-                        <i class="fa-solid fa-user-plus mr-1"></i> Register Student
-                    </button>
-                    <button onclick="switchAdminSubtab('reg-teacher')" class="admin-tab-btn px-4 py-2.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border" id="atab-reg-teacher">
-                        <i class="fa-solid fa-chalkboard-user mr-1"></i> Register Teacher
-                    </button>
-                    <button onclick="switchAdminSubtab('users')" class="admin-tab-btn px-4 py-2.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border" id="atab-users">
-                        <i class="fa-solid fa-users-gear mr-1"></i> Manage Accounts & Timings
-                    </button>
-                </div>
-
-                <!-- SUBTAB 1: CONTENT EDITOR -->
-                <div id="asub-content" class="admin-subview bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
-                    <h4 class="text-lg font-bold text-blue-black border-b border-slate-200 pb-3">
-                        Edit School Homepage Info, Photos & Logo
-                    </h4>
-
-                    <form onsubmit="saveSiteContent(event)" class="space-y-6">
-                        <!-- Logo Upload -->
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-2">School Logo Image URL / Upload</label>
-                            <div class="flex items-center gap-4">
-                                <input type="text" id="admin-edit-logo" class="flex-1 px-4 py-2 border rounded-lg text-sm" placeholder="URL for logo image">
-                                <button type="button" onclick="previewLogo()" class="px-4 py-2 bg-sea-blue text-white text-xs font-bold rounded-lg">Preview Logo</button>
-                            </div>
-                        </div>
-
-                        <!-- Overview -->
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">School Overview (Hero Banner text)</label>
-                            <textarea id="admin-edit-overview" rows="3" class="w-full px-4 py-2 border rounded-lg text-sm"></textarea>
-                        </div>
-
-                        <!-- About Text -->
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">About The School (Not less than 200 words)</label>
-                            <textarea id="admin-edit-about" rows="8" class="w-full px-4 py-2 border rounded-lg text-sm font-sans"></textarea>
-                            <p class="text-xs text-slate-400 mt-1">Word count monitor: <span id="about-word-count" class="font-bold text-sea-blue">0</span> words.</p>
-                        </div>
-
-                        <!-- Vision & Values -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">School Vision</label>
-                                <textarea id="admin-edit-vision" rows="3" class="w-full px-4 py-2 border rounded-lg text-sm"></textarea>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Core Values</label>
-                                <textarea id="admin-edit-values" rows="3" class="w-full px-4 py-2 border rounded-lg text-sm"></textarea>
-                            </div>
-                        </div>
-
-                        <!-- Photo Carousel Manager (5 photos) -->
-                        <div class="space-y-3">
-                            <h5 class="text-sm font-bold text-slate-800">Carousel Photos (5 Photos - Sea Blue & Blue-Black Uniforms)</h5>
-                            <div id="admin-photos-list" class="space-y-3">
-                                <!-- Photo inputs generated via JS -->
-                            </div>
-                        </div>
-
-                        <button type="submit" class="px-8 py-3 bg-sea-blue hover:bg-sea-blue-light text-white font-bold rounded-xl shadow transition">
-                            SAVE HOMEPAGE CHANGES
-                        </button>
-                    </form>
-                </div>
-
-                <!-- SUBTAB 2: ADMISSION APPLICATIONS MANAGER -->
-                <div id="asub-admissions" class="admin-subview hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-4">
-                    <h4 class="text-lg font-bold text-blue-black border-b border-slate-200 pb-3">
-                        Received Admissions & Inquiries
-                    </h4>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs sm:text-sm text-slate-600">
-                            <thead class="bg-slate-100 text-slate-700 uppercase text-[11px] font-bold">
-                                <tr>
-                                    <th class="p-3">Ref ID</th>
-                                    <th class="p-3">Parent & Phone</th>
-                                    <th class="p-3">Child Name / DOB</th>
-                                    <th class="p-3">Class & Term</th>
-                                    <th class="p-3">Status</th>
-                                    <th class="p-3">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="admin-applications-table-body" class="divide-y divide-slate-200">
-                                <!-- Populated dynamically -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- SUBTAB 3: REGISTER STUDENT -->
-                <div id="asub-reg-student" class="admin-subview hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
-                    <h4 class="text-lg font-bold text-blue-black border-b border-slate-200 pb-3">
-                        Register New Student & Create Parent Login
-                    </h4>
-
-                    <form onsubmit="registerNewStudent(event)" class="space-y-4 max-w-2xl">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Student Full Name *</label>
-                                <input type="text" id="reg-s-name" required class="w-full px-4 py-2 border rounded-lg text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Date Of Birth *</label>
-                                <input type="date" id="reg-s-dob" required class="w-full px-4 py-2 border rounded-lg text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Assigned Class *</label>
-                                <select id="reg-s-class" required class="w-full px-4 py-2 border rounded-lg text-sm bg-white">
-                                    <option value="Crèche 1">Crèche 1</option>
-                                    <option value="Crèche 2">Crèche 2</option>
-                                    <option value="KG 1">KG 1</option>
-                                    <option value="KG 2">KG 2</option>
-                                    <option value="Basic 1">Basic 1</option>
-                                    <option value="Basic 2">Basic 2</option>
-                                    <option value="Basic 3">Basic 3</option>
-                                    <option value="Basic 4">Basic 4</option>
-                                    <option value="Basic 5">Basic 5</option>
-                                    <option value="Basic 6">Basic 6</option>
-                                    <option value="J.H.S 1">J.H.S 1</option>
-                                    <option value="J.H.S 2">J.H.S 2</option>
-                                    <option value="J.H.S 3">J.H.S 3</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Parent Phone (Initial Password) *</label>
-                                <input type="tel" id="reg-s-phone" required class="w-full px-4 py-2 border rounded-lg text-sm" placeholder="0535694851">
-                            </div>
-                        </div>
-                        <button type="submit" class="px-6 py-2.5 bg-sea-blue hover:bg-sea-blue-light text-white font-bold text-xs rounded-lg shadow">
-                            REGISTER STUDENT & GENERATE ID
-                        </button>
-                    </form>
-                </div>
-
-                <!-- SUBTAB 4: REGISTER TEACHER -->
-                <div id="asub-reg-teacher" class="admin-subview hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
-                    <h4 class="text-lg font-bold text-blue-black border-b border-slate-200 pb-3">
-                        Register Staff Teacher
-                    </h4>
-
-                    <form onsubmit="registerNewTeacher(event)" class="space-y-4 max-w-2xl">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Teacher Full Name *</label>
-                                <input type="text" id="reg-t-name" required class="w-full px-4 py-2 border rounded-lg text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Staff Email Address *</label>
-                                <input type="email" id="reg-t-email" required class="w-full px-4 py-2 border rounded-lg text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Phone Number (Initial Password) *</label>
-                                <input type="tel" id="reg-t-phone" required class="w-full px-4 py-2 border rounded-lg text-sm">
-                            </div>
-                        </div>
-                        <button type="submit" class="px-6 py-2.5 bg-blue-black hover:bg-slate-800 text-white font-bold text-xs rounded-lg shadow">
-                            REGISTER TEACHER & AUTO-GENERATE STAFF ID
-                        </button>
-                    </form>
-                </div>
-
-                <!-- SUBTAB 5: SYSTEM MONITOR & USERS -->
-                <div id="asub-users" class="admin-subview hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
-                    <h4 class="text-lg font-bold text-blue-black border-b border-slate-200 pb-3">
-                        Live User Account Control & System Activity Timings
-                    </h4>
-
-                    <!-- Registered Students List -->
-                    <div class="space-y-3">
-                        <h5 class="text-sm font-bold text-slate-800">All Registered Students (Parent Logins)</h5>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs text-slate-600">
-                                <thead class="bg-slate-100 uppercase text-[10px] font-bold">
-                                    <tr>
-                                        <th class="p-2">Student ID</th>
-                                        <th class="p-2">Student Name</th>
-                                        <th class="p-2">Class</th>
-                                        <th class="p-2">Password</th>
-                                        <th class="p-2">Last Login Time</th>
-                                        <th class="p-2">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="admin-students-table" class="divide-y divide-slate-200">
-                                    <!-- Populated JS -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Registered Teachers List -->
-                    <div class="space-y-3 pt-4 border-t border-slate-200">
-                        <h5 class="text-sm font-bold text-slate-800">All Registered Teachers</h5>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs text-slate-600">
-                                <thead class="bg-slate-100 uppercase text-[10px] font-bold">
-                                    <tr>
-                                        <th class="p-2">Staff ID</th>
-                                        <th class="p-2">Name</th>
-                                        <th class="p-2">Email</th>
-                                        <th class="p-2">Password</th>
-                                        <th class="p-2">Last Login Time</th>
-                                        <th class="p-2">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="admin-teachers-table" class="divide-y divide-slate-200">
-                                    <!-- Populated JS -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Live System Log -->
-                    <div class="space-y-2 pt-4 border-t border-slate-200">
-                        <h5 class="text-xs font-bold text-slate-700 uppercase">System Timings & Activity Log</h5>
-                        <div id="admin-activity-logs" class="bg-slate-900 text-emerald-400 font-mono text-[11px] p-3 rounded-xl h-40 overflow-y-auto space-y-1">
-                            <!-- Logs -->
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <!-- ================= FOOTER ================= -->
-    <footer class="bg-blue-black text-slate-400 text-xs py-8 border-t border-slate-800 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
-            <div class="flex items-center justify-center gap-2 text-white font-bold">
-                <span>EMICAN HERITAGE ACADEMY</span>
-                <span class="text-gold-accent">•</span>
-                <span>BONO EAST REGION, GHANA</span>
-            </div>
-            <p>Email: emicangh@gmail.com | Tel: +233(0) 535 694851</p>
-            <p class="text-slate-500">&copy; <span id="year">2027</span> Emican Heritage Academy. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <!-- ================= MODALS ================= -->
-
-    <!-- Application Status Modal -->
-    <div id="modal-status" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="closeStatusModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <h3 class="text-lg font-bold text-blue-black flex items-center gap-2">
-                <i class="fa-solid fa-magnifying-glass text-sea-blue"></i> Application Status Check
-            </h3>
-            <p class="text-xs text-slate-500">Enter your Parent Phone Number or Reference Code to verify status.</p>
-            <div>
-                <input type="text" id="status-search-input" class="w-full px-4 py-2 border rounded-lg text-sm" placeholder="e.g. Phone Number or APP-101">
-            </div>
-            <button onclick="checkAppStatus()" class="w-full py-2.5 bg-sea-blue text-white font-bold rounded-lg text-xs">
-                CHECK STATUS
-            </button>
-            <div id="status-result" class="hidden p-3 rounded-lg text-xs space-y-1"></div>
-        </div>
-    </div>
-
-    <!-- Parent Password Change Modal -->
-    <div id="modal-parent-pass" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="closeParentPasswordModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <h3 class="text-lg font-bold text-blue-black">Change Parent Portal Password</h3>
-            <form onsubmit="handleParentChangePass(event)" class="space-y-3">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">New Password</label>
-                    <input type="password" id="p-new-pass" required class="w-full px-3 py-2 border rounded-lg text-sm">
-                </div>
-                <button type="submit" class="w-full py-2 bg-sea-blue text-white text-xs font-bold rounded-lg">Update Password</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Admin Password Change Modal -->
-    <div id="modal-admin-pass" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="closeAdminPasswordModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <h3 class="text-lg font-bold text-blue-black">Change Admin Password</h3>
-            <form onsubmit="handleAdminChangePass(event)" class="space-y-3">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">New Master Password</label>
-                    <input type="password" id="a-new-pass" required class="w-full px-3 py-2 border rounded-lg text-sm">
-                </div>
-                <button type="submit" class="w-full py-2 bg-gold-accent text-blue-black font-bold text-xs rounded-lg">Update Master Password</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Application Reply Modal (Admin) -->
-    <div id="modal-app-reply" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="closeAppReplyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <h3 class="text-lg font-bold text-blue-black">Update Application Status</h3>
-            <form onsubmit="saveApplicationReply(event)" class="space-y-3">
-                <input type="hidden" id="reply-app-id">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Status</label>
-                    <select id="reply-app-status" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
-                        <option value="Pending">Pending</option>
-                        <option value="Admitted">Admitted</option>
-                        <option value="Not Admitted">Not Admitted</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Reply Message / Feedback</label>
-                    <textarea id="reply-app-msg" rows="3" class="w-full px-3 py-2 border rounded-lg text-sm" placeholder="e.g. Please bring birth certificate to office on Monday."></textarea>
-                </div>
-                <button type="submit" class="w-full py-2 bg-sea-blue text-white font-bold text-xs rounded-lg">Save Status & Message</button>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- ================= JAVASCRIPT APPLICATION LOGIC ================= -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const SUPABASE_URL = 'https://nkuehfzkrmghixggyggs.supabase.co';
-const SUPABASE_ANON_KEY = 'Sb_publishable_SLqQ2AR3UmGywoSqKOWz5Q_eW_C8d2i';
-const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        // --- DATA DEFAULTS & LOCAL STORAGE INITIALIZATION ---
-        const DEFAULT_ABOUT = `Emican Heritage Academy is a premier educational institution located in Techiman, the vibrant Bono East Regional Capital of Ghana. Our academy is committed to providing world-class basic education ranging from Crèche and Kindergarten through Primary to Junior High School (J.H.S). We believe that every child possesses unique potential, and our holistic curriculum blends rigorous academic standards with character formation, moral discipline, and cultural heritage. Our dedicated staff members are trained to cultivate critical thinking, creativity, and leadership skills in our students within a safe, supportive, and technologically modern learning environment. At Emican Heritage Academy, we take immense pride in our vibrant school culture, symbolized by our smart Sea-Blue and Deep Blue-Black uniforms worn with pride by our students. We maintain transparent partnerships with parents to ensure that every student receives individual attention, guidance, and encouragement needed to achieve excellence in national examination standards and beyond.`;
-
-       const DEFAULT_PHOTOS = [
-    { url: "EH1.jpeg", caption: "Students line up during morning assembly in sea-blue uniform." },
-    { url: "EH2.jpeg", caption: "Interactive computer & science lesson in progress." },
-    { url: "EH3.jpeg", caption: "Cultural performance and sports day showcase." },
-    { url: "EH4.jpeg", caption: "Crèche and KG children enjoying interactive learning." },
-    { url: "EH5.jpeg", caption: "JHS graduating class celebrating academic excellence." }
-];
-
-// Global State Objects
-let siteData = JSON.parse(localStorage.getItem('EHA_SITE_DATA')) || {
-    logo: "Emilogo.jpeg",
-            overview: "Welcome to Emican Heritage Academy in Techiman, Bono East Region. Empowering future leaders through academic excellence, character building, and cultural integrity.",
-            about: DEFAULT_ABOUT,
-            vision: "To be the leading basic educational benchmark in the Bono East Region, nurturing well-rounded citizens equipped for global challenges.",
-            values: "Integrity, Discipline, Academic Excellence, Heritage Pride, and Innovation.",
-            address: "Techiman, Bono East Region, Ghana",
-            email: "emicangh@gmail.com",
-            phone: "+233(0) 535 694851",
-            photos: DEFAULT_PHOTOS
-        };
-
-        let adminPass = localStorage.getItem('EHA_ADMIN_PASS') || "admin123";
-
-        let students = JSON.parse(localStorage.getItem('EHA_STUDENTS')) || [
-            {
-                id: "EHA-2027-101",
-                name: "Kwaku Bonsu",
-                dob: "2018-04-12",
-                class: "Basic 2",
-                phone: "0535694851",
-                pass: "0535694851",
-                lastLogin: "Never",
-                fees: { tuition: 500, printing: 50, maint: 100, paid: 400 },
-                results: [{ title: "Term 1 Report Card", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" }],
-                complaints: [{ sender: "Teacher", text: "Kwaku is doing great in Mathematics but needs practice in English spelling.", time: "2027-02-10 09:30" }]
-            }
-        ];
-
-        let teachers = JSON.parse(localStorage.getItem('EHA_TEACHERS')) || [
-            {
-                id: "TCH-101",
-                name: "Mr. Ebenezer Osei",
-                email: "ebenezer@emicangh.com",
-                phone: "0244123456",
-                pass: "0244123456",
-                lastLogin: "Never"
-            }
-        ];
-
-        let applications = JSON.parse(localStorage.getItem('EHA_APPLICATIONS')) || [];
-        let systemLogs = JSON.parse(localStorage.getItem('EHA_LOGS')) || ["System initialized successfully."];
-
-        let currentUser = null; // { type: 'parent'|'teacher'|'admin', data: obj }
-        let currentCarouselIndex = 0;
-
-        // Save State Helper
-        function saveData() {
-            localStorage.setItem('EHA_SITE_DATA', JSON.stringify(siteData));
-            localStorage.setItem('EHA_STUDENTS', JSON.stringify(students));
-            localStorage.setItem('EHA_TEACHERS', JSON.stringify(teachers));
-            localStorage.setItem('EHA_APPLICATIONS', JSON.stringify(applications));
-            localStorage.setItem('EHA_LOGS', JSON.stringify(systemLogs));
-            localStorage.setItem('EHA_ADMIN_PASS', adminPass);
-        }
-
-        function addLog(msg) {
-            const timestamp = new Date().toLocaleString();
-            systemLogs.unshift(`[${timestamp}] ${msg}`);
-            if (systemLogs.length > 50) systemLogs.pop();
-            saveData();
-            renderLogs();
-        }
-
-        // --- NAVIGATION CONTROLLER ---
-        function switchTab(tabId) {
-            document.querySelectorAll('.page-view').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`page-${tabId}`).classList.remove('hidden');
-
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-sea-blue/30', 'text-white');
-            });
-            const activeBtn = document.getElementById(`nav-${tabId}`);
-            if (activeBtn && tabId !== 'admin') {
-                activeBtn.classList.add('bg-sea-blue/30', 'text-white');
-            }
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function toggleMobileNav() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        }
-
-        // --- HOMEPAGE RENDERING & CAROUSEL ---
-        function renderHomepage() {
-            document.getElementById('site-logo').src = siteData.logo;
-            document.getElementById('display-overview').textContent = siteData.overview;
-            
-            // Format About Paragraphs
-            const aboutEl = document.getElementById('display-about-text');
-            aboutEl.innerHTML = siteData.about.split('\n').map(p => `<p>${p}</p>`).join('');
-
-            document.getElementById('display-vision').textContent = siteData.vision;
-            document.getElementById('display-values').textContent = siteData.values;
-            document.getElementById('display-address').textContent = siteData.address;
-            document.getElementById('display-email').textContent = siteData.email;
-            document.getElementById('display-phone').textContent = siteData.phone;
-
-            updateCarousel();
-        }
-
-        function updateCarousel() {
-            if (!siteData.photos || siteData.photos.length === 0) return;
-            const photo = siteData.photos[currentCarouselIndex];
-            const imgEl = document.getElementById('carousel-img');
-            imgEl.src = photo.url;
-            document.getElementById('carousel-caption').textContent = photo.caption;
-
-            // Render Dots
-            const dotsContainer = document.getElementById('carousel-indicators');
-            dotsContainer.innerHTML = siteData.photos.map((_, idx) => `
-                <span onclick="setSlide(${idx})" class="w-2 h-2 rounded-full cursor-pointer transition ${idx === currentCarouselIndex ? 'bg-gold-accent w-4' : 'bg-slate-500'}"></span>
-            `).join('');
-        }
-
-        function prevSlide() {
-            currentCarouselIndex = (currentCarouselIndex - 1 + siteData.photos.length) % siteData.photos.length;
-            updateCarousel();
-        }
-
-        function nextSlide() {
-            currentCarouselIndex = (currentCarouselIndex + 1) % siteData.photos.length;
-            updateCarousel();
-        }
-
-        function setSlide(idx) {
-            currentCarouselIndex = idx;
-            updateCarousel();
-        }
-
-        // Auto slide carousel every 6s
-        setInterval(nextSlide, 6000);
-
-        // --- PUBLIC ADMISSION FORM & STATUS ---
-        function submitAdmissionForm(e) {
-            e.preventDefault();
-            const parentName = document.getElementById('adm-parent-name').value;
-            const phone = document.getElementById('adm-phone').value;
-            const childName = document.getElementById('adm-child-name').value;
-            const dob = document.getElementById('adm-child-dob').value;
-            const cls = document.getElementById('adm-class').value;
-            const term = document.getElementById('adm-term').value;
-            const year = document.getElementById('adm-year').value;
-
-            const appId = 'APP-' + Math.floor(1000 + Math.random() * 9000);
-
-            const newApp = {
-                id: appId,
-                parentName,
-                phone,
-                childName,
-                dob,
-                class: cls,
-                term: `${term} ${year}`,
-                status: 'Pending',
-                reply: 'Application received. Under review by headteacher.',
-                date: new Date().toLocaleDateString()
-            };
-
-            applications.unshift(newApp);
-            addLog(`New admission application submitted for ${childName} by ${parentName}.`);
-            saveData();
-
-            alert(`Application Submitted Successfully!\nYour Reference Code: ${appId}\nPlease keep your reference code or phone number to check status.`);
-            document.getElementById('public-admission-form').reset();
-            updateAdminDashboard();
-        }
-
-        function openStatusModal() {
-            document.getElementById('modal-status').classList.remove('hidden');
-        }
-
-        function closeStatusModal() {
-            document.getElementById('modal-status').classList.add('hidden');
-        }
-
-        function checkAppStatus() {
-            const query = document.getElementById('status-search-input').value.trim();
-            const resEl = document.getElementById('status-result');
-            if (!query) return;
-
-            const app = applications.find(a => a.id.toLowerCase() === query.toLowerCase() || a.phone === query);
-            resEl.classList.remove('hidden', 'bg-emerald-100', 'bg-amber-100', 'bg-red-100');
-
-            if (app) {
-                let badgeClass = 'bg-amber-100 text-amber-800';
-                if (app.status === 'Admitted') badgeClass = 'bg-emerald-100 text-emerald-800';
-                if (app.status === 'Not Admitted') badgeClass = 'bg-red-100 text-red-800';
-
-                resEl.className = `p-3 rounded-lg text-xs space-y-1 ${badgeClass}`;
-                resEl.innerHTML = `
-                    <p><strong>Applicant:</strong> ${app.childName} (${app.class})</p>
-                    <p><strong>Status:</strong> <span class="uppercase font-bold">${app.status}</span></p>
-                    <p><strong>Admin Remark:</strong> ${app.reply}</p>
-                `;
-            } else {
-                resEl.className = 'p-3 rounded-lg text-xs bg-red-100 text-red-800';
-                resEl.textContent = 'No application found with this phone number or reference code.';
-            }
-        }
-
-        // --- PARENT PORTAL LOGIC ---
-       async function handleParentLogin(e) {
-    e.preventDefault();
-    const id = document.getElementById('parent-login-id').value.trim();
-    const dob = document.getElementById('parent-login-dob').value;
-    const pass = document.getElementById('parent-login-pass').value.trim();
-
-    // Query Supabase for matching student credentials
-    const { data: studentsList, error } = await _supabase
-        .from('students')
-        .select('*')
-        .ilike('id', id)
-        .eq('dob', dob)
-        .eq('pass', pass);
-
-    if (error || !studentsList || studentsList.length === 0) {
-        alert('Invalid Student ID, Date of Birth, or Password.');
-        return;
-    }
-
-    const student = studentsList[0];
-    currentUser = { type: 'parent', data: student };
-    
-    const lastLoginTime = new Date().toLocaleString();
-
-    // Update last_login in Supabase
-    await _supabase
-        .from('students')
-        .update({ last_login: lastLoginTime })
-        .eq('id', student.id);
-
-    student.last_login = lastLoginTime;
-
-    if (typeof addLog === 'function') {
-        addLog(`Parent logged in for student ${student.name} (${student.id})`);
-    }
-
-    document.getElementById('parent-login-card').classList.add('hidden');
-    document.getElementById('parent-dashboard').classList.remove('hidden');
-    if (typeof renderParentDashboard === 'function') renderParentDashboard();
-}
-
-        function renderParentDashboard() {
-            const s = currentUser.data;
-            document.getElementById('p-dash-student-name').textContent = s.name;
-            document.getElementById('p-dash-student-id').textContent = s.id;
-            document.getElementById('p-dash-class').textContent = s.class;
-            document.getElementById('p-dash-dob').textContent = s.dob;
-            document.getElementById('p-dash-avatar').textContent = s.name.charAt(0);
-
-            // Ledger
-            document.getElementById('p-fee-tuition').textContent = `GH₵ ${(s.fees.tuition || 0).toFixed(2)}`;
-            document.getElementById('p-fee-printing').textContent = `GH₵ ${(s.fees.printing || 0).toFixed(2)}`;
-            document.getElementById('p-fee-maint').textContent = `GH₵ ${(s.fees.maint || 0).toFixed(2)}`;
-            const total = (s.fees.tuition || 0) + (s.fees.printing || 0) + (s.fees.maint || 0);
-            document.getElementById('p-fee-total').textContent = `GH₵ ${total.toFixed(2)}`;
-            document.getElementById('p-fee-paid').textContent = `GH₵ ${(s.fees.paid || 0).toFixed(2)}`;
-            const balance = total - (s.fees.paid || 0);
-            document.getElementById('p-fee-balance').textContent = `GH₵ ${balance.toFixed(2)}`;
-
-            // Results
-            const resCont = document.getElementById('p-results-container');
-            if (s.results && s.results.length > 0) {
-                resCont.innerHTML = s.results.map(r => `
-                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-file-pdf text-red-500 text-xl"></i>
-                            <span class="font-semibold text-sm text-slate-800">${r.title}</span>
-                        </div>
-                        <a href="${r.url}" target="_blank" class="px-3 py-1.5 bg-sea-blue text-white text-xs font-bold rounded-lg hover:bg-sea-blue-light transition flex items-center gap-1">
-                            <i class="fa-solid fa-print"></i> View / Print
-                        </a>
-                    </div>
-                `).join('');
-            } else {
-                resCont.innerHTML = `<p class="text-xs text-slate-400 italic">No academic results uploaded yet by teacher.</p>`;
-            }
-
-            // Complaints Thread
-            renderParentComplaints();
-        }
-
-        function renderParentComplaints() {
-            const s = currentUser.data;
-            const cList = document.getElementById('p-complaints-list');
-            if (s.complaints && s.complaints.length > 0) {
-                cList.innerHTML = s.complaints.map(c => `
-                    <div class="p-3 rounded-xl ${c.sender === 'Parent' ? 'bg-sea-blue/10 border border-sea-blue/30 ml-4' : 'bg-slate-100 border border-slate-200 mr-4'} space-y-1">
-                        <div class="flex items-center justify-between text-[11px]">
-                            <strong class="${c.sender === 'Parent' ? 'text-sea-blue' : 'text-blue-black'}">${c.sender}</strong>
-                            <span class="text-slate-400">${c.time}</span>
-                        </div>
-                        <p class="text-xs text-slate-700">${c.text}</p>
-                    </div>
-                `).join('');
-            } else {
-                cList.innerHTML = `<p class="text-xs text-slate-400 italic">No comments or queries recorded.</p>`;
-            }
-        }
-
-        function submitParentReply(e) {
-            e.preventDefault();
-            const input = document.getElementById('p-reply-input');
-            const text = input.value.trim();
-            if (!text) return;
-
-            const s = currentUser.data;
-            if (!s.complaints) s.complaints = [];
-            s.complaints.push({
-                sender: "Parent",
-                text: text,
-                time: new Date().toLocaleString()
-            });
-
-            addLog(`Parent sent reply for student ${s.name}`);
-            saveData();
-            input.value = '';
-            renderParentComplaints();
-        }
-
-        function openParentPasswordModal() {
-            document.getElementById('modal-parent-pass').classList.remove('hidden');
-        }
-
-        function closeParentPasswordModal() {
-            document.getElementById('modal-parent-pass').classList.add('hidden');
-        }
-
-        function handleParentChangePass(e) {
-            e.preventDefault();
-            const newPass = document.getElementById('p-new-pass').value.trim();
-            if (newPass) {
-                currentUser.data.pass = newPass;
-                addLog(`Parent changed password for student ${currentUser.data.id}`);
-                saveData();
-                alert('Password updated successfully!');
-                closeParentPasswordModal();
-            }
-        }
-
-        // --- TEACHERS PORTAL LOGIC ---
-        async function handleTeacherLogin(e) {
-    e.preventDefault();
-    const email = document.getElementById('teacher-login-email').value.trim();
-    const id = document.getElementById('teacher-login-id').value.trim();
-    const pass = document.getElementById('teacher-login-pass').value.trim();
-
-    // Query Supabase for matching teacher credentials
-    const { data: teachersList, error } = await _supabase
-        .from('teachers')
-        .select('*')
-        .ilike('email', email)
-        .ilike('id', id)
-        .eq('pass', pass);
-
-    if (error || !teachersList || teachersList.length === 0) {
-        alert('Invalid Staff Credentials.');
-        return;
-    }
-
-    const teacher = teachersList[0];
-    currentUser = { type: 'teacher', data: teacher };
-    
-    const lastLoginTime = new Date().toLocaleString();
-
-    // Update last_login in Supabase
-    await _supabase
-        .from('teachers')
-        .update({ last_login: lastLoginTime })
-        .eq('id', teacher.id);
-
-    teacher.last_login = lastLoginTime;
-
-    if (typeof addLog === 'function') {
-        addLog(`Teacher logged in: ${teacher.name} (${teacher.id})`);
-    }
-
-    document.getElementById('teacher-login-card').classList.add('hidden');
-    document.getElementById('teacher-dashboard').classList.remove('hidden');
-    document.getElementById('t-dash-name').textContent = teacher.name;
-    document.getElementById('t-dash-id').textContent = teacher.id;
-    document.getElementById('t-dash-email').textContent = teacher.email;
-    
-    if (typeof renderTeacherDashboard === 'function') renderTeacherDashboard();
-}
-
-        function updateStudentSelectDropdown() {
-            const cls = document.getElementById('t-select-class').value;
-            const selectEl = document.getElementById('t-select-student');
-            selectEl.innerHTML = '<option value="">-- Select Student --</option>';
-
-            if (!cls) return;
-
-            const classStudents = students.filter(s => s.class === cls);
-            classStudents.forEach(s => {
-                selectEl.innerHTML += `<option value="${s.id}">${s.id} - ${s.name}</option>`;
-            });
-        }
-
-        let activeTeacherStudent = null;
-
-        function loadStudentDataInTeacherPortal() {
-            const studentId = document.getElementById('t-select-student').value;
-            if (!studentId) {
-                alert('Please select a student.');
-                return;
-            }
-
-            activeTeacherStudent = students.find(s => s.id === studentId);
-            if (!activeTeacherStudent) return;
-
-            document.getElementById('t-student-editor').classList.remove('hidden');
-            document.getElementById('t-active-student-id').textContent = `${activeTeacherStudent.name} (${activeTeacherStudent.id})`;
-
-            // Populate Fees
-            document.getElementById('t-edit-tuition').value = activeTeacherStudent.fees.tuition || 0;
-            document.getElementById('t-edit-printing').value = activeTeacherStudent.fees.printing || 0;
-            document.getElementById('t-edit-maint').value = activeTeacherStudent.fees.maint || 0;
-            document.getElementById('t-edit-paid').value = activeTeacherStudent.fees.paid || 0;
-
-            renderTeacherThread();
-        }
-
-        function saveStudentFees(e) {
-            e.preventDefault();
-            if (!activeTeacherStudent) return;
-
-            activeTeacherStudent.fees.tuition = parseFloat(document.getElementById('t-edit-tuition').value) || 0;
-            activeTeacherStudent.fees.printing = parseFloat(document.getElementById('t-edit-printing').value) || 0;
-            activeTeacherStudent.fees.maint = parseFloat(document.getElementById('t-edit-maint').value) || 0;
-            activeTeacherStudent.fees.paid = parseFloat(document.getElementById('t-edit-paid').value) || 0;
-
-            addLog(`Teacher updated fee ledger for student ${activeTeacherStudent.id}`);
-            saveData();
-            alert('Student financial ledger updated!');
-        }
-
-        function saveStudentResult(e) {
-            e.preventDefault();
-            if (!activeTeacherStudent) return;
-
-            const title = document.getElementById('t-result-title').value;
-            const url = document.getElementById('t-result-url').value;
-
-            if (!activeTeacherStudent.results) activeTeacherStudent.results = [];
-            activeTeacherStudent.results.unshift({ title, url });
-
-            addLog(`Teacher uploaded result PDF for ${activeTeacherStudent.id}`);
-            saveData();
-            alert('Result PDF published successfully!');
-            document.getElementById('t-result-title').value = '';
-            document.getElementById('t-result-url').value = '';
-        }
-
-        function renderTeacherThread() {
-            const threadEl = document.getElementById('t-complaints-thread');
-            if (activeTeacherStudent.complaints && activeTeacherStudent.complaints.length > 0) {
-                threadEl.innerHTML = activeTeacherStudent.complaints.map(c => `
-                    <div class="p-3 rounded-xl ${c.sender === 'Teacher' ? 'bg-slate-100 border border-slate-200' : 'bg-sea-blue/10 border border-sea-blue/30 ml-4'} space-y-1">
-                        <div class="flex items-center justify-between text-[11px]">
-                            <strong class="${c.sender === 'Teacher' ? 'text-blue-black' : 'text-sea-blue'}">${c.sender}</strong>
-                            <span class="text-slate-400">${c.time}</span>
-                        </div>
-                        <p class="text-xs text-slate-700">${c.text}</p>
-                    </div>
-                `).join('');
-            } else {
-                threadEl.innerHTML = `<p class="text-xs text-slate-400 italic">No messages recorded.</p>`;
-            }
-        }
-
-        function teacherPostComment(e) {
-            e.preventDefault();
-            const text = document.getElementById('t-comment-input').value.trim();
-            if (!text || !activeTeacherStudent) return;
-
-            if (!activeTeacherStudent.complaints) activeTeacherStudent.complaints = [];
-            activeTeacherStudent.complaints.push({
-                sender: "Teacher",
-                text: text,
-                time: new Date().toLocaleString()
-            });
-
-            addLog(`Teacher posted remark for student ${activeTeacherStudent.id}`);
-            saveData();
-            document.getElementById('t-comment-input').value = '';
-            renderTeacherThread();
-        }
-
-        // --- ADMIN / HEADTEACHER PORTAL ---
-        function handleAdminLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('admin-login-user').value.trim();
-            const p = document.getElementById('admin-login-pass').value.trim();
-
-            if (u === 'admin' && p === adminPass) {
-                currentUser = { type: 'admin' };
-                addLog('Headteacher Admin logged in');
-                document.getElementById('admin-login-card').classList.add('hidden');
-                document.getElementById('admin-dashboard').classList.remove('hidden');
-                updateAdminDashboard();
-            } else {
-                alert('Invalid Master Admin Credentials.');
-            }
-        }
-
-        function switchAdminSubtab(subId) {
-            document.querySelectorAll('.admin-subview').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`asub-${subId}`).classList.remove('hidden');
-
-            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-black', 'text-white', 'shadow');
-                btn.classList.add('bg-white', 'text-slate-700');
-            });
-
-            const activeBtn = document.getElementById(`atab-${subId}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-white', 'text-slate-700');
-                activeBtn.classList.add('bg-blue-black', 'text-white', 'shadow');
-            }
-        }
-
-    async function updateAdminDashboard() {
-    try {
-        if (typeof _supabase !== 'undefined') {
-            const { data: sData } = await _supabase.from('students').select('*');
-            const { data: tData } = await _supabase.from('teachers').select('*');
-            if (sData) students = sData;
-            if (tData) teachers = tData;
-        }
-    } catch (err) {
-        console.error('Supabase fetch error:', err);
-    }
-
-    if (typeof siteData !== 'undefined') {
-        const logoEl = document.getElementById('admin-edit-logo');
-        const overviewEl = document.getElementById('admin-edit-overview');
-        const aboutEl = document.getElementById('admin-edit-about');
-        const visionEl = document.getElementById('admin-edit-vision');
-        const valuesEl = document.getElementById('admin-edit-values');
-
-        if (logoEl) logoEl.value = siteData.logo || '';
-        if (overviewEl) overviewEl.value = siteData.overview || '';
-        if (aboutEl) aboutEl.value = siteData.about || '';
-        if (visionEl) visionEl.value = siteData.vision || '';
-        if (valuesEl) valuesEl.value = siteData.values || '';
-
-        if (siteData.about) {
-            const words = siteData.about.trim().split(/\s+/).length;
-            const wordCountEl = document.getElementById('about-word-count');
-            if (wordCountEl) wordCountEl.textContent = words;
-        }
-
-        const photosContainer = document.getElementById('admin-photos-list');
-        if (photosContainer && siteData.photos) {
-            photosContainer.innerHTML = siteData.photos.map(function(p, idx) {
-                return '<div class="grid grid-cols-1 sm:grid-cols-12 gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200 items-center">' +
-                    '<span class="sm:col-span-1 font-bold text-slate-500 self-center">#' + (idx + 1) + '</span>' +
-                    '<input type="text" id="photo-url-' + idx + '" value="' + (p.url || '') + '" class="sm:col-span-6 px-3 py-1.5 border rounded-lg text-sm">' +
-                    '<input type="text" id="photo-cap-' + idx + '" value="' + (p.caption || '') + '" class="sm:col-span-5 px-3 py-1.5 border rounded-lg text-sm">' +
-                    '</div>';
-            }).join('');
-        }
-    }
-} 
-
-    // Photos Form Generator
-    const photosContainer = document.getElementById('admin-photos-list');
-    if (photosContainer && typeof siteData !== 'undefined' && siteData.photos) {
-        photosContainer.innerHTML = siteData.photos.map((p, idx) => `
-            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200 items-center">
-                <span class="sm:col-span-1 font-bold text-slate-500 self-center">#${idx + 1}</span>
-                <input type="text" id="photo-url-${idx}" value="${p.url}" class="sm:col-span-6 px-3 py-1.5 border rounded-lg text-sm">
-                <input type="text" id="photo-cap-${idx}" value="${p.caption}" class="sm:col-span-5 px-3 py-1.5 border rounded-lg text-sm">
-            </div>
-        `).join('');
-    }
-}
-
-            // Subtab 2 Applications Table
-            const pendingCount = applications.filter(a => a.status === 'Pending').length;
-            document.getElementById('adm-pending-count').textContent = pendingCount;
-
-            const appTable = document.getElementById('admin-applications-table-body');
-            appTable.innerHTML = applications.map(a => `
-                <tr>
-                    <td class="p-3 font-bold text-blue-black">${a.id}</td>
-                    <td class="p-3"><strong>${a.parentName}</strong><br><span class="text-slate-400">${a.phone}</span></td>
-                    <td class="p-3"><strong>${a.childName}</strong><br><span class="text-slate-400">DOB: ${a.dob}</span></td>
-                    <td class="p-3">${a.class}<br><span class="text-slate-400">${a.term}</span></td>
-                    <td class="p-3">
-                        <span class="px-2 py-0.5 rounded font-bold text-[10px] uppercase ${a.status === 'Admitted' ? 'bg-emerald-100 text-emerald-800' : a.status === 'Not Admitted' ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800'}">${a.status}</span>
-                    </td>
-                    <td class="p-3">
-                        <button onclick="openAppReplyModal('${a.id}')" class="px-2 py-1 bg-sea-blue text-white rounded text-xs font-bold">Manage</button>
-                    </td>
-                </tr>
-            `).join('');
-
-            // Subtab 5 Students Table
-            const sTable = document.getElementById('admin-students-table');
-            sTable.innerHTML = students.map(s => `
-                <tr>
-                    <td class="p-2 font-bold text-blue-black">${s.id}</td>
-                    <td class="p-2">${s.name}</td>
-                    <td class="p-2">${s.class}</td>
-                    <td class="p-2 font-mono font-bold text-sea-blue">${s.pass}</td>
-                    <td class="p-2 text-slate-400">${s.lastLogin || 'Never'}</td>
-                    <td class="p-2">
-                        <button onclick="deleteStudent('${s.id}')" class="text-red-600 hover:underline text-xs"><i class="fa-solid fa-trash"></i> Delete</button>
-                    </td>
-                </tr>
-            `).join('');
-
-            // Subtab 5 Teachers Table
-            const tTable = document.getElementById('admin-teachers-table');
-            tTable.innerHTML = teachers.map(t => `
-                <tr>
-                    <td class="p-2 font-bold text-blue-black">${t.id}</td>
-                    <td class="p-2">${t.name}</td>
-                    <td class="p-2">${t.email}</td>
-                    <td class="p-2 font-mono font-bold text-sea-blue">${t.pass}</td>
-                    <td class="p-2 text-slate-400">${t.lastLogin || 'Never'}</td>
-                    <td class="p-2">
-                        <button onclick="deleteTeacher('${t.id}')" class="text-red-600 hover:underline text-xs"><i class="fa-solid fa-trash"></i> Delete</button>
-                    </td>
-                </tr>
-            `).join('');
-
-            renderLogs();
-        }
-
-        function saveSiteContent(e) {
-            e.preventDefault();
-            siteData.logo = document.getElementById('admin-edit-logo').value.trim();
-            siteData.overview = document.getElementById('admin-edit-overview').value.trim();
-            siteData.about = document.getElementById('admin-edit-about').value.trim();
-            siteData.vision = document.getElementById('admin-edit-vision').value.trim();
-            siteData.values = document.getElementById('admin-edit-values').value.trim();
-
-            // Save photos
-            siteData.photos = siteData.photos.map((_, idx) => {
-                return {
-                    url: document.getElementById(`photo-url-${idx}`).value.trim(),
-                    caption: document.getElementById(`photo-cap-${idx}`).value.trim()
-                };
-            });
-
-            addLog('Admin updated homepage information & photos.');
-            saveData();
-            renderHomepage();
-            alert('Homepage content updated successfully!');
-        }
-
-        function previewLogo() {
-            const logoUrl = document.getElementById('admin-edit-logo').value.trim();
-            if (logoUrl) {
-                document.getElementById('site-logo').src = logoUrl;
-            }
-        }
-
-        function openAppReplyModal(appId) {
-            const app = applications.find(a => a.id === appId);
-            if (!app) return;
-
-            document.getElementById('reply-app-id').value = app.id;
-            document.getElementById('reply-app-status').value = app.status;
-            document.getElementById('reply-app-msg').value = app.reply || '';
-            document.getElementById('modal-app-reply').classList.remove('hidden');
-        }
-
-        function closeAppReplyModal() {
-            document.getElementById('modal-app-reply').classList.add('hidden');
-        }
-
-        function saveApplicationReply(e) {
-            e.preventDefault();
-            const id = document.getElementById('reply-app-id').value;
-            const app = applications.find(a => a.id === id);
-            if (app) {
-                app.status = document.getElementById('reply-app-status').value;
-                app.reply = document.getElementById('reply-app-msg').value.trim();
-                addLog(`Admin updated status for application ${id} to ${app.status}`);
-                saveData();
-                updateAdminDashboard();
-                closeAppReplyModal();
-            }
-        }
-
-       async function registerNewStudent(e) {
-    e.preventDefault();
-    const name = document.getElementById('reg-s-name').value.trim();
-    const dob = document.getElementById('reg-s-dob').value;
-    const cls = document.getElementById('reg-s-class').value;
-    const phone = document.getElementById('reg-s-phone').value.trim();
-
-    const studentId = 'EHA-' + new Date().getFullYear() + '-' + Math.floor(100 + Math.random() * 900);
-
-    const newStudent = {
-        id: studentId,
-        name: name,
-        dob: dob,
-        class_name: cls,
-        phone: phone,
-        pass: phone,
-        last_login: 'Never',
-        fees: { tuition: 0, printing: 0, maint: 0, paid: 0 },
-        results: [],
-        complaints: []
-    };
-
-    const { data, error } = await _supabase.from('students').insert([newStudent]);
-
-    if (error) {
-        alert('Error saving to cloud database: ' + error.message);
-        return;
-    }
-
-    addLog(`Admin registered new student ${name} (${studentId})`);
-    alert(`Student Registered!\nStudent ID: ${studentId}\nInitial Password: ${phone}`);
-    
-    document.getElementById('reg-s-name').value = '';
-    document.getElementById('reg-s-dob').value = '';
-    document.getElementById('reg-s-phone').value = '';
-    
-    if (typeof closeRegisterStudentModal === 'function') closeRegisterStudentModal();
-    if (typeof updateAdminDashboard === 'function') updateAdminDashboard();
-}
-          
-
-        function deleteStudent(sId) {
-            if (confirm(`Are you sure you want to delete student ${sId}?`)) {
-                students = students.filter(s => s.id !== sId);
-                addLog(`Admin deleted student account ${sId}`);
-                saveData();
-                updateAdminDashboard();
-            }
-        }
-
-        async function registerNewTeacher(e) {
-    e.preventDefault();
-    const name = document.getElementById('reg-t-name').value.trim();
-    const email = document.getElementById('reg-t-email').value.trim();
-    const phone = document.getElementById('reg-t-phone').value.trim();
-
-    const teacherId = 'TCH-' + Math.floor(100 + Math.random() * 900);
-
-    const newTeacher = {
-        id: teacherId,
-        name: name,
-        email: email,
-        phone: phone,
-        pass: phone,
-        last_login: 'Never'
-    };
-
-    const { data, error } = await _supabase.from('teachers').insert([newTeacher]);
-
-    if (error) {
-        alert('Error saving teacher to cloud database: ' + error.message);
-        return;
-    }
-
-    addLog(`Admin registered new teacher ${name} (${teacherId})`);
-    alert(`Teacher Registered Successfully!\n\nStaff ID: ${teacherId}\nPassword: ${phone}`);
-    
-    document.getElementById('reg-t-name').value = '';
-    document.getElementById('reg-t-email').value = '';
-    document.getElementById('reg-t-phone').value = '';
-
-    if (typeof closeRegisterTeacherModal === 'function') closeRegisterTeacherModal();
-    if (typeof updateAdminDashboard === 'function') updateAdminDashboard();
-}
-
-        function deleteTeacher(tId) {
-            if (confirm(`Delete teacher account ${tId}?`)) {
-                teachers = teachers.filter(t => t.id !== tId);
-                addLog(`Admin deleted teacher account ${tId}`);
-                saveData();
-                updateAdminDashboard();
-            }
-        }
-
-        function openAdminPasswordModal() {
-            document.getElementById('modal-admin-pass').classList.remove('hidden');
-        }
-
-        function closeAdminPasswordModal() {
-            document.getElementById('modal-admin-pass').classList.add('hidden');
-        }
-
-        function handleAdminChangePass(e) {
-            e.preventDefault();
-            const newP = document.getElementById('a-new-pass').value.trim();
-            if (newP) {
-                adminPass = newP;
-                addLog('Master Admin password updated.');
-                saveData();
-                alert('Master Admin Password Updated!');
-                closeAdminPasswordModal();
-            }
-        }
-
-        function renderLogs() {
-            const logsEl = document.getElementById('admin-activity-logs');
-            if (logsEl) {
-                logsEl.innerHTML = systemLogs.map(l => `<div>> ${l}</div>`).join('');
-            }
-        }
-
-        function logoutUser() {
-            currentUser = null;
-            document.getElementById('parent-dashboard').classList.add('hidden');
-            document.getElementById('parent-login-card').classList.remove('hidden');
-            document.getElementById('teacher-dashboard').classList.add('hidden');
-            document.getElementById('teacher-login-card').classList.remove('hidden');
-            document.getElementById('admin-dashboard').classList.add('hidden');
-            document.getElementById('admin-login-card').classList.remove('hidden');
-            switchTab('home');
-        }
-
-        // --- INITIALIZATION ON LOAD ---
-        window.onload = function() {
-            renderHomepage();
-            document.getElementById('year').textContent = new Date().getFullYear();
-            
-            // Monitor word count live
-            document.getElementById('admin-edit-about').addEventListener('input', function(e) {
-                const words = e.target.value.trim().split(/\s+/).filter(w => w.length > 0).length;
-                document.getElementById('about-word-count').textContent = words;
-            });
-        };
-    </script>
-</body>
-</html>
+                                    <input type="
