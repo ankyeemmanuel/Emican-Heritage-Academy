@@ -1390,29 +1390,50 @@ let siteData = JSON.parse(localStorage.getItem('EHA_SITE_DATA')) || {
         }
 
         // --- TEACHERS PORTAL LOGIC ---
-        function handleTeacherLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('teacher-login-email').value.trim();
-            const id = document.getElementById('teacher-login-id').value.trim();
-            const pass = document.getElementById('teacher-login-pass').value.trim();
+        async function handleTeacherLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('teacher-login-email').value.trim();
+    const id = document.getElementById('teacher-login-id').value.trim();
+    const pass = document.getElementById('teacher-login-pass').value.trim();
 
-            const teacher = teachers.find(t => t.email.toLowerCase() === email.toLowerCase() && t.id.toLowerCase() === id.toLowerCase() && t.pass === pass);
+    // Query Supabase for matching teacher credentials
+    const { data: teachersList, error } = await _supabase
+        .from('teachers')
+        .select('*')
+        .ilike('email', email)
+        .ilike('id', id)
+        .eq('pass', pass);
 
-            if (teacher) {
-                currentUser = { type: 'teacher', data: teacher };
-                teacher.lastLogin = new Date().toLocaleString();
-                addLog(`Teacher logged in: ${teacher.name} (${teacher.id})`);
-                saveData();
+    if (error || !teachersList || teachersList.length === 0) {
+        alert('Invalid Staff Credentials.');
+        return;
+    }
 
-                document.getElementById('teacher-login-card').classList.add('hidden');
-                document.getElementById('teacher-dashboard').classList.remove('hidden');
-                document.getElementById('t-dash-name').textContent = teacher.name;
-                document.getElementById('t-dash-id').textContent = teacher.id;
-                document.getElementById('t-dash-email').textContent = teacher.email;
-            } else {
-                alert('Invalid Staff Credentials.');
-            }
-        }
+    const teacher = teachersList[0];
+    currentUser = { type: 'teacher', data: teacher };
+    
+    const lastLoginTime = new Date().toLocaleString();
+
+    // Update last_login in Supabase
+    await _supabase
+        .from('teachers')
+        .update({ last_login: lastLoginTime })
+        .eq('id', teacher.id);
+
+    teacher.last_login = lastLoginTime;
+
+    if (typeof addLog === 'function') {
+        addLog(`Teacher logged in: ${teacher.name} (${teacher.id})`);
+    }
+
+    document.getElementById('teacher-login-card').classList.add('hidden');
+    document.getElementById('teacher-dashboard').classList.remove('hidden');
+    document.getElementById('t-dash-name').textContent = teacher.name;
+    document.getElementById('t-dash-id').textContent = teacher.id;
+    document.getElementById('t-dash-email').textContent = teacher.email;
+    
+    if (typeof renderTeacherDashboard === 'function') renderTeacherDashboard();
+}
 
         function updateStudentSelectDropdown() {
             const cls = document.getElementById('t-select-class').value;
