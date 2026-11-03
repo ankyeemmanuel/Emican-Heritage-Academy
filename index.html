@@ -1713,33 +1713,40 @@ let siteData = JSON.parse(localStorage.getItem('EHA_SITE_DATA')) || {
             }
         }
 
-        function registerNewTeacher(e) {
-            e.preventDefault();
-            const name = document.getElementById('reg-t-name').value.trim();
-            const email = document.getElementById('reg-t-email').value.trim();
-            const phone = document.getElementById('reg-t-phone').value.trim();
+        async function registerNewTeacher(e) {
+    e.preventDefault();
+    const name = document.getElementById('reg-t-name').value.trim();
+    const email = document.getElementById('reg-t-email').value.trim();
+    const phone = document.getElementById('reg-t-phone').value.trim();
 
-            const teacherId = 'TCH-' + Math.floor(100 + Math.random() * 900);
+    const teacherId = 'TCH-' + Math.floor(100 + Math.random() * 900);
 
-            const newTeacher = {
-                id: teacherId,
-                name,
-                email,
-                phone,
-                pass: phone,
-                lastLogin: "Never"
-            };
+    const newTeacher = {
+        id: teacherId,
+        name: name,
+        email: email,
+        phone: phone,
+        pass: phone,
+        last_login: 'Never'
+    };
 
-            teachers.push(newTeacher);
-            addLog(`Admin registered teacher ${name} (${teacherId})`);
-            saveData();
-            updateAdminDashboard();
-            alert(`Teacher Registered!\nStaff ID: ${teacherId}\nInitial Password: ${phone}`);
+    const { data, error } = await _supabase.from('teachers').insert([newTeacher]);
 
-            document.getElementById('reg-t-name').value = '';
-            document.getElementById('reg-t-email').value = '';
-            document.getElementById('reg-t-phone').value = '';
-        }
+    if (error) {
+        alert('Error saving teacher to cloud database: ' + error.message);
+        return;
+    }
+
+    addLog(`Admin registered new teacher ${name} (${teacherId})`);
+    alert(`Teacher Registered Successfully!\n\nStaff ID: ${teacherId}\nPassword: ${phone}`);
+    
+    document.getElementById('reg-t-name').value = '';
+    document.getElementById('reg-t-email').value = '';
+    document.getElementById('reg-t-phone').value = '';
+
+    if (typeof closeRegisterTeacherModal === 'function') closeRegisterTeacherModal();
+    if (typeof updateAdminDashboard === 'function') updateAdminDashboard();
+}
 
         function deleteTeacher(tId) {
             if (confirm(`Delete teacher account ${tId}?`)) {
