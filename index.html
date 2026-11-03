@@ -1162,13 +1162,17 @@ if (!siteData.photos || siteData.photos.length < 8) {
             const dob = document.getElementById('parent-login-dob').value;
             const pass = document.getElementById('parent-login-pass').value.trim();
 
-            await fetchCloudData();
-            const student = students.find(s => s.id.toLowerCase() === id.toLowerCase() && s.dob === dob && s.pass === pass);
+           // Use pre-fetched local data for instant response
+    const student = students.find(s => 
+        s.id && String(s.id).toLowerCase() === String(id).toLowerCase() && 
+        s.dob === dob && 
+        String(s.pass) === String(pass)
+    );
 
-            if (!student) {
-                alert('Invalid Student ID, Date of Birth, or Password.');
-                return;
-            }
+    if (!student) {
+        alert('Invalid Student ID, Date of Birth, or Password.');
+        return;
+    }
 
             currentUser = { type: 'parent', data: student };
             const lastLoginTime = new Date().toLocaleString();
@@ -1295,13 +1299,17 @@ if (!siteData.photos || siteData.photos.length < 8) {
             const id = document.getElementById('teacher-login-id').value.trim();
             const pass = document.getElementById('teacher-login-pass').value.trim();
 
-            await fetchCloudData();
-            const teacher = teachers.find(t => t.email.toLowerCase() === email.toLowerCase() && t.id.toLowerCase() === id.toLowerCase() && t.pass === pass);
+           // Use pre-fetched local data for instant response
+    const teacher = teachers.find(t => 
+        t.email && t.email.toLowerCase() === email.toLowerCase() && 
+        String(t.id).toLowerCase() === String(id).toLowerCase() && 
+        String(t.pass) === String(pass)
+    );
 
-            if (!teacher) {
-                alert('Invalid Staff Credentials.');
-                return;
-            }
+    if (!teacher) {
+        alert('Invalid Staff Credentials.');
+        return;
+    }
 
             currentUser = { type: 'teacher', data: teacher };
             const lastLoginTime = new Date().toLocaleString();
