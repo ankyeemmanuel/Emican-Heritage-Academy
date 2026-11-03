@@ -795,10 +795,15 @@
                         </div>
                     </div>
 
-                    <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl shadow-md font-mono text-xs space-y-2">
-                        <h4 class="text-gold-accent font-bold text-sm"><i class="fa-solid fa-terminal"></i> Real-Time System Activity Logs</h4>
-                        <div id="admin-activity-logs" class="space-y-1 max-h-40 overflow-y-auto"></div>
-                    </div>
+                    <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl shadow-md border border-slate-200 space-y-4">
+    <div class="flex items-center justify-between">
+        <h4 class="text-gold-accent font-bold text-sm"><i class="fa-solid fa-terminal mr-2"></i>Real-Time System Activity Logs</h4>
+        <button type="button" onclick="clearSystemLogs()" class="px-2.5 py-1 text-xs bg-red-500/20 text-red-300 border border-red-500/30 rounded-lg hover:bg-red-500/30 font-semibold cursor-pointer">
+            Clear Logs
+        </button>
+    </div>
+    <div id="admin-activity-logs" class="space-y-1 max-h-40 overflow-y-auto"></div>
+</div>
                 </div>
             </div>
         </section>
@@ -1720,6 +1725,12 @@ if (!siteData.photos || siteData.photos.length < 8) {
                 });
             }
         };
+        function clearSystemLogs() {
+  const logContainer = document.getElementById('admin-activity-logs');
+  if (logContainer) {
+    logContainer.innerHTML = '<p class="text-slate-400 italic text-xs p-2">No activity logs recorded.</p>';
+  }
+}
     </script>
 </body>
 </html>
