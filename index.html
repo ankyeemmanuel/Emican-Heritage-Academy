@@ -1688,9 +1688,20 @@ if (!siteData.photos || siteData.photos.length < 8) {
             };
 
             teachers.push(newTeacher);
-            if (_supabase) {
-                try {
-                    await _supabase.from('teachers').insert([newTeacher]);
+           if (_supabase) {
+        try {
+            const { data, error } = await _supabase.from('teachers').insert([newTeacher]);
+            if (error) {
+                console.error("Supabase Teacher Insert Error:", error);
+                alert("Cloud Save Error: " + error.message);
+            } else {
+                console.log("Teacher successfully saved to Supabase:", data);
+            }
+        } catch (err) {
+            console.warn("Catch Error:", err);
+            alert("Network/Code Error: " + err.message);
+        }
+    }
                 } catch (err) { console.warn(err); }
             }
             saveDataLocally();
