@@ -1571,27 +1571,42 @@ let siteData = JSON.parse(localStorage.getItem('EHA_SITE_DATA')) || {
             }
         }
 
-        function updateAdminDashboard() {
-            // Subtab 1 Data
-            document.getElementById('admin-edit-logo').value = siteData.logo;
-            document.getElementById('admin-edit-overview').value = siteData.overview;
-            document.getElementById('admin-edit-about').value = siteData.about;
-            document.getElementById('admin-edit-vision').value = siteData.vision;
-            document.getElementById('admin-edit-values').value = siteData.values;
+        async function updateAdminDashboard() {
+    // Fetch live data from Supabase tables
+    const { data: studentsData, error: sError } = await _supabase.from('students').select('*');
+    const { data: teachersData, error: tError } = await _supabase.from('teachers').select('*');
 
-            // Word Count
-            const words = siteData.about.trim().split(/\s+/).length;
-            document.getElementById('about-word-count').textContent = words;
+    if (!sError && studentsData) students = studentsData;
+    if (!tError && teachersData) teachers = teachersData;
 
-            // Photos Form Generator
-            const photosContainer = document.getElementById('admin-photos-list');
-            photosContainer.innerHTML = siteData.photos.map((p, idx) => `
-                <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs">
-                    <span class="sm:col-span-1 font-bold text-slate-500 self-center">#${idx + 1}</span>
-                    <input type="text" id="photo-url-${idx}" value="${p.url}" class="sm:col-span-6 px-3 py-1.5 border rounded" placeholder="Image URL">
-                    <input type="text" id="photo-cap-${idx}" value="${p.caption}" class="sm:col-span-5 px-3 py-1.5 border rounded" placeholder="Caption">
-                </div>
-            `).join('');
+    // Subtab 1 Data (Site Editor)
+    if (typeof siteData !== 'undefined') {
+        document.getElementById('admin-edit-logo').value = siteData.logo || '';
+        document.getElementById('admin-edit-overview').value = siteData.overview || '';
+        document.getElementById('admin-edit-about').value = siteData.about || '';
+        document.getElementById('admin-edit-vision').value = siteData.vision || '';
+        document.getElementById('admin-edit-values').value = siteData.values || '';
+    }
+
+    // Word Count
+    if (typeof siteData !== 'undefined' && siteData.about) {
+        const words = siteData.about.trim().split(/\s+/).length;
+        const wordCountEl = document.getElementById('about-word-count');
+        if (wordCountEl) wordCountEl.textContent = words;
+    }
+
+    // Photos Form Generator
+    const photosContainer = document.getElementById('admin-photos-list');
+    if (photosContainer && typeof siteData !== 'undefined' && siteData.photos) {
+        photosContainer.innerHTML = siteData.photos.map((p, idx) => `
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200 items-center">
+                <span class="sm:col-span-1 font-bold text-slate-500 self-center">#${idx + 1}</span>
+                <input type="text" id="photo-url-${idx}" value="${p.url}" class="sm:col-span-6 px-3 py-1.5 border rounded-lg text-sm">
+                <input type="text" id="photo-cap-${idx}" value="${p.caption}" class="sm:col-span-5 px-3 py-1.5 border rounded-lg text-sm">
+            </div>
+        `).join('');
+    }
+}
 
             // Subtab 2 Applications Table
             const pendingCount = applications.filter(a => a.status === 'Pending').length;
