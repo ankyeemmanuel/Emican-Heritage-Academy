@@ -1030,7 +1030,11 @@
 
 
     <!-- ================= JAVASCRIPT APPLICATION LOGIC ================= -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        const SUPABASE_URL = 'https://nkuehfzkrmghixggyggs.supabase.co';
+const SUPABASE_ANON_KEY = 'Sb_publishable_SLqQ2AR3UmGywoSqKOWz5Q_eW_C8d2i';
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         // --- DATA DEFAULTS & LOCAL STORAGE INITIALIZATION ---
         const DEFAULT_ABOUT = `Emican Heritage Academy is a premier educational institution located in Techiman, the vibrant Bono East Regional Capital of Ghana. Our academy is committed to providing world-class basic education ranging from Crèche and Kindergarten through Primary to Junior High School (J.H.S). We believe that every child possesses unique potential, and our holistic curriculum blends rigorous academic standards with character formation, moral discipline, and cultural heritage. Our dedicated staff members are trained to cultivate critical thinking, creativity, and leadership skills in our students within a safe, supportive, and technologically modern learning environment. At Emican Heritage Academy, we take immense pride in our vibrant school culture, symbolized by our smart Sea-Blue and Deep Blue-Black uniforms worn with pride by our students. We maintain transparent partnerships with parents to ensure that every student receives individual attention, guidance, and encouragement needed to achieve excellence in national examination standards and beyond.`;
 
