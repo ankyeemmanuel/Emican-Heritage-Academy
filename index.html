@@ -1688,7 +1688,8 @@ if (!siteData.photos || siteData.photos.length < 8) {
             };
 
             teachers.push(newTeacher);
-           if (_supabase) {
+
+    if (_supabase) {
         try {
             const { data, error } = await _supabase.from('teachers').insert([newTeacher]);
             if (error) {
@@ -1702,9 +1703,8 @@ if (!siteData.photos || siteData.photos.length < 8) {
             alert("Network/Code Error: " + err.message);
         }
     }
-                } catch (err) { console.warn(err); }
-            }
-            saveDataLocally();
+
+    saveDataLocally();
 
             addLog(`Admin registered new teacher ${name} (${teacherId})`);
             alert(`Teacher Registered Successfully!\nStaff ID: ${teacherId}\nPassword: ${phone}`);
