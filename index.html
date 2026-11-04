@@ -23,6 +23,7 @@
         body {
             background-color: var(--light-bg);
             color: #333;
+            line-height: 1.6;
         }
 
         /* Top Bar with Ghana Flag Accent */
@@ -34,11 +35,12 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 4px solid var(--gold);
+            font-size: 0.9rem;
         }
 
         .ghana-flag {
             display: inline-block;
-            width: 30px;
+            width: 28px;
             height: 18px;
             background: linear-gradient(to bottom, #CE1126 33.3%, #FCD116 33.3%, #FCD116 66.6%, #006B3F 66.6%);
             vertical-align: middle;
@@ -46,7 +48,7 @@
             border: 1px solid #fff;
         }
 
-        /* Header & Navigation */
+        /* Header & Logo */
         header {
             background-color: var(--sea-blue);
             padding: 15px 20px;
@@ -56,17 +58,44 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .school-logo {
+            width: 55px;
+            height: 55px;
+            background-color: var(--white);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: var(--deep-blue-black);
+            text-align: center;
+        }
+
         header h1 {
             color: var(--white);
-            font-size: 22px;
+            font-size: 1.5rem;
+        }
+
+        header p {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: bold;
         }
 
         nav button {
             background: transparent;
             border: none;
             color: var(--white);
-            padding: 10px 15px;
-            font-size: 15px;
+            padding: 10px 14px;
+            font-size: 0.95rem;
             font-weight: bold;
             cursor: pointer;
             transition: background 0.3s;
@@ -78,11 +107,11 @@
             border-radius: 4px;
         }
 
-        /* Container Sections */
+        /* Main Container */
         .container {
             max-width: 1100px;
             margin: 20px auto;
-            padding: 20px;
+            padding: 25px;
             background: var(--white);
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -102,6 +131,11 @@
             margin-bottom: 15px;
             border-bottom: 2px solid var(--sea-blue);
             padding-bottom: 5px;
+        }
+
+        h3 {
+            color: var(--sea-blue);
+            margin: 20px 0 10px 0;
         }
 
         .form-group {
@@ -140,7 +174,7 @@
             color: var(--deep-blue-black);
         }
 
-        /* Login Boxes */
+        /* Login Box */
         .login-card {
             max-width: 400px;
             margin: 40px auto;
@@ -156,6 +190,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
+            font-size: 0.9rem;
         }
 
         table, th, td {
@@ -172,18 +207,27 @@
             color: var(--white);
         }
 
-        /* Photo Gallery Slider Placeholder */
+        /* Slider Placeholder */
         .gallery-container {
             width: 100%;
-            height: 300px;
-            background-color: #e0e0e0;
+            height: 280px;
+            background-color: #e2e8f0;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #666;
+            color: #475569;
             margin-bottom: 20px;
             border-radius: 6px;
-            font-size: 18px;
+            font-size: 1.1rem;
+            border: 2px dashed var(--sea-blue);
+        }
+
+        .about-box {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--sea-blue);
+            padding: 15px 20px;
+            margin-top: 15px;
+            border-radius: 0 4px 4px 0;
         }
     </style>
 </head>
@@ -195,12 +239,18 @@
             <span class="ghana-flag"></span>
             <strong>EMICAN HERITAGE ACADEMY</strong> — Techiman, Bono East Region, Ghana
         </div>
-        <div>Contact: +233 (0) 535 694 851 | emicangh@gmail.com</div>
+        <div>Contact: +233 (0) 535 694 851 | Email: emicangh@gmail.com</div>
     </div>
 
     <!-- Header Navigation -->
     <header>
-        <h1>Emican Heritage Academy</h1>
+        <div class="header-brand">
+            <div class="school-logo">EHA LOGO</div>
+            <div>
+                <h1>Emican Heritage Academy</h1>
+                <p>ASCEND - EXPLORE - GROW</p>
+            </div>
+        </div>
         <nav>
             <button class="nav-btn active" onclick="switchTab('home')">Home</button>
             <button class="nav-btn" onclick="switchTab('parents')">Parents Portal</button>
@@ -216,73 +266,87 @@
         <div id="home" class="tab-content active">
             <h2>Welcome to Emican Heritage Academy</h2>
             <div class="gallery-container" id="photo-slider">
-                [ Photos of Students in Sea Blue & Blue-Black Uniforms (Swipable Slider) ]
+                📷 [ Photos of School Students in Sea Blue & Blue-Black Uniforms - Swipable Banner ]
             </div>
 
-            <h3>Overview</h3>
-            <p id="home-overview">Providing quality basic education from Crèche to JHS 3 under GES standards. Ascend, Explore, Grow.</p>
+            <!-- Detailed About Section (>200 words) -->
+            <h3>About Emican Heritage Academy</h3>
+            <div class="about-box">
+                <p>
+                    Welcome to <strong>Emican Heritage Academy</strong>, a premier educational institution situated in Techiman, the vibrant regional capital of the Bono East Region, Ghana. Established with a commitment to academic excellence, discipline, and moral integrity, our school provides a supportive learning environment designed to empower children from early childhood through early adolescence. Our comprehensive educational programs span from <strong>Crèche and Kindergarten (KG 1 & 2)</strong> to <strong>Basic 1 through 6</strong>, culminating in <strong>Junior High School (J.H.S 1, 2, and 3)</strong>.
+                </p>
+                <br>
+                <p>
+                    At Emican Heritage Academy, we operate under the national curriculum standards set by the Ghana Education Service (GES), incorporating modern STEM concepts, arts, and character development. Guided by our foundational motto — <em>ASCEND, EXPLORE, GROW</em> — our dedicated teaching staff strives to inspire critical thinking, creative exploration, and high ethical values in every pupil. We believe that true education nurtures both intellect and character, equipping students with the confidence and skills necessary to excel academically and contribute meaningfully to Ghanaian society and the global community.
+                </p>
+                <br>
+                <p>
+                    Our campus offers structured classrooms, dedicated learning spaces, and collaborative programs that engage students and parents alike. Through our integrated digital portal system, we foster seamless communication between administrators, teachers, and parents to monitor student progress, report card assessments, and school activities in real time.
+                </p>
+            </div>
 
-            <h3 style="margin-top: 20px;">Admissions & Inquiries Form</h3>
-            <form id="inquiry-form" onsubmit="event.preventDefault(); alert('Application Submitted Successfully!');">
-                <div class="form-group">
-                    <label>Parent Full Name:</label>
-                    <input type="text" required>
+            <h3 style="margin-top: 25px;">Admissions & Inquiries Form</h3>
+            <form id="inquiry-form" onsubmit="event.preventDefault(); alert('Inquiry Submitted to Admin!');">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label>Parent Full Name:</label>
+                        <input type="text" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number:</label>
+                        <input type="tel" required placeholder="e.g. 0535694851">
+                    </div>
+                    <div class="form-group">
+                        <label>Child's Full Name:</label>
+                        <input type="text" required placeholder="Enter child's name">
+                    </div>
+                    <div class="form-group">
+                        <label>Child's Date of Birth:</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Class Applying For:</label>
+                        <select required>
+                            <option value="">-- Select Class --</option>
+                            <option>Crèche 1</option><option>Crèche 2</option>
+                            <option>KG 1</option><option>KG 2</option>
+                            <option>Basic 1</option><option>Basic 2</option><option>Basic 3</option>
+                            <option>Basic 4</option><option>Basic 5</option><option>Basic 6</option>
+                            <option>J.H.S 1</option><option>J.H.S 2</option><option>J.H.S 3</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Starting Term & Year:</label>
+                        <select required>
+                            <option>1st Term - 2027</option>
+                            <option>2nd Term - 2027</option>
+                            <option>3rd Term - 2027</option>
+                            <option>1st Term - 2028</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Phone Number:</label>
-                    <input type="tel" required>
-                </div>
-                <div class="form-group">
-                    <label>Child's Full Name:</label>
-                    <input type="text" required>
-                </div>
-                <div class="form-group">
-                    <label>Child's Date of Birth:</label>
-                    <input type="date" required>
-                </div>
-                <div class="form-group">
-                    <label>Class Applying For:</label>
-                    <select required>
-                        <option>Crèche 1</option><option>Crèche 2</option>
-                        <option>KG 1</option><option>KG 2</option>
-                        <option>Basic 1</option><option>Basic 2</option><option>Basic 3</option>
-                        <option>Basic 4</option><option>Basic 5</option><option>Basic 6</option>
-                        <option>J.H.S 1</option><option>J.H.S 2</option><option>J.H.S 3</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Starting Term:</label>
-                    <select required>
-                        <option>1st Term</option><option>2nd Term</option><option>3rd Term</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Year:</label>
-                    <select required>
-                        <option>2027</option><option>2028</option><option>2029</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn">Send Application</button>
+                <button type="submit" class="btn">Submit Application</button>
             </form>
         </div>
 
         <!-- PARENTS PORTAL -->
         <div id="parents" class="tab-content">
             <div id="parent-login-box" class="login-card">
-                <h2>Parent Portal Login</h2>
+                <h2>Parents Portal Login</h2>
                 <div class="form-group">
-                    <label>Student ID:</label>
-                    <input type="text" id="parent-user-id">
+                    <label>Student ID Number:</label>
+                    <input type="text" id="parent-user-id" placeholder="Enter Student ID (e.g. STU-1001)">
                 </div>
                 <div class="form-group">
-                    <label>Password (One-time or Changed):</label>
-                    <input type="password" id="parent-user-pass">
+                    <label>Password (Phone Number or Custom Password):</label>
+                    <input type="password" id="parent-user-pass" placeholder="Enter password">
                 </div>
-                <button class="btn" onclick="loginUser('student')">Login</button>
+                <button class="btn" onclick="loginUser('student')">Login to Portal</button>
             </div>
             <div id="parent-dashboard" style="display:none;">
                 <h2>Parent Dashboard</h2>
-                <p>Welcome to your child's portal. Here you can view fees, reports, and complaints.</p>
+                <p>Welcome! View child exam results, school fees balance, and communications from class teachers.</p>
+                <br>
                 <button class="btn btn-gold" onclick="logout('parents')">Logout</button>
             </div>
         </div>
@@ -290,20 +354,21 @@
         <!-- TEACHERS PORTAL -->
         <div id="teachers" class="tab-content">
             <div id="teacher-login-box" class="login-card">
-                <h2>Teacher Portal Login</h2>
+                <h2>Teachers Portal Login</h2>
                 <div class="form-group">
-                    <label>Email Address / Staff ID:</label>
-                    <input type="text" id="teacher-user-id">
+                    <label>Staff ID or Registered Email:</label>
+                    <input type="text" id="teacher-user-id" placeholder="Enter Staff ID or Email">
                 </div>
                 <div class="form-group">
                     <label>Password:</label>
-                    <input type="password" id="teacher-user-pass">
+                    <input type="password" id="teacher-user-pass" placeholder="Enter password">
                 </div>
-                <button class="btn" onclick="loginUser('teacher')">Login</button>
+                <button class="btn" onclick="loginUser('teacher')">Login to Teacher Portal</button>
             </div>
             <div id="teacher-dashboard" style="display:none;">
-                <h2>Teacher Dashboard</h2>
-                <p>Upload student results, post student fee updates, and communicate with parents.</p>
+                <h2>Teacher Workspace</h2>
+                <p>Welcome, Teacher. Select class, input student marks, upload PDF exam reports, and update fees.</p>
+                <br>
                 <button class="btn btn-gold" onclick="logout('teachers')">Logout</button>
             </div>
         </div>
@@ -313,7 +378,7 @@
             <div id="admin-login-box" class="login-card">
                 <h2>Admin System Login</h2>
                 <div class="form-group">
-                    <label>Admin Username:</label>
+                    <label>Username:</label>
                     <input type="text" id="admin-id" value="admin">
                 </div>
                 <div class="form-group">
@@ -324,49 +389,57 @@
             </div>
 
             <div id="admin-dashboard" style="display:none;">
-                <h2>Master Admin Control Panel</h2>
+                <h2>Master Admin Dashboard</h2>
                 <button class="btn btn-gold" style="float: right;" onclick="logout('admin')">Logout</button>
                 
-                <h3>Create & Register Users (Generate One-Time Passwords)</h3>
+                <h3>Register Staff & Students (Create One-Time Passwords)</h3>
                 <form id="create-user-form" onsubmit="event.preventDefault(); registerUser();">
-                    <div class="form-group">
-                        <label>User Type:</label>
-                        <select id="reg-type">
-                            <option value="student">Student / Parent</option>
-                            <option value="teacher">Teacher</option>
-                        </select>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label>User Role:</label>
+                            <select id="reg-type">
+                                <option value="student">Student / Parent</option>
+                                <option value="teacher">Teacher</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name:</label>
+                            <input type="text" id="reg-name" required placeholder="Full Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address:</label>
+                            <input type="email" id="reg-email" required placeholder="e.g. user@emicanheritage.edu.gh">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number:</label>
+                            <input type="tel" id="reg-phone" required placeholder="e.g. 0535694851">
+                        </div>
+                        <div class="form-group">
+                            <label>Assigned ID (Staff ID or Student ID):</label>
+                            <input type="text" id="reg-id" placeholder="e.g. TCH-101 or STU-1001" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Initial One-Time Password:</label>
+                            <input type="text" id="reg-otp" placeholder="Create manual initial password" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Full Name:</label>
-                        <input type="text" id="reg-name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address / Phone Number:</label>
-                        <input type="text" id="reg-contact" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Assign Student ID / Staff ID:</label>
-                        <input type="text" id="reg-id" placeholder="e.g., STU-101 or TCH-201" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Create One-Time Initial Password:</label>
-                        <input type="text" id="reg-otp" placeholder="Set manual password" required>
-                    </div>
-                    <button type="submit" class="btn">Register & Save Credentials</button>
+                    <button type="submit" class="btn">Save & Register User Credentials</button>
                 </form>
 
-                <h3 style="margin-top: 30px;">Master Credentials & Registered Users List</h3>
+                <h3 style="margin-top: 30px;">Master User Registry (Full Accounts Inspector)</h3>
                 <table>
                     <thead>
                         <tr>
-                            <th>User Type</th>
-                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Full Name</th>
+                            <th>Email Address</th>
+                            <th>Phone</th>
                             <th>Assigned ID</th>
-                            <th>Active / One-Time Password</th>
+                            <th>Active Password</th>
                         </tr>
                     </thead>
                     <tbody id="user-table-body">
-                        <!-- Populated dynamically via Script -->
+                        <!-- Dynamic Population -->
                     </tbody>
                 </table>
             </div>
@@ -375,7 +448,7 @@
     </div>
 
     <script>
-        // Tab Switcher Function
+        // Navigation Tab Switcher
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -383,40 +456,45 @@
             event.target.classList.add('active');
         }
 
-        // Mock Database for Users created by Admin
+        // Shared User Registry Store (Admin + Teachers + Students)
         let userRegistry = [
-            { type: 'student', name: 'Sample Student', id: 'STU-1001', pass: 'STU-1001' },
-            { type: 'teacher', name: 'Sample Teacher', id: 'TCH-101', pass: 'TCH-101' }
+            { type: 'student', name: 'Kwaku Mensah', email: 'parent1@gmail.com', phone: '0240000001', id: 'STU-1001', pass: 'STU-1001' },
+            { type: 'teacher', name: 'Grace Addo', email: 'grace.teacher@emican.edu.gh', phone: '0550000002', id: 'TCH-101', pass: 'TCH-101' }
         ];
 
+        // Render User Registry Table for Admin
         function renderUsers() {
             const tbody = document.getElementById('user-table-body');
             tbody.innerHTML = '';
             userRegistry.forEach(user => {
                 const row = `<tr>
-                    <td>${user.type.toUpperCase()}</td>
+                    <td><strong>${user.type.toUpperCase()}</strong></td>
                     <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.phone}</td>
                     <td>${user.id}</td>
-                    <td><strong>${user.pass}</strong></td>
+                    <td><span style="color: green; font-weight: bold;">${user.pass}</span></td>
                 </tr>`;
                 tbody.innerHTML += row;
             });
         }
 
-        // Admin Registration Function
+        // Register User (Admin Action)
         function registerUser() {
             const type = document.getElementById('reg-type').value;
-            const name = document.getElementById('reg-name').value;
-            const id = document.getElementById('reg-id').value;
-            const pass = document.getElementById('reg-otp').value;
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const id = document.getElementById('reg-id').value.trim();
+            const pass = document.getElementById('reg-otp').value.trim();
 
-            userRegistry.push({ type, name, id, pass });
-            alert(`User ${name} registered successfully with One-Time Password: ${pass}`);
+            userRegistry.push({ type, name, email, phone, id, pass });
+            alert(`Success! Created ${type.toUpperCase()} account for ${name}.\nEmail: ${email}\nID: ${id}\nPassword: ${pass}`);
             renderUsers();
             document.getElementById('create-user-form').reset();
         }
 
-        // Login Logic
+        // Admin Authentication
         function loginAdmin() {
             const pass = document.getElementById('admin-pass').value;
             if (pass === 'admin123') {
@@ -424,23 +502,31 @@
                 document.getElementById('admin-dashboard').style.display = 'block';
                 renderUsers();
             } else {
-                alert('Invalid Admin Passcode');
+                alert('Invalid Admin Passcode! Use default: admin123');
             }
         }
 
+        // Teacher & Student Login Authentication
         function loginUser(type) {
-            const inputId = document.getElementById(type === 'student' ? 'parent-user-id' : 'teacher-user-id').value;
-            const inputPass = document.getElementById(type === 'student' ? 'parent-user-pass' : 'teacher-user-pass').value;
+            const inputIdOrEmail = document.getElementById(type === 'student' ? 'parent-user-id' : 'teacher-user-id').value.trim();
+            const inputPass = document.getElementById(type === 'student' ? 'parent-user-pass' : 'teacher-user-pass').value.trim();
 
-            const found = userRegistry.find(u => u.type === type && u.id === inputId && u.pass === inputPass);
+            // Match by ID OR Email Address, and correct password
+            const found = userRegistry.find(u => 
+                u.type === type && 
+                (u.id.toLowerCase() === inputIdOrEmail.toLowerCase() || u.email.toLowerCase() === inputIdOrEmail.toLowerCase()) && 
+                u.pass === inputPass
+            );
+
             if (found) {
                 document.getElementById(type === 'student' ? 'parent-login-box' : 'teacher-login-box').style.display = 'none';
                 document.getElementById(type === 'student' ? 'parent-dashboard' : 'teacher-dashboard').style.display = 'block';
             } else {
-                alert('Invalid Credentials. Please use the initial password set by Admin.');
+                alert(`Login Failed! Please verify your ${type === 'teacher' ? 'Staff ID / Email' : 'Student ID'} and Password assigned by Admin.`);
             }
         }
 
+        // Logout Reset
         function logout(portal) {
             if (portal === 'admin') {
                 document.getElementById('admin-login-box').style.display = 'block';
