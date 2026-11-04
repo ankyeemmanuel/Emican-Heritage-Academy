@@ -1012,22 +1012,23 @@ if (!siteData.photos || siteData.photos.length < 8) {
         }
 
         async function fetchCloudData() {
-            if (!_supabase) return;
-            try {
-                const { data: sData, error: sErr } = await _supabase.from('students').select('*');
-                if (!sErr && sData && sData.length > 0) {
-                    students = sData;
-                    localStorage.setItem('EHA_STUDENTS', JSON.stringify(students));
-                }
+    if (!_supabase) return;
+    try {
+        const { data: sData, error: sErr } = await _supabase.from('students').select('*');
+        if (!sErr && sData) {
+            students = sData;
+            localStorage.setItem('EHA_STUDENTS', JSON.stringify(students));
+        }
 
-                const { data: tData, error: tErr } = await _supabase.from('teachers').select('*');
-                if (!tErr && tData && tData.length > 0) {
-                    teachers = tData;
-                    localStorage.setItem('EHA_TEACHERS', JSON.stringify(teachers));
-                }
-            } catch (err) {
-                console.warn('Using local fallback data due to cloud sync status:', err);
-            }
+        const { data: tData, error: tErr } = await _supabase.from('teachers').select('*');
+        if (!tErr && tData) {
+            teachers = tData;
+            localStorage.setItem('EHA_TEACHERS', JSON.stringify(teachers));
+        }
+    } catch (err) {
+        console.warn('Using local fallback data due to cloud sync status:', err);
+    }
+}
         }
 
         function switchTab(tabId) {
@@ -1295,6 +1296,9 @@ if (!siteData.photos || siteData.photos.length < 8) {
         // TEACHER LOGIN & PORTAL
         async function handleTeacherLogin(e) {
             e.preventDefault();
+            if (!teachers || teachers.length === 0) {
+        await fetchCloudData();
+    }
             const email = document.getElementById('teacher-login-email').value.trim();
             const id = document.getElementById('teacher-login-id').value.trim();
             const pass = document.getElementById('teacher-login-pass').value.trim();
