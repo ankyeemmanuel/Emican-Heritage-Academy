@@ -1790,11 +1790,12 @@ if (!siteData.photos || siteData.photos.length < 8) {
             switchTab('home');
         }
 
-        window.addEventListener('DOMContentLoaded', async () => {
-    await fetchCloudData();
+       window.addEventListener('DOMContentLoaded', () => {
+    fetchCloudData().catch(err => console.warn("Background sync note:", err));
     renderHomepage();
-    if (document.getElementById('year')) {
-        document.getElementById('year').textContent = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
     }
 });
             const aboutInput = document.getElementById('admin-edit-about');
