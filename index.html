@@ -1790,9 +1790,17 @@ if (!siteData.photos || siteData.photos.length < 8) {
             switchTab('home');
         }
 
-       window.addEventListener('DOMContentLoaded', () => {
-    fetchCloudData().catch(err => console.warn("Background sync note:", err));
-    renderHomepage();
+      window.addEventListener('DOMContentLoaded', () => {
+    fetchCloudData().then(() => {
+        try { renderHomepage(); } catch (e) { console.warn("Post-fetch render note:", e); }
+    }).catch(err => console.warn("Background sync note:", err));
+
+    try { 
+        renderHomepage(); 
+    } catch (e) { 
+        console.warn("Initial render notice:", e); 
+    }
+
     const yearEl = document.getElementById('year');
     if (yearEl) {
         yearEl.textContent = new Date().getFullYear();
