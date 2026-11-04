@@ -1300,10 +1300,11 @@ if (!siteData.photos || siteData.photos.length < 8) {
             const pass = document.getElementById('teacher-login-pass').value.trim();
 
            // Use pre-fetched local data for instant response
+    // Use pre-fetched local data for instant response
     const teacher = teachers.find(t => 
-        t.email && t.email.toLowerCase() === email.toLowerCase() && 
-        String(t.id).toLowerCase() === String(id).toLowerCase() && 
-        String(t.pass) === String(pass)
+      t.email && t.email.toLowerCase() === email.toLowerCase() &&
+      String(t.staff_id || t.id || t.staffId || '').toLowerCase() === String(id).toLowerCase() &&
+      String(t.password || t.pass || '').trim() === String(pass).trim()
     );
 
     if (!teacher) {
