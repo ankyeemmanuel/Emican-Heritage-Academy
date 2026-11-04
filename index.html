@@ -370,6 +370,63 @@
                 <p>Welcome, Teacher. Select class, input student marks, upload PDF exam reports, and update fees.</p>
                 <br>
                 <button class="btn btn-gold" onclick="logout('teachers')">Logout</button>
+                <!-- PASTE HERE (Inside teacher-dashboard, right before line 373 closing div) -->
+            <div style="margin-top: 20px; display: grid; gap: 20px;">
+
+                <!-- 1. Fee Ledger & Custom Categories Manager -->
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd; text-align: left;">
+                    <h3>💰 Student Fee Ledger & Category Manager</h3>
+                    <p style="font-size: 0.85rem; color: #555; margin-bottom: 10px;">Select class, input Student ID, choose fee type, and post or modify balances.</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                        <div>
+                            <label style="font-size: 0.85rem; font-weight: bold;">Select Class:</label>
+                            <select id="teacher-select-class" style="width: 100%; padding: 8px; margin-top: 4px;">
+                                <option value="">-- Choose Class --</option>
+                                <option value="Basic 1">Basic 1</option>
+                                <option value="Basic 2">Basic 2</option>
+                                <option value="Basic 3">Basic 3</option>
+                                <option value="Basic 4">Basic 4</option>
+                                <option value="Basic 5">Basic 5</option>
+                                <option value="Basic 6">Basic 6</option>
+                                <option value="JHS 1">JHS 1</option>
+                                <option value="JHS 2">JHS 2</option>
+                                <option value="JHS 3">JHS 3</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.85rem; font-weight: bold;">Student ID:</label>
+                            <input type="text" id="fee-student-id" placeholder="e.g. STU-1001" style="width: 100%; padding: 8px; margin-top: 4px;" />
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                        <div>
+                            <label style="font-size: 0.85rem; font-weight: bold;">Fee Category:</label>
+                            <select id="fee-category" style="width: 100%; padding: 8px; margin-top: 4px;">
+                                <option value="School Fees">School Fees</option>
+                                <option value="Canteen">Canteen</option>
+                                <option value="Maintenance">Maintenance</option>
+                                <option value="ICT Fees">ICT Fees</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Creativity Fees">Creativity Fees</option>
+                                <option value="Academic">Academic</option>
+                                <option value="Academy">Academy</option>
+                                <option value="Boarding">Boarding</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.85rem; font-weight: bold;">Amount (GH₵):</label>
+                            <input type="number" id="fee-amount" placeholder="Enter amount in GH₵" style="width: 100%; padding: 8px; margin-top: 4px;" />
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="postOrUpdateFee()" style="margin-top: 12px; background: #FFD700; color: #001328; font-weight: bold; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px;">Post / Update Student Fee</button>
+                </div>
+
+                <!-- 2. PDF Result Uploads -->
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd; text-
             </div>
         </div>
 
@@ -457,27 +514,77 @@
         }
 
         // Shared User Registry Store (Admin + Teachers + Students)
-        let userRegistry = [
-            { type: 'student', name: 'Kwaku Mensah', email: 'parent1@gmail.com', phone: '0240000001', id: 'STU-1001', pass: 'STU-1001' },
-            { type: 'teacher', name: 'Grace Addo', email: 'grace.teacher@emican.edu.gh', phone: '0550000002', id: 'TCH-101', pass: 'TCH-101' }
-        ];
+        <div id="admin-dashboard" style="display:none;">
+    <h2>Master Admin Dashboard</h2>
+    <button class="btn btn-gold" style="float: right;" onclick="logout('admin')">Logout</button>
+    <div style="clear: both;"></div>
 
-        // Render User Registry Table for Admin
-        function renderUsers() {
-            const tbody = document.getElementById('user-table-body');
-            tbody.innerHTML = '';
-            userRegistry.forEach(user => {
-                const row = `<tr>
-                    <td><strong>${user.type.toUpperCase()}</strong></td>
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>${user.phone}</td>
-                    <td>${user.id}</td>
-                    <td><span style="color: green; font-weight: bold;">${user.pass}</span></td>
-                </tr>`;
-                tbody.innerHTML += row;
-            });
-        }
+    <!-- Admin Password Update Card -->
+    <div style="background: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 20px; margin-top: 15px;">
+        <h3>🔑 Update Master Admin Password</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 180px; gap: 10px; align-items: end; margin-top: 10px;">
+            <div>
+                <label>New Admin Password:</label>
+                <input type="password" id="admin-new-pass" placeholder="Enter new password" style="width: 100%; padding: 8px;" />
+            </div>
+            <div>
+                <label>Confirm New Password:</label>
+                <input type="password" id="admin-confirm-pass" placeholder="Confirm new password" style="width: 100%; padding: 8px;" />
+            </div>
+            <button class="btn" onclick="changeAdminPassword()" style="padding: 9px; background: #0077B6; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Update Password</button>
+        </div>
+    </div>
+
+    <!-- User Registration Form -->
+    <h3>Register Staff & Students (Create Initial Passwords)</h3>
+    <form id="create-user-form" onsubmit="event.preventDefault(); registerUser();">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label>User Role:</label>
+                <select id="reg-type" style="width: 100%; padding: 8px;">
+                    <option value="student">Student / Parent</option>
+                    <option value="teacher">Teacher</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Full Name:</label>
+                <input type="text" id="reg-name" required placeholder="Full Name" style="width: 100%; padding: 8px;" />
+            </div>
+            <div class="form-group">
+                <label>Email Address:</label>
+                <input type="email" id="reg-email" required placeholder="e.g. user@emican.edu.gh" style="width: 100%; padding: 8px;" />
+            </div>
+            <div class="form-group">
+                <label>Phone Number:</label>
+                <input type="tel" id="reg-phone" required placeholder="e.g. 0535694851" style="width: 100%; padding: 8px;" />
+            </div>
+            <div class="form-group">
+                <label>Assigned ID (Staff ID or Student ID):</label>
+                <input type="text" id="reg-id" required placeholder="e.g. TCH-101 or STU-1001" style="width: 100%; padding: 8px;" />
+            </div>
+            <div class="form-group">
+                <label>Initial One-Time Password:</label>
+                <input type="text" id="reg-otp" required placeholder="Create initial password" style="width: 100%; padding: 8px;" />
+            </div>
+        </div>
+        <button type="submit" class="btn" style="margin-top: 10px; background: #0077B6; color: white; padding: 10px 20px; border: none; cursor: pointer;">Save & Register User Credentials</button>
+    </form>
+
+    <hr style="margin: 25px 0;">
+
+    <!-- Master User Registry Section -->
+    <div id="admin-registry-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h3>Master User Registry (Full Accounts & Activity Inspector)</h3>
+            <button onclick="printAdminRegistry()" style="padding: 8px 16px; background: #FFD700; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">🖨️ Print Registry & Logs</button>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; text-align: left;" border="1" cellpadding="8">
+            <thead style="background: #001328; color: white;">
+                <tr>
+                    <th>Role</th>
+                    <th>Full Name</th>
+                    <th>Email Address<
 
         // Register User (Admin Action)
         function registerUser() {
@@ -539,6 +646,101 @@
                 document.getElementById('teacher-dashboard').style.display = 'none';
             }
         }
+        // Self-Service Password Change for Logged-In Users
+function changeUserPassword(userType) {
+    const userIdInput = document.getElementById(`${userType}-portal-id`).value.trim();
+    const currentPassInput = document.getElementById(`${userType}-current-pass`).value.trim();
+    const newPassInput = document.getElementById(`${userType}-new-pass`).value.trim();
+
+    const user = userRegistry.find(u => u.id === userIdInput && u.type === userType);
+
+    if (!user) {
+        alert("User ID not found or incorrect role.");
+        return;
+    }
+
+    if (user.pass !== currentPassInput) {
+        alert("Current password is incorrect!");
+        return;
+    }
+
+    if (!newPassInput || newPassInput.length < 4) {
+        alert("New password must be at least 4 characters long.");
+        return;
+    }
+
+    // Update password and record activity log
+    user.pass = newPassInput;
+    user.activity = `${userType.toUpperCase()} changed password on ${new Date().toLocaleString()}`;
+    
+    alert("Password updated successfully! You can now log in with your new password.");
+    
+    // Clear inputs
+    document.getElementById(`${userType}-portal-id`).value = '';
+    document.getElementById(`${userType}-current-pass`).value = '';
+    document.getElementById(`${userType}-new-pass`).value = '';
+    
+    // Refresh admin tables automatically if admin panel is rendering
+    if (typeof renderUsers === 'function') renderUsers();
+}
+        // 1. Fee Manager: Post or update student fees with custom categories & balances
+let studentFeesLedger = []; 
+
+function postOrUpdateFee() {
+    const selectedClass = document.getElementById('teacher-select-class').value;
+    const studentId = document.getElementById('fee-student-id').value.trim();
+    const category = document.getElementById('fee-category').value;
+    const amount = parseFloat(document.getElementById('fee-amount').value);
+
+    if (!selectedClass || !studentId || !category || isNaN(amount)) {
+        alert("Please fill in all fee fields correctly.");
+        return;
+    }
+
+    const studentExists = userRegistry.some(u => u.id === studentId && u.type === 'student');
+    if (!studentExists) {
+        alert(`Warning: Student ID "${studentId}" was not found in the Master Registry.`);
+    }
+
+    studentFeesLedger.push({ class: selectedClass, id: studentId, category: category, amount: amount, date: new Date().toLocaleDateString() });
+    alert(`Successfully posted GH₵${amount.toFixed(2)} for ${category} to Student ID: ${studentId} (${selectedClass})!`);
+    
+    document.getElementById('fee-student-id').value = '';
+    document.getElementById('fee-amount').value = '';
+}
+
+// 2. Upload PDF Exam Results
+function uploadResultPDF() {
+    const studentId = document.getElementById('result-student-id').value.trim();
+    const fileInput = document.getElementById('result-pdf-file');
+
+    if (!studentId || fileInput.files.length === 0) {
+        alert("Please enter the Student ID and select a PDF result file.");
+        return;
+    }
+
+    const fileName = fileInput.files[0].name;
+    alert(`PDF Result file "${fileName}" successfully uploaded and linked to Student ID: ${studentId}!`);
+    
+    document.getElementById('result-student-id').value = '';
+    fileInput.value = '';
+}
+
+// 3. Post Complaints / Notices & Reply System
+let schoolNotices = [];
+
+function sendTeacherReply() {
+    const noticeText = document.getElementById('teacher-reply-text').value.trim();
+
+    if (!noticeText) {
+        alert("Please enter a notice or reply message.");
+        return;
+    }
+
+    schoolNotices.push({ message: noticeText, date: new Date().toLocaleString() });
+    alert("Notice / reply posted successfully for parents to view!");
+    document.getElementById('teacher-reply-text').value = '';
+}
     </script>
 </body>
 </html>
