@@ -1790,11 +1790,13 @@ if (!siteData.photos || siteData.photos.length < 8) {
             switchTab('home');
         }
 
-        window.onload = async function() {
-            await fetchCloudData();
-            renderHomepage();
-            document.getElementById('year').textContent = new Date().getFullYear();
-            
+        window.addEventListener('DOMContentLoaded', async () => {
+    await fetchCloudData();
+    renderHomepage();
+    if (document.getElementById('year')) {
+        document.getElementById('year').textContent = new Date().getFullYear();
+    }
+});
             const aboutInput = document.getElementById('admin-edit-about');
             if (aboutInput) {
                 aboutInput.addEventListener('input', function(e) {
