@@ -1136,7 +1136,7 @@ if (!siteData.photos || siteData.photos.length < 8) {
             const resEl = document.getElementById('status-result');
             if (!query) return;
 
-            const app = applications.find(a => a.id.toLowerCase() === query.toLowerCase() || a.phone === query);
+            const app = applications.find(a => (a.id && a.id.toLowerCase() === query.toLowerCase()) || (a.phone && a.phone === query));
             resEl.classList.remove('hidden', 'bg-emerald-100', 'bg-amber-100', 'bg-red-100');
 
             if (app) {
