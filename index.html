@@ -1301,11 +1301,27 @@ if (!siteData.photos || siteData.photos.length < 8) {
 
            // Use pre-fetched local data for instant response
     // Use pre-fetched local data for instant response
-    const teacher = teachers.find(t => 
+   // Use pre-fetched local data or fallback to Supabase cloud
+    let teacher = teachers.find(t => 
       t.email && t.email.toLowerCase() === email.toLowerCase() &&
       String(t.staff_id || t.id || t.staffId || '').toLowerCase() === String(id).toLowerCase() &&
       String(t.password || t.pass || '').trim() === String(pass).trim()
     );
+
+    if (!teacher && _supabase) {
+      try {
+        const { data } = await _supabase
+          .from('teachers')
+          .select('*')
+          .ilike('email', email)
+          .maybeSingle();
+        if (data && String(data.password || data.pass || '').trim() === String(pass).trim()) {
+          teacher = data;
+        }
+      } catch (err) {
+        console.warn("Cloud fallback error:", err);
+      }
+    }
 
     if (!teacher) {
         alert('Invalid Staff Credentials.');
