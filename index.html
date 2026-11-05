@@ -42,21 +42,21 @@
   </div>
 
   <!-- NAVIGATION -->
-  <nav class="bg-brandDark sticky top-0 z-50 border-b border-cyan-500/20 shadow-lg">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center gap-3 cursor-pointer" onclick="showPortal('home')">
+ <nav class="bg-brandDark sticky top-0 z-50 border-b border-cyan-500/20 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
+      <div class="flex items-center gap-3 cursor-pointer w-full md:w-auto justify-center md:justify-start" onclick="showPortal('home')">
         <img id="navLogo" src="https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/master.png" alt="EHA Logo" class="h-10 w-10 object-contain rounded-full bg-white p-0.5 border border-brandGold">
-        <div>
-          <h1 class="font-bold text-lg leading-tight tracking-wide text-white">EMICAN HERITAGE ACADEMY</h1>
-          <p class="text-[10px] text-brandSea uppercase font-medium">Knowledge • Integrity • Excellence</p>
+        <div class="text-center md:text-left">
+          <h1 class="font-bold text-base md:text-lg leading-tight tracking-wide text-white">EMICAN HERITAGE ACADEMY</h1>
+          <p class="text-[9px] md:text-[10px] text-brandSea uppercase font-medium">Knowledge • Integrity • Excellence</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2 md:gap-4 text-xs md:text-sm font-semibold">
-        <button onclick="showPortal('home')" id="nav-home" class="px-3 py-2 rounded-lg bg-brandSea text-slate-950 font-bold transition">Home</button>
-        <button onclick="showPortal('parents')" id="nav-parents" class="px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-200 transition">Parents Portal</button>
-        <button onclick="showPortal('teachers')" id="nav-teachers" class="px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-200 transition">Teachers Portal</button>
-        <button onclick="showPortal('admin')" id="nav-admin" class="px-3 py-2 rounded-lg bg-amber-500/20 text-brandGold border border-amber-500/40 hover:bg-amber-500/30 transition">Admin Portal</button>
+      <div class="flex flex-wrap justify-center items-center gap-1.5 md:gap-4 text-[11px] md:text-sm font-semibold w-full md:w-auto">
+        <button onclick="showPortal('home')" id="nav-home" class="px-2.5 py-1.5 md:px-3 md:py-2 rounded-lg bg-brandSea text-slate-950 font-bold transition">Home</button>
+        <button onclick="showPortal('parents')" id="nav-parents" class="px-2.5 py-1.5 md:px-3 md:py-2 rounded-lg hover:bg-slate-800 text-slate-200 transition">Parents Portal</button>
+        <button onclick="showPortal('teachers')" id="nav-teachers" class="px-2.5 py-1.5 md:px-3 md:py-2 rounded-lg hover:bg-slate-800 text-slate-200 transition">Teachers Portal</button>
+        <button onclick="showPortal('admin')" id="nav-admin" class="px-2.5 py-1.5 md:px-3 md:py-2 rounded-lg bg-amber-500/20 text-brandGold border border-amber-500/40 hover:bg-amber-500/30 transition">Admin Portal</button>
       </div>
     </div>
   </nav>
