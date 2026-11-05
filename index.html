@@ -406,7 +406,7 @@
             </button>
           </form>
           <div class="mt-4 text-center">
-            <span class="text-xs text-slate-400">Default initial password assigned by School Admin.</span>
+            <span class="text-xs text-slate-400">Default initial password assigned by School Admin. Synchronized live on all browsers.</span>
           </div>
         </div>
 
@@ -957,12 +957,12 @@
                         <th class="p-3">Student Name</th>
                         <th class="p-3">Class</th>
                         <th class="p-3">Phone</th>
-                        <th class="p-3">Current Password</th>
+                        <th class="p-3">Visible Password</th>
                         <th class="p-3">Action</th>
                       </tr>
                     </thead>
                     <tbody id="adminStudentsTable" class="text-xs divide-y divide-slate-100">
-                      <!-- Dynamically rendered -->
+                      <!-- Dynamically rendered with show/hide password buttons -->
                     </tbody>
                   </table>
                 </div>
@@ -1036,7 +1036,7 @@
                         <th class="p-3">Name</th>
                         <th class="p-3">Class</th>
                         <th class="p-3">Phone</th>
-                        <th class="p-3">Password</th>
+                        <th class="p-3">Visible Password</th>
                         <th class="p-3">Action</th>
                       </tr>
                     </thead>
@@ -1053,7 +1053,7 @@
           <!-- SUB-TAB 5: LOGIN & PASSWORD AUDIT LOGS -->
           <div id="adminSubTab-audit" class="admin-subview hidden space-y-4">
             <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200">
-              <h3 class="font-extrabold text-brandDark text-lg mb-4">Realtime Security & Login Audit Trails</h3>
+              <h3 class="font-extrabold text-brandDark text-lg mb-4">Realtime Password Inspector & System Log Trails</h3>
               <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                   <thead>
@@ -1061,7 +1061,7 @@
                       <th class="p-3">Timestamp</th>
                       <th class="p-3">Account Type</th>
                       <th class="p-3">User Identifier</th>
-                      <th class="p-3">Event Type</th>
+                      <th class="p-3">Event Action</th>
                     </tr>
                   </thead>
                   <tbody id="adminAuditTable" class="text-xs divide-y divide-slate-100">
@@ -1164,10 +1164,10 @@
     </div>
   </footer>
 
-  <!-- APPLICATION LOGIC & SUPABASE INTEGRATION SCRIPT -->
+  <!-- APPLICATION LOGIC & DIRECT SUPABASE DATABASE SYNCHRONIZATION -->
   <script>
     // -------------------------------------------------------------
-    // 1. SUPABASE CLIENT & STATE INITIALIZATION
+    // 1. SUPABASE CLIENT & REST ENGINE CONFIGURATION
     // -------------------------------------------------------------
     const SUPABASE_URL = "https://nkuehfzkrmghixggyggs.supabase.co";
     const SUPABASE_KEY = "sb_publishable_SLqQ2AR3UmGywoSqKOWz5Q_eW_C8d2i";
@@ -1178,7 +1178,28 @@
         supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
       }
     } catch (err) {
-      console.warn("Supabase initialization fallback used:", err);
+      console.warn("Supabase initialization:", err);
+    }
+
+    // DIRECT SUPABASE REST ENGINE FOR ALL DEVICES & BROWSERS
+    async function supabaseRest(endpoint, method = 'GET', body = null) {
+      try {
+        const headers = {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=representation'
+        };
+        const options = { method, headers };
+        if (body) options.body = JSON.stringify(body);
+        
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, options);
+        if (!res.ok) throw new Error(`Supabase REST HTTP ${res.status}`);
+        return await res.json();
+      } catch (err) {
+        console.warn(`Supabase REST query failed on ${endpoint}:`, err);
+        return null;
+      }
     }
 
     // DEFAULT SYSTEM DATA STRUCTURES
@@ -1203,7 +1224,7 @@
       contact: "+233(0) 535 694851 / emicangh@gmail.com"
     };
 
-    // LOCAL STORAGE SYNC STORAGE HELPERS
+    // LOCAL STORAGE SYNC HELPERS WITH AUTOMATIC HYDRATION
     function getStoredData(key, fallback) {
       const data = localStorage.getItem('eha_' + key);
       return data ? JSON.parse(data) : fallback;
@@ -1211,6 +1232,22 @@
 
     function saveStoredData(key, data) {
       localStorage.setItem('eha_' + key, JSON.stringify(data));
+      // Sync out to Supabase
+      syncDataToSupabase(key, data);
+    }
+
+    async function syncDataToSupabase(key, data) {
+      if (key === 'students') {
+        await supabaseRest('eha_students?select=*', 'POST', data);
+      } else if (key === 'teachers') {
+        await supabaseRest('eha_teachers?select=*', 'POST', data);
+      }
+    }
+
+    // CLEAN STRING COMPARISON HELPER (Fixes accidental spaces or phone formatting differences)
+    function cleanStr(val) {
+      if (!val) return "";
+      return String(val).replace(/\s+/g, '').toLowerCase();
     }
 
     // SYSTEM GLOBAL STATE
@@ -1270,7 +1307,7 @@
     });
 
     let auditLogs = getStoredData('audit', [
-      { timestamp: new Date().toLocaleString(), type: "System", identifier: "System", event: "Application Core initialized" }
+      { timestamp: new Date().toLocaleString(), type: "System", identifier: "System", event: "Application Core & Supabase REST engine initialized" }
     ]);
 
     let activeUser = null; // { role: 'parent' | 'teacher' | 'admin', data: object }
@@ -1278,19 +1315,39 @@
     let carouselTimer = null;
     let selectedTeacherStudentId = null;
     let activePasswordChangeRole = null;
+    let visibleStudentPasswords = {};
+    let visibleTeacherPasswords = {};
 
     // -------------------------------------------------------------
-    // 2. INITIALIZATION & UI RENDERING
+    // 2. INITIALIZATION & REMOTE DATA HYDRATION
     // -------------------------------------------------------------
-    window.onload = function() {
+    window.onload = async function() {
       renderSiteContent();
       renderCarouselSlides();
       startCarouselAutoPlay();
+
+      // Pull latest database state from Supabase REST endpoints for cross-device synchronization
+      await pullSupabaseRemoteState();
+
       renderAdminAdmissionsTable();
       renderAdminStudentsTable();
       renderAdminTeachersTable();
       renderAdminAuditTable();
     };
+
+    async function pullSupabaseRemoteState() {
+      const remoteStudents = await supabaseRest('eha_students?select=*');
+      if (remoteStudents && Array.isArray(remoteStudents) && remoteStudents.length > 0) {
+        studentsDB = remoteStudents;
+        localStorage.setItem('eha_students', JSON.stringify(studentsDB));
+      }
+
+      const remoteTeachers = await supabaseRest('eha_teachers?select=*');
+      if (remoteTeachers && Array.isArray(remoteTeachers) && remoteTeachers.length > 0) {
+        teachersDB = remoteTeachers;
+        localStorage.setItem('eha_teachers', JSON.stringify(teachersDB));
+      }
+    }
 
     function addAuditLog(role, identifier, event) {
       auditLogs.unshift({
@@ -1299,7 +1356,7 @@
         identifier: identifier,
         event: event
       });
-      saveStoredData('audit', auditLogs);
+      localStorage.setItem('eha_audit', JSON.stringify(auditLogs));
       renderAdminAuditTable();
     }
 
@@ -1380,7 +1437,6 @@
       adminList.innerHTML = '';
 
       carouselImages.forEach((imgUrl, idx) => {
-        // Image element - fitted using object-contain and top/center positioning so no head is cropped
         const img = document.createElement('img');
         img.src = imgUrl;
         img.onerror = function() { this.src = 'https://placehold.co/800x500/0b132b/ffb703?text=Emican+Heritage+Academy'; };
@@ -1388,13 +1444,11 @@
         img.setAttribute('data-slide-index', idx);
         container.appendChild(img);
 
-        // Dot indicator
         const dot = document.createElement('button');
         dot.className = `w-3 h-3 rounded-full transition ${idx === currentSlideIndex ? 'bg-brandGold w-6' : 'bg-white/50'}`;
         dot.onclick = () => goToSlide(idx);
         dots.appendChild(dot);
 
-        // Admin slide list item
         const adminItem = document.createElement('div');
         adminItem.className = 'flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200 text-xs';
         adminItem.innerHTML = `
@@ -1486,13 +1540,13 @@
     }
 
     function performStatusCheck() {
-      const query = document.getElementById('statusSearchQuery').value.trim().toLowerCase();
+      const query = cleanStr(document.getElementById('statusSearchQuery').value);
       const resultBox = document.getElementById('statusResultBox');
 
       if (!query) return;
 
       const found = admissionsDB.find(a => 
-        a.refCode.toLowerCase() === query || a.phone.includes(query)
+        cleanStr(a.refCode) === query || cleanStr(a.phone).includes(query)
       );
 
       resultBox.classList.remove('hidden');
@@ -1512,24 +1566,27 @@
           </div>
         `;
       } else {
-        resultBox.innerHTML = `<p class="text-red-500 font-bold">No application record found matching "${query}".</p>`;
+        resultBox.innerHTML = `<p class="text-red-500 font-bold">No application record found matching your query.</p>`;
       }
     }
 
     // -------------------------------------------------------------
-    // 5. PARENT PORTAL LOGIC
+    // 5. PARENT PORTAL LOGIC (SYNCHRONIZED WITH SUPABASE)
     // -------------------------------------------------------------
-    function handleParentLogin(e) {
+    async function handleParentLogin(e) {
       e.preventDefault();
-      const studentID = document.getElementById('pLogStudentID').value.trim();
+      const studentID = cleanStr(document.getElementById('pLogStudentID').value);
       const dob = document.getElementById('pLogDOB').value;
-      const phone = document.getElementById('pLogPhone').value.trim();
+      const phone = cleanStr(document.getElementById('pLogPhone').value);
       const password = document.getElementById('pLogPassword').value;
 
+      // Re-hydrate latest remote records from Supabase REST endpoint
+      await pullSupabaseRemoteState();
+
       const match = studentsDB.find(s => 
-        s.studentID.toLowerCase() === studentID.toLowerCase() &&
+        cleanStr(s.studentID) === studentID &&
         s.dob === dob &&
-        s.phone === phone &&
+        cleanStr(s.phone) === phone &&
         s.password === password
       );
 
@@ -1603,7 +1660,6 @@
         resContainer.innerHTML = `<p class="text-xs text-slate-400 italic">No academic test results published yet.</p>`;
       }
 
-      // Render Comments & Parent Reply Interface
       renderParentComments();
     }
 
@@ -1613,7 +1669,7 @@
       commContainer.innerHTML = '';
 
       if (s.comments && s.comments.length > 0) {
-        s.comments.forEach((c, idx) => {
+        s.comments.forEach(c => {
           commContainer.innerHTML += `
             <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
               <div class="flex justify-between items-center text-xs">
@@ -1628,7 +1684,6 @@
         commContainer.innerHTML = `<p class="text-xs text-slate-400 italic">No teacher complaints or comments yet.</p>`;
       }
 
-      // Add Reply Input Box
       commContainer.innerHTML += `
         <form onsubmit="handleParentReplyComment(event)" class="pt-4 border-t border-slate-200 space-y-3">
           <label class="block text-xs font-bold uppercase text-slate-700">Reply to Teacher / School</label>
@@ -1654,7 +1709,6 @@
         timestamp: new Date().toLocaleString()
       });
 
-      // Update in main database
       const idx = studentsDB.findIndex(std => std.studentID === s.studentID);
       if (idx !== -1) studentsDB[idx] = s;
       saveStoredData('students', studentsDB);
@@ -1665,17 +1719,20 @@
     }
 
     // -------------------------------------------------------------
-    // 6. TEACHERS PORTAL LOGIC
+    // 6. TEACHERS PORTAL LOGIC (SYNCHRONIZED WITH SUPABASE)
     // -------------------------------------------------------------
-    function handleTeacherLogin(e) {
+    async function handleTeacherLogin(e) {
       e.preventDefault();
-      const staffID = document.getElementById('tLogStaffID').value.trim();
-      const phone = document.getElementById('tLogPhone').value.trim();
+      const staffID = cleanStr(document.getElementById('tLogStaffID').value);
+      const phone = cleanStr(document.getElementById('tLogPhone').value);
       const password = document.getElementById('tLogPassword').value;
 
+      // Sync latest data from remote Supabase DB
+      await pullSupabaseRemoteState();
+
       const match = teachersDB.find(t => 
-        t.staffID.toLowerCase() === staffID.toLowerCase() &&
-        t.phone === phone &&
+        cleanStr(t.staffID) === staffID &&
+        cleanStr(t.phone) === phone &&
         t.password === password
       );
 
@@ -1704,13 +1761,13 @@
 
     function filterStudentsForTeacher() {
       const cls = document.getElementById('tFilterClass').value;
-      const search = document.getElementById('tSearchStudentInput').value.trim().toLowerCase();
+      const search = cleanStr(document.getElementById('tSearchStudentInput').value);
       const container = document.getElementById('tStudentListContainer');
       container.innerHTML = '';
 
       const filtered = studentsDB.filter(s => {
         const matchesClass = (cls === 'ALL' || s.class === cls);
-        const matchesSearch = s.name.toLowerCase().includes(search) || s.studentID.toLowerCase().includes(search);
+        const matchesSearch = cleanStr(s.name).includes(search) || cleanStr(s.studentID).includes(search);
         return matchesClass && matchesSearch;
       });
 
@@ -1862,7 +1919,7 @@
     }
 
     // -------------------------------------------------------------
-    // 7. ADMIN / HEADTEACHER PORTAL LOGIC
+    // 7. ADMIN PORTAL LOGIC & VISIBLE PASSWORDS INSPECTOR
     // -------------------------------------------------------------
     function handleAdminLogin(e) {
       e.preventDefault();
@@ -1894,7 +1951,6 @@
       activeBtn.classList.add('bg-brandBlue', 'text-white', 'shadow');
     }
 
-    // EDIT HOMEPAGE TEXT CONTENT
     function handleSaveHomeContent(e) {
       e.preventDefault();
       siteContent.overview = document.getElementById('editOverview').value.trim();
@@ -1906,11 +1962,10 @@
 
       saveStoredData('content', siteContent);
       renderSiteContent();
-      addAuditLog("Admin", "ADMIN01", "Updated homepage text content & details");
-      showToast("Content Saved!", "Website overview and about sections updated in real time.");
+      addAuditLog("Admin", "ADMIN01", "Updated homepage text content");
+      showToast("Content Saved!", "Website overview updated in real time.");
     }
 
-    // MANAGE CAROUSEL IMAGES
     function handleAddCarouselImage(e) {
       e.preventDefault();
       const url = document.getElementById('newSlideUrl').value.trim();
@@ -1930,7 +1985,6 @@
       showToast("Slide Deleted", "Carousel image removed.");
     }
 
-    // ADMISSIONS MANAGEMENT
     function renderAdminAdmissionsTable() {
       const tbody = document.getElementById('adminAdmissionsTable');
       const badge = document.getElementById('adminPendingCount');
@@ -1983,7 +2037,7 @@
       }
     }
 
-    // STUDENT REGISTRATION & ACCOUNTS MANAGEMENT
+    // STUDENT REGISTRATION & VISIBLE PASSWORD CONTROLS
     function handleAdminRegisterStudent(e) {
       e.preventDefault();
       const newStudent = {
@@ -1999,22 +2053,26 @@
         comments: []
       };
 
-      // Check duplicate student ID
-      if (studentsDB.some(s => s.studentID.toLowerCase() === newStudent.studentID.toLowerCase())) {
+      if (studentsDB.some(s => cleanStr(s.studentID) === cleanStr(newStudent.studentID))) {
         showToast("Duplicate Error", "Student ID already exists!", true);
         return;
       }
 
       studentsDB.push(newStudent);
       saveStoredData('students', studentsDB);
-      addAuditLog("Admin", "ADMIN01", `Registered new student ${newStudent.studentID}`);
+      addAuditLog("Admin", "ADMIN01", `Created student ${newStudent.studentID} with password: ${newStudent.password}`);
 
       renderAdminStudentsTable();
-      showToast("Student Registered!", `Credentials created for ${newStudent.name}. Sync ready across browsers.`);
+      showToast("Student Registered!", `Credentials created for ${newStudent.name}. Sync active on all devices.`);
       
       document.getElementById('regStudentName').value = '';
       document.getElementById('regStudentID').value = '';
       document.getElementById('regParentPhone').value = '';
+    }
+
+    function toggleStudentPasswordVisibility(idx) {
+      visibleStudentPasswords[idx] = !visibleStudentPasswords[idx];
+      renderAdminStudentsTable();
     }
 
     function renderAdminStudentsTable() {
@@ -2025,15 +2083,23 @@
 
       if (studentsDB.length > 0) {
         studentsDB.forEach((s, idx) => {
+          const isVisible = visibleStudentPasswords[idx] ?? true; // Defaults to visible cleartext
           tbody.innerHTML += `
             <tr>
               <td class="p-3 font-bold text-slate-800">${s.studentID}</td>
               <td class="p-3 font-semibold text-slate-700">${s.name}</td>
               <td class="p-3 font-bold text-brandBlue">${s.class}</td>
               <td class="p-3 text-slate-600">${s.phone}</td>
-              <td class="p-3 font-mono font-bold text-emerald-600">${s.password}</td>
+              <td class="p-3 font-mono font-bold text-emerald-600">
+                <div class="flex items-center gap-2">
+                  <span>${isVisible ? s.password : '••••••••'}</span>
+                  <button onclick="toggleStudentPasswordVisibility(${idx})" class="text-slate-400 hover:text-slate-700">
+                    <i class="fa-solid ${isVisible ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                  </button>
+                </div>
+              </td>
               <td class="p-3 space-x-2">
-                <button onclick="adminResetStudentPass(${idx})" class="text-xs text-brandBlue hover:underline font-bold">Reset Pass</button>
+                <button onclick="adminResetStudentPass(${idx})" class="text-xs text-brandBlue hover:underline font-bold">Edit Pass</button>
                 <button onclick="adminDeleteStudent(${idx})" class="text-xs text-red-600 hover:underline font-bold">Delete</button>
               </td>
             </tr>
@@ -2045,12 +2111,13 @@
     }
 
     function adminResetStudentPass(idx) {
-      const newPass = prompt("Set new password for " + studentsDB[idx].name + ":", "parent123");
+      const newPass = prompt("Edit password for student " + studentsDB[idx].name + ":", studentsDB[idx].password);
       if (newPass) {
         studentsDB[idx].password = newPass;
         saveStoredData('students', studentsDB);
         renderAdminStudentsTable();
-        showToast("Password Reset", "Updated parent password successfully.");
+        addAuditLog("Admin", "ADMIN01", `Updated password for ${studentsDB[idx].studentID}`);
+        showToast("Password Updated", "Parent password updated and synced across browsers.");
       }
     }
 
@@ -2063,7 +2130,7 @@
       }
     }
 
-    // TEACHER REGISTRATION & MANAGEMENT
+    // TEACHER REGISTRATION & VISIBLE PASSWORD CONTROLS
     function handleAdminRegisterTeacher(e) {
       e.preventDefault();
       const newTeacher = {
@@ -2074,14 +2141,14 @@
         password: document.getElementById('regTeacherPassword').value.trim()
       };
 
-      if (teachersDB.some(t => t.staffID.toLowerCase() === newTeacher.staffID.toLowerCase())) {
+      if (teachersDB.some(t => cleanStr(t.staffID) === cleanStr(newTeacher.staffID))) {
         showToast("Duplicate Error", "Staff ID already exists!", true);
         return;
       }
 
       teachersDB.push(newTeacher);
       saveStoredData('teachers', teachersDB);
-      addAuditLog("Admin", "ADMIN01", `Registered staff teacher ${newTeacher.staffID}`);
+      addAuditLog("Admin", "ADMIN01", `Created teacher ${newTeacher.staffID} with password: ${newTeacher.password}`);
 
       renderAdminTeachersTable();
       showToast("Teacher Registered!", `Account synced for ${newTeacher.name}.`);
@@ -2089,6 +2156,11 @@
       document.getElementById('regTeacherName').value = '';
       document.getElementById('regTeacherStaffID').value = '';
       document.getElementById('regTeacherPhone').value = '';
+    }
+
+    function toggleTeacherPasswordVisibility(idx) {
+      visibleTeacherPasswords[idx] = !visibleTeacherPasswords[idx];
+      renderAdminTeachersTable();
     }
 
     function renderAdminTeachersTable() {
@@ -2099,14 +2171,23 @@
 
       if (teachersDB.length > 0) {
         teachersDB.forEach((t, idx) => {
+          const isVisible = visibleTeacherPasswords[idx] ?? true; // Defaults to cleartext visible
           tbody.innerHTML += `
             <tr>
               <td class="p-3 font-bold text-slate-800">${t.staffID}</td>
               <td class="p-3 font-semibold text-slate-700">${t.name}</td>
               <td class="p-3 font-bold text-brandGoldHover">${t.assignedClass}</td>
               <td class="p-3 text-slate-600">${t.phone}</td>
-              <td class="p-3 font-mono font-bold text-emerald-600">${t.password}</td>
-              <td class="p-3">
+              <td class="p-3 font-mono font-bold text-emerald-600">
+                <div class="flex items-center gap-2">
+                  <span>${isVisible ? t.password : '••••••••'}</span>
+                  <button onclick="toggleTeacherPasswordVisibility(${idx})" class="text-slate-400 hover:text-slate-700">
+                    <i class="fa-solid ${isVisible ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                  </button>
+                </div>
+              </td>
+              <td class="p-3 space-x-2">
+                <button onclick="adminResetTeacherPass(${idx})" class="text-xs text-brandBlue hover:underline font-bold">Edit Pass</button>
                 <button onclick="adminDeleteTeacher(${idx})" class="text-xs text-red-600 hover:underline font-bold">Delete</button>
               </td>
             </tr>
@@ -2114,6 +2195,17 @@
         });
       } else {
         tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">No teacher accounts registered.</td></tr>`;
+      }
+    }
+
+    function adminResetTeacherPass(idx) {
+      const newPass = prompt("Edit password for staff " + teachersDB[idx].name + ":", teachersDB[idx].password);
+      if (newPass) {
+        teachersDB[idx].password = newPass;
+        saveStoredData('teachers', teachersDB);
+        renderAdminTeachersTable();
+        addAuditLog("Admin", "ADMIN01", `Updated password for staff ${teachersDB[idx].staffID}`);
+        showToast("Password Updated", "Teacher staff password updated.");
       }
     }
 
@@ -2126,7 +2218,6 @@
       }
     }
 
-    // AUDIT TRAILS TABLE
     function renderAdminAuditTable() {
       const tbody = document.getElementById('adminAuditTable');
       tbody.innerHTML = '';
@@ -2190,7 +2281,7 @@
         addAuditLog("Admin", "ADMIN01", "Admin master password updated");
       }
 
-      showToast("Password Updated", "Your new login password is now active.");
+      showToast("Password Updated", "Your new login password is now active and synchronized.");
       closeChangePasswordModal();
       document.getElementById('newAccountPassword').value = '';
     }
