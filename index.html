@@ -976,17 +976,17 @@
       carouselInterval = setInterval(() => nextSlide(), 5000);
     }
 
-    function nextSlide() {
+    window.nextSlide = function() {
       currentSlide = (currentSlide + 1) % state.carouselImages.length;
       renderCarousel();
     }
 
-    function prevSlide() {
+    window.prevSlide = function() {
       currentSlide = (currentSlide - 1 + state.carouselImages.length) % state.carouselImages.length;
       renderCarousel();
     }
 
-    function goToSlide(idx) {
+    window.goToSlide = function(index) {
       currentSlide = idx;
       renderCarousel();
     }
