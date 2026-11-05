@@ -1056,7 +1056,7 @@
     }
 
     // NAV PORTAL SWITCHER
-    function showPortal(portal) {
+   window.showPortal = function(portal) { 
       ['home', 'parents', 'teachers', 'admin'].forEach(p => {
         document.getElementById(`portal-${p}`).classList.add('hidden');
         document.getElementById(`nav-${p}`).classList.remove('bg-brandSea', 'text-slate-950', 'font-bold');
