@@ -337,7 +337,7 @@
   <!-- TOAST NOTIFIER -->
   <div id="toast" class="fixed bottom-5 right-5 hidden z-50 px-4 py-3 rounded-xl border shadow-2xl transition-all duration-300 text-xs"></div>
 
-  <!-- JAVASCRIPT ENGINE WITH DIRECT SUPABASE AUTHENTICATION FOR MOBILE -->
+  <!-- JAVASCRIPT ENGINE WITH EXPLICIT SUPABASE CONFIGURATION -->
   <script>
     const SUPABASE_PROJECT_URL = "https://nkuehfzkrmghixggyggs.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_SLqQ2AR3UmGywoSqKOWz5Q_eW_C8d2i";
@@ -417,7 +417,7 @@
       return (phone || '').toString().replace(/\D/g, '');
     }
 
-    // AUDIT LOGGING FUNCTION
+    // AUDIT LOGGING FUNCTION WITH MATCHING SCHEMA
     window.logAudit = async function(userRole, userName, actionDescription) {
       const logEntry = {
         id: 'LOG-' + Date.now().toString() + '-' + Math.floor(Math.random() * 1000),
@@ -433,7 +433,8 @@
       if (supabaseClient) {
         try {
           await supabaseClient.from('audit_logs').upsert({
-            time: logEntry.id,
+            id: logEntry.id,
+            time: logEntry.time,
             data: logEntry
           });
         } catch (e) {}
@@ -446,7 +447,7 @@
       DB.set('auditLogs', []);
       if (supabaseClient) {
         try {
-          await supabaseClient.from('audit_logs').delete().neq('time', '0');
+          await supabaseClient.from('audit_logs').delete().neq('id', '0');
         } catch (e) {}
       }
       window.showToast("Activity logs cleared!");
@@ -673,7 +674,7 @@
       }
     };
 
-    // PARENTS LOGIN (DIRECT CLOUD SUPABASE QUERY)
+    // PARENTS LOGIN
     window.handleParentLogin = async function(e) {
       e.preventDefault();
       await window.syncFromSupabase();
@@ -808,7 +809,7 @@
       }
     };
 
-    // TEACHERS LOGIN (DIRECT CLOUD SUPABASE QUERY)
+    // TEACHERS LOGIN
     window.handleTeacherLogin = async function(e) {
       e.preventDefault();
       await window.syncFromSupabase();
