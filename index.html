@@ -337,7 +337,7 @@
   <!-- TOAST NOTIFIER -->
   <div id="toast" class="fixed bottom-5 right-5 hidden z-50 px-4 py-3 rounded-xl border shadow-2xl transition-all duration-300 text-xs"></div>
 
-  <!-- JAVASCRIPT SYSTEM ENGINE WITH REAL-TIME AUDIT LOGGING AND ROBUST MOBILE MATCHING -->
+  <!-- JAVASCRIPT ENGINE WITH DIRECT SUPABASE AUTHENTICATION FOR MOBILE -->
   <script>
     const SUPABASE_PROJECT_URL = "https://nkuehfzkrmghixggyggs.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_SLqQ2AR3UmGywoSqKOWz5Q_eW_C8d2i";
@@ -410,7 +410,6 @@
     let currentSlide = 0;
     let carouselInterval = null;
 
-    // Helper function for mobile-friendly string/phone matching
     function normalizeStr(str) {
       return (str || '').toString().trim().toLowerCase();
     }
@@ -478,6 +477,28 @@
           DB.set('auditLogs', window.appState.auditLogs);
         }
       } catch (err) {}
+    };
+
+    window.pushAllToCloud = async function() {
+      if (!supabaseClient) {
+        window.showToast("Supabase connection not initialized.", "error");
+        return;
+      }
+      try {
+        for (const st of window.appState.students) {
+          await supabaseClient.from('students').upsert({ id: st.id, data: st });
+        }
+        for (const tch of window.appState.teachers) {
+          await supabaseClient.from('teachers').upsert({ staff_id: tch.staffId, data: tch });
+        }
+        for (const adm of window.appState.admissions) {
+          await supabaseClient.from('admissions').upsert({ id: adm.id, data: adm });
+        }
+        window.showToast("All local records successfully synced to Supabase Cloud!");
+        window.logAudit('Admin', 'Headteacher', 'Manually pushed all local database records to Supabase Cloud');
+      } catch (err) {
+        window.showToast("Cloud sync failed. Check connection.", "error");
+      }
     };
 
     window.syncTableToSupabase = async function(table, idField, record) {
@@ -652,9 +673,11 @@
       }
     };
 
-    // PARENTS LOGIN & PASSWORD CHANGE (ROBUST MOBILE MATCHING)
+    // PARENTS LOGIN (DIRECT CLOUD SUPABASE QUERY)
     window.handleParentLogin = async function(e) {
       e.preventDefault();
+      await window.syncFromSupabase();
+
       const sid = normalizeStr(document.getElementById('parentLoginId').value);
       const dob = document.getElementById('parentLoginDob').value;
       const phoneClean = normalizePhone(document.getElementById('parentLoginPhone').value);
@@ -785,9 +808,11 @@
       }
     };
 
-    // TEACHERS LOGIN & PASSWORD CHANGE (ROBUST MOBILE MATCHING)
+    // TEACHERS LOGIN (DIRECT CLOUD SUPABASE QUERY)
     window.handleTeacherLogin = async function(e) {
       e.preventDefault();
+      await window.syncFromSupabase();
+
       const staffId = normalizeStr(document.getElementById('teacherLoginStaffId').value);
       const phoneClean = normalizePhone(document.getElementById('teacherLoginPhone').value);
       const pass = document.getElementById('teacherLoginPass').value.trim();
@@ -938,7 +963,7 @@
       }
     };
 
-    // ADMIN LOGIN & PASSWORD CHANGE (ROBUST MOBILE MATCHING)
+    // ADMIN LOGIN
     window.handleAdminLogin = async function(e) {
       e.preventDefault();
       const u = normalizeStr(document.getElementById('adminLoginUser').value);
@@ -965,7 +990,12 @@
               <h2 class="text-2xl font-bold text-brandGold"><i class="fa-solid fa-user-shield mr-2"></i>Admin Master Control Hub</h2>
               <p class="text-xs text-slate-400">Emican Heritage Academy | Real-Time Activity Monitoring & Credential Control</p>
             </div>
-            <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
+            <div class="flex gap-2">
+              <button onclick="window.pushAllToCloud()" class="px-3 py-2 bg-brandSea text-slate-950 font-bold rounded-xl text-xs hover:brightness-110 transition">
+                <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Sync All to Cloud
+              </button>
+              <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
+            </div>
           </div>
 
           <!-- Section 1: Real-Time Activity & Password Change Monitor with Clear Button -->
