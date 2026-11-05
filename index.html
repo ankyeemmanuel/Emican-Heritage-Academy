@@ -675,21 +675,26 @@
     };
 
     // PARENTS LOGIN
-    window.handleParentLogin = async function(e) {
+  window.handleParentLogin = async function(e) {
       e.preventDefault();
       await window.syncFromSupabase();
 
       const sid = normalizeStr(document.getElementById('parentLoginId').value);
-      const dob = document.getElementById('parentLoginDob').value;
+      const inputDob = (document.getElementById('parentLoginDob').value || '').trim();
       const phoneClean = normalizePhone(document.getElementById('parentLoginPhone').value);
       const pass = document.getElementById('parentLoginPass').value.trim();
 
-      const st = window.appState.students.find(s => 
-        normalizeStr(s.id) === sid && 
-        s.dob === dob && 
-        normalizePhone(s.phone) === phoneClean && 
-        s.pass.trim() === pass
-      );
+      const st = window.appState.students.find(s => {
+        const storedId = normalizeStr(s.id);
+        const storedDob = (s.dob || '').trim();
+        const storedPhone = normalizePhone(s.phone);
+        const storedPass = (s.pass || '').trim();
+
+        return storedId === sid && 
+               storedDob === inputDob && 
+               storedPhone === phoneClean && 
+               storedPass === pass;
+      });
 
       if (st) {
         window.appState.activeSession = { role: 'parent', studentId: st.id, name: st.name };
