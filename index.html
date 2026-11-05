@@ -169,19 +169,11 @@
               <label class="block text-xs font-semibold text-slate-300 mb-1">Class Applying For *</label>
               <select id="admClass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
                 <option value="">-- Select Class --</option>
-                <option value="Crèche 1">Crèche 1</option>
-                <option value="Crèche 2">Crèche 2</option>
-                <option value="KG 1">KG 1</option>
-                <option value="KG 2">KG 2</option>
-                <option value="Basic 1">Basic 1</option>
-                <option value="Basic 2">Basic 2</option>
-                <option value="Basic 3">Basic 3</option>
-                <option value="Basic 4">Basic 4</option>
-                <option value="Basic 5">Basic 5</option>
-                <option value="Basic 6">Basic 6</option>
-                <option value="J.H.S 1">J.H.S 1</option>
-                <option value="J.H.S 2">J.H.S 2</option>
-                <option value="J.H.S 3">J.H.S 3</option>
+                <option value="Crèche 1">Crèche 1</option><option value="Crèche 2">Crèche 2</option>
+                <option value="KG 1">KG 1</option><option value="KG 2">KG 2</option>
+                <option value="Basic 1">Basic 1</option><option value="Basic 2">Basic 2</option><option value="Basic 3">Basic 3</option>
+                <option value="Basic 4">Basic 4</option><option value="Basic 5">Basic 5</option><option value="Basic 6">Basic 6</option>
+                <option value="J.H.S 1">J.H.S 1</option><option value="J.H.S 2">J.H.S 2</option><option value="J.H.S 3">J.H.S 3</option>
               </select>
             </div>
             <div class="grid grid-cols-2 gap-4">
@@ -353,7 +345,7 @@
   <!-- TOAST NOTIFIER -->
   <div id="toast" class="fixed bottom-5 right-5 hidden z-50 px-4 py-3 rounded-xl border shadow-2xl transition-all duration-300 text-xs"></div>
 
-  <!-- JAVASCRIPT SYSTEM ENGINE -->
+  <!-- JAVASCRIPT SYSTEM ENGINE WITH SUPABASE SYNC -->
   <script>
     const SUPABASE_PROJECT_URL = "https://nkuehfzkrmghixggyggs.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_SLqQ2AR3UmGywoSqKOWz5Q_eW_C8d2i";
@@ -362,7 +354,7 @@
     if (window.supabase) {
       try {
         supabaseClient = window.supabase.createClient(SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY);
-      } catch (e) {}
+      } catch (e) { console.log("Supabase client init error"); }
     }
 
     const DEFAULT_IMAGES = [
@@ -420,18 +412,55 @@
       ]),
       admissions: DB.get('admissions', []),
       activeSession: null,
-      adminPass: DB.get('adminPass', 'admin123'),
-      auditLogs: DB.get('auditLogs', [])
+      adminPass: DB.get('adminPass', 'admin123')
     };
 
     let currentSlide = 0;
     let carouselInterval = null;
 
-    window.logAudit = function(user, action) {
-      const entry = { time: new Date().toLocaleString(), user, action };
-      window.appState.auditLogs.unshift(entry);
-      if (window.appState.auditLogs.length > 50) window.appState.auditLogs.pop();
-      DB.set('auditLogs', window.appState.auditLogs);
+    // REAL-TIME SUPABASE DATA SYNC ON LOAD
+    window.syncFromSupabase = async function() {
+      if (!supabaseClient) return;
+      try {
+        const { data: stData } = await supabaseClient.from('students').select('*');
+        if (stData && stData.length > 0) {
+          window.appState.students = stData.map(row => row.data || row);
+          DB.set('students', window.appState.students);
+        }
+
+        const { data: tchData } = await supabaseClient.from('teachers').select('*');
+        if (tchData && tchData.length > 0) {
+          window.appState.teachers = tchData.map(row => row.data || row);
+          DB.set('teachers', window.appState.teachers);
+        }
+
+        const { data: admData } = await supabaseClient.from('admissions').select('*');
+        if (admData && admData.length > 0) {
+          window.appState.admissions = admData.map(row => row.data || row);
+          DB.set('admissions', window.appState.admissions);
+        }
+      } catch (err) {
+        console.log("Using local storage cache mode");
+      }
+    };
+
+    window.syncTableToSupabase = async function(table, idField, record) {
+      DB.set(table, window.appState[table]);
+      if (!supabaseClient) return;
+      try {
+        await supabaseClient.from(table).upsert({ 
+          [idField]: record[idField] || record.id || record.staffId, 
+          data: record 
+        });
+      } catch (e) { console.log("Supabase sync queue saved locally"); }
+    };
+
+    window.removeFromSupabase = async function(table, idField, idVal) {
+      DB.set(table, window.appState[table]);
+      if (!supabaseClient) return;
+      try {
+        await supabaseClient.from(table).delete().eq(idField, idVal);
+      } catch (e) {}
     };
 
     window.showPortal = function(portal) {
@@ -459,10 +488,7 @@
     };
 
     window.renderLogo = function() {
-      const logoImgs = document.querySelectorAll('#siteLogoImg');
-      logoImgs.forEach(img => {
-        img.src = window.appState.logoUrl;
-      });
+      document.querySelectorAll('#siteLogoImg').forEach(img => { img.src = window.appState.logoUrl; });
     };
 
     window.renderCarousel = function() {
@@ -541,7 +567,7 @@
       }
     };
 
-    window.handleAdmissionSubmit = function(e) {
+    window.handleAdmissionSubmit = async function(e) {
       e.preventDefault();
       const newApp = {
         id: 'APP-' + Date.now().toString().slice(-5),
@@ -557,7 +583,7 @@
       };
 
       window.appState.admissions.unshift(newApp);
-      DB.set('admissions', window.appState.admissions);
+      await window.syncTableToSupabase('admissions', 'id', newApp);
       window.showToast("Admission application submitted successfully!");
       e.target.reset();
     };
@@ -600,7 +626,6 @@
       if (st) {
         window.appState.activeSession = { role: 'parent', studentId: st.id };
         document.getElementById('parentLoginForm').classList.add('hidden');
-        window.logAudit(st.name + ' (Parent)', 'Logged in to Parent Portal');
         window.renderParentDashboard();
       } else {
         window.showToast("Invalid Student ID, DOB, Phone or Password.", "error");
@@ -685,13 +710,13 @@
       `;
     };
 
-    window.handleParentReply = function(e, studentId) {
+    window.handleParentReply = async function(e, studentId) {
       e.preventDefault();
       const txt = document.getElementById('parentReplyInput').value.trim();
       const st = window.appState.students.find(s => s.id === studentId);
       if (st && txt) {
         st.parentReply = txt;
-        DB.set('students', window.appState.students);
+        await window.syncTableToSupabase('students', 'id', st);
         window.showToast("Reply sent to teacher.");
         window.renderParentDashboard();
       }
@@ -707,7 +732,6 @@
       if (t) {
         window.appState.activeSession = { role: 'teacher', staffId: t.staffId, className: t.className };
         document.getElementById('teacherLoginForm').classList.add('hidden');
-        window.logAudit(t.name + ' (Teacher)', 'Logged in to Teacher Portal');
         window.renderTeacherDashboard();
       } else {
         window.showToast("Invalid Staff ID, Phone or Password.", "error");
@@ -765,13 +789,9 @@
                     <h4 class="font-bold text-slate-200">Update Student Fees Record</h4>
                     <form onsubmit="window.handleAddFeeItem(event, '${s.id}')" class="flex flex-wrap gap-2">
                       <select id="feeType_${s.id}" required class="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white">
-                        <option value="Academic Fee">Academic Fee</option>
-                        <option value="Canteen Fee">Canteen Fee</option>
-                        <option value="Entertainment Fee">Entertainment Fee</option>
-                        <option value="Boarding Fee">Boarding Fee</option>
-                        <option value="ICT Fee">ICT Fee</option>
-                        <option value="Maintenance Fee">Maintenance Fee</option>
-                        <option value="Practicals Fee">Practicals Fee</option>
+                        <option value="Academic Fee">Academic Fee</option><option value="Canteen Fee">Canteen Fee</option>
+                        <option value="Entertainment Fee">Entertainment Fee</option><option value="Boarding Fee">Boarding Fee</option>
+                        <option value="ICT Fee">ICT Fee</option><option value="Maintenance Fee">Maintenance Fee</option><option value="Practicals Fee">Practicals Fee</option>
                       </select>
                       <input type="number" id="feeAmt_${s.id}" required placeholder="Amount Billed" class="w-24 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white">
                       <input type="number" id="feePaid_${s.id}" required placeholder="Amount Paid" class="w-24 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white">
@@ -786,27 +806,27 @@
       `;
     };
 
-    window.updateStudentPDF = function(studentId) {
+    window.updateStudentPDF = async function(studentId) {
       const url = document.getElementById(`pdfLink_${studentId}`).value.trim();
       const st = window.appState.students.find(s => s.id === studentId);
       if (st) {
         st.pdfResult = url;
-        DB.set('students', window.appState.students);
+        await window.syncTableToSupabase('students', 'id', st);
         window.showToast("PDF report link updated successfully!");
       }
     };
 
-    window.updateStudentNote = function(studentId) {
+    window.updateStudentNote = async function(studentId) {
       const txt = document.getElementById(`note_${studentId}`).value.trim();
       const st = window.appState.students.find(s => s.id === studentId);
       if (st) {
         st.complaint = txt;
-        DB.set('students', window.appState.students);
+        await window.syncTableToSupabase('students', 'id', st);
         window.showToast("Teacher comment updated!");
       }
     };
 
-    window.handleAddFeeItem = function(e, studentId) {
+    window.handleAddFeeItem = async function(e, studentId) {
       e.preventDefault();
       const type = document.getElementById(`feeType_${studentId}`).value;
       const amt = Number(document.getElementById(`feeAmt_${studentId}`).value);
@@ -815,13 +835,9 @@
       const st = window.appState.students.find(s => s.id === studentId);
       if (st) {
         const existing = st.fees.find(f => f.type === type);
-        if (existing) {
-          existing.amount = amt;
-          existing.paid = paid;
-        } else {
-          st.fees.push({ type, amount: amt, paid });
-        }
-        DB.set('students', window.appState.students);
+        if (existing) { existing.amount = amt; existing.paid = paid; }
+        else { st.fees.push({ type, amount: amt, paid }); }
+        await window.syncTableToSupabase('students', 'id', st);
         window.showToast("Student fee record updated!");
         window.renderTeacherDashboard();
       }
@@ -835,7 +851,6 @@
       if (u === 'admin' && p === window.appState.adminPass) {
         window.appState.activeSession = { role: 'admin' };
         document.getElementById('adminLoginForm').classList.add('hidden');
-        window.logAudit('Headteacher (Admin)', 'Logged in to Master Admin Portal');
         window.renderAdminDashboard();
       } else {
         window.showToast("Invalid Admin Password.", "error");
@@ -850,22 +865,22 @@
         <div class="bg-cardBg p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-8">
           <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
             <div>
-              <h2 class="text-2xl font-bold text-brandGold"><i class="fa-solid fa-user-shield mr-2"></i>Admin Master Control (Headteacher)</h2>
+              <h2 class="text-2xl font-bold text-brandGold"><i class="fa-solid fa-user-shield mr-2"></i>Admin Master Control</h2>
               <p class="text-xs text-slate-400">Emican Heritage Academy Control Hub | Real-Time Sync Enabled</p>
             </div>
             <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
           </div>
 
-          <!-- Section 1: DEDICATED LOGO URL UPDATER & LIVE PREVIEW -->
+          <!-- Logo Management -->
           <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
             <h3 class="font-bold text-sm text-white flex items-center gap-2"><i class="fa-solid fa-image text-brandGold"></i> School Logo Management & Live Preview</h3>
             <div class="grid md:grid-cols-3 gap-6 items-center">
               <div class="flex items-center gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800 justify-center">
                 <img id="adminLogoPreview" src="${window.appState.logoUrl}" alt="Logo Preview" class="w-16 h-16 rounded-full border-2 border-brandGold object-cover shadow">
-                <span class="text-xs text-slate-400">Current Logo Preview</span>
+                <span class="text-xs text-slate-400">Current Logo</span>
               </div>
               <div class="md:col-span-2 space-y-2">
-                <label class="block text-xs font-semibold text-slate-300">Paste New Logo Image URL (Supabase Storage Link)</label>
+                <label class="block text-xs font-semibold text-slate-300">Paste New Logo Image URL</label>
                 <div class="flex gap-2">
                   <input type="url" id="editLogoUrlInput" value="${window.appState.logoUrl}" placeholder="https://..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white text-xs">
                   <button onclick="window.previewAndSaveLogo()" class="px-4 py-2 bg-brandGold text-slate-950 font-bold rounded-lg text-xs hover:brightness-110">Save Logo</button>
@@ -874,7 +889,7 @@
             </div>
           </div>
 
-          <!-- Section 2: Homepage Text & Carousel -->
+          <!-- Homepage & Carousel Content -->
           <div class="grid md:grid-cols-2 gap-6 bg-slate-900 p-5 rounded-xl border border-slate-800 text-xs space-y-4 md:space-y-0">
             <div class="space-y-3">
               <h3 class="font-bold text-sm text-white">Homepage Content Editor</h3>
@@ -890,26 +905,20 @@
             </div>
 
             <div class="space-y-3">
-              <h3 class="font-bold text-sm text-white">Carousel Images (Supabase Storage Links)</h3>
+              <h3 class="font-bold text-sm text-white">Carousel Images Links</h3>
               <textarea id="editCarouselLinks" rows="8" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white font-mono text-[11px]">${window.appState.carouselImages.join('\n')}</textarea>
               <button onclick="window.saveCarouselImages()" class="px-4 py-2 bg-brandGold text-slate-950 font-bold rounded">Update Carousel Slides</button>
             </div>
           </div>
 
-          <!-- Section 3: Admissions Management -->
+          <!-- Admissions -->
           <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
-            <h3 class="font-bold text-lg text-white">Admission & Inquiry Applications</h3>
+            <h3 class="font-bold text-lg text-white">Admission Applications</h3>
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs border-collapse">
                 <thead>
                   <tr class="border-b border-slate-800 text-slate-400">
-                    <th class="py-2">App ID</th>
-                    <th class="py-2">Parent Name</th>
-                    <th class="py-2">Phone</th>
-                    <th class="py-2">Child Name</th>
-                    <th class="py-2">Class</th>
-                    <th class="py-2">Status</th>
-                    <th class="py-2">Action</th>
+                    <th class="py-2">App ID</th><th class="py-2">Parent Name</th><th class="py-2">Phone</th><th class="py-2">Child Name</th><th class="py-2">Class</th><th class="py-2">Status</th><th class="py-2">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -938,10 +947,10 @@
             </div>
           </div>
 
-          <!-- Section 4: Registrations -->
+          <!-- Registrations -->
           <div class="grid md:grid-cols-2 gap-6 text-xs">
             <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
-              <h3 class="font-bold text-sm text-brandSea">Register Student & Create Parent Credentials</h3>
+              <h3 class="font-bold text-sm text-brandSea">Register Student & Parent Credentials</h3>
               <form onsubmit="window.handleRegisterStudent(event)" class="space-y-3">
                 <input type="text" id="regStudentId" required placeholder="Student ID (e.g. EHA/2026/002)" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
                 <input type="text" id="regStudentName" required placeholder="Child Full Name" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
@@ -974,12 +983,10 @@
             </div>
           </div>
 
-          <!-- Section 5: Real-Time User Monitoring & Password/Phone Inspection -->
+          <!-- Credential Inspector -->
           <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-            <h3 class="font-bold text-sm text-white">Real-Time User Monitoring & Credential Inspection</h3>
+            <h3 class="font-bold text-sm text-white">Real-Time User Monitoring & Credentials Inspection</h3>
             <div class="grid md:grid-cols-2 gap-6">
-              
-              <!-- Students List with Phone Numbers -->
               <div>
                 <h4 class="font-bold text-brandSea mb-2">Registered Students & Credentials</h4>
                 <div class="space-y-2 max-h-48 overflow-y-auto pr-1">
@@ -995,7 +1002,6 @@
                 </div>
               </div>
 
-              <!-- Staff List with Phone Numbers -->
               <div>
                 <h4 class="font-bold text-brandGold mb-2">Registered Staff & Credentials</h4>
                 <div class="space-y-2 max-h-48 overflow-y-auto pr-1">
@@ -1010,7 +1016,6 @@
                   `).join('')}
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -1025,7 +1030,7 @@
       window.renderLogo();
       const prev = document.getElementById('adminLogoPreview');
       if (prev) prev.src = url;
-      window.showToast("School logo updated and synchronized successfully!");
+      window.showToast("School logo updated successfully!");
     };
 
     window.saveHomepageContent = function() {
@@ -1047,22 +1052,22 @@
       window.showToast("Carousel images updated successfully!");
     };
 
-    window.updateAppStatus = function(appId, newStatus) {
+    window.updateAppStatus = async function(appId, newStatus) {
       const app = window.appState.admissions.find(a => a.id === appId);
       if (app) {
         app.status = newStatus;
-        DB.set('admissions', window.appState.admissions);
+        await window.syncTableToSupabase('admissions', 'id', app);
         window.showToast(`Application ${appId} status set to ${newStatus}.`);
       }
     };
 
-    window.deleteAdmission = function(appId) {
+    window.deleteAdmission = async function(appId) {
       window.appState.admissions = window.appState.admissions.filter(a => a.id !== appId);
-      DB.set('admissions', window.appState.admissions);
+      await window.removeFromSupabase('admissions', 'id', appId);
       window.renderAdminDashboard();
     };
 
-    window.handleRegisterStudent = function(e) {
+    window.handleRegisterStudent = async function(e) {
       e.preventDefault();
       const st = {
         id: document.getElementById('regStudentId').value.trim(),
@@ -1081,12 +1086,12 @@
       };
 
       window.appState.students.push(st);
-      DB.set('students', window.appState.students);
+      await window.syncTableToSupabase('students', 'id', st);
       window.showToast(`Student ${st.name} registered successfully!`);
       window.renderAdminDashboard();
     };
 
-    window.handleRegisterTeacher = function(e) {
+    window.handleRegisterTeacher = async function(e) {
       e.preventDefault();
       const tch = {
         staffId: document.getElementById('regStaffId').value.trim(),
@@ -1097,20 +1102,20 @@
       };
 
       window.appState.teachers.push(tch);
-      DB.set('teachers', window.appState.teachers);
+      await window.syncTableToSupabase('teachers', 'staff_id', tch);
       window.showToast(`Teacher ${tch.name} registered!`);
       window.renderAdminDashboard();
     };
 
-    window.deleteStudent = function(id) {
+    window.deleteStudent = async function(id) {
       window.appState.students = window.appState.students.filter(s => s.id !== id);
-      DB.set('students', window.appState.students);
+      await window.removeFromSupabase('students', 'id', id);
       window.renderAdminDashboard();
     };
 
-    window.deleteTeacher = function(id) {
+    window.deleteTeacher = async function(id) {
       window.appState.teachers = window.appState.teachers.filter(t => t.staffId !== id);
-      DB.set('teachers', window.appState.teachers);
+      await window.removeFromSupabase('teachers', 'staff_id', id);
       window.renderAdminDashboard();
     };
 
@@ -1135,7 +1140,8 @@
       }
     };
 
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', async () => {
+      await window.syncFromSupabase();
       window.renderLogo();
       window.renderCarousel();
       initTouchSwipe();
