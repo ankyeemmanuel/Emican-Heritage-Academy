@@ -337,7 +337,7 @@
   <!-- TOAST NOTIFIER -->
   <div id="toast" class="fixed bottom-5 right-5 hidden z-50 px-4 py-3 rounded-xl border shadow-2xl transition-all duration-300 text-xs"></div>
 
-  <!-- JAVASCRIPT SYSTEM ENGINE WITH REAL-TIME AUDIT LOGGING -->
+  <!-- JAVASCRIPT SYSTEM ENGINE WITH REAL-TIME AUDIT LOGGING AND ROBUST MOBILE MATCHING -->
   <script>
     const SUPABASE_PROJECT_URL = "https://nkuehfzkrmghixggyggs.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_SLqQ2AR3UmGywoSqKOWz5Q_eW_C8d2i";
@@ -410,17 +410,48 @@
     let currentSlide = 0;
     let carouselInterval = null;
 
-    // AUDIT LOGGING FUNCTION (Visible to Admin)
-    window.logAudit = function(userRole, userName, actionDescription) {
+    // Helper function for mobile-friendly string/phone matching
+    function normalizeStr(str) {
+      return (str || '').toString().trim().toLowerCase();
+    }
+    function normalizePhone(phone) {
+      return (phone || '').toString().replace(/\D/g, '');
+    }
+
+    // AUDIT LOGGING FUNCTION
+    window.logAudit = async function(userRole, userName, actionDescription) {
       const logEntry = {
+        id: 'LOG-' + Date.now().toString() + '-' + Math.floor(Math.random() * 1000),
         time: new Date().toLocaleString(),
         role: userRole,
         user: userName,
         action: actionDescription
       };
       window.appState.auditLogs.unshift(logEntry);
-      if (window.appState.auditLogs.length > 100) window.appState.auditLogs.pop();
+      if (window.appState.auditLogs.length > 200) window.appState.auditLogs.pop();
       DB.set('auditLogs', window.appState.auditLogs);
+
+      if (supabaseClient) {
+        try {
+          await supabaseClient.from('audit_logs').upsert({
+            time: logEntry.id,
+            data: logEntry
+          });
+        } catch (e) {}
+      }
+    };
+
+    window.clearAuditLogs = async function() {
+      if (!confirm("Are you sure you want to clear all activity logs?")) return;
+      window.appState.auditLogs = [];
+      DB.set('auditLogs', []);
+      if (supabaseClient) {
+        try {
+          await supabaseClient.from('audit_logs').delete().neq('time', '0');
+        } catch (e) {}
+      }
+      window.showToast("Activity logs cleared!");
+      window.renderAdminDashboard();
     };
 
     window.syncFromSupabase = async function() {
@@ -589,7 +620,7 @@
 
       window.appState.admissions.unshift(newApp);
       await window.syncTableToSupabase('admissions', 'id', newApp);
-      window.logAudit('Guest / Public', newApp.parentName, `Submitted admission inquiry for child ${newApp.childName} (${newApp.className})`);
+      await window.logAudit('Guest / Public', newApp.parentName, `Submitted admission inquiry for child ${newApp.childName} (${newApp.className})`);
       window.showToast("Admission application submitted successfully!");
       e.target.reset();
     };
@@ -599,17 +630,17 @@
     };
 
     window.checkApplicationStatus = function() {
-      const q = document.getElementById('statusSearchQuery').value.trim().toLowerCase();
+      const q = normalizeStr(document.getElementById('statusSearchQuery').value);
       const resBox = document.getElementById('statusResultBox');
       if (!q) return;
 
       const found = window.appState.admissions.filter(a => 
-        a.phone.toLowerCase().includes(q) || a.childName.toLowerCase().includes(q) || a.id.toLowerCase() === q
+        normalizeStr(a.phone).includes(q) || normalizeStr(a.childName).includes(q) || normalizeStr(a.id) === q
       );
 
       resBox.classList.remove('hidden');
       if (found.length === 0) {
-        resBox.innerHTML = `<p class="text-red-400 font-semibold">No application found for "${q}". Please verify phone number or child's name.</p>`;
+        resBox.innerHTML = `<p class="text-red-400 font-semibold">No application found. Please verify phone number or child's name.</p>`;
       } else {
         resBox.innerHTML = found.map(a => `
           <div class="border-b border-slate-800 pb-2 last:border-0">
@@ -621,18 +652,24 @@
       }
     };
 
-    // PARENTS LOGIN & PASSWORD CHANGE
-    window.handleParentLogin = function(e) {
+    // PARENTS LOGIN & PASSWORD CHANGE (ROBUST MOBILE MATCHING)
+    window.handleParentLogin = async function(e) {
       e.preventDefault();
-      const sid = document.getElementById('parentLoginId').value.trim();
+      const sid = normalizeStr(document.getElementById('parentLoginId').value);
       const dob = document.getElementById('parentLoginDob').value;
-      const phone = document.getElementById('parentLoginPhone').value.trim();
+      const phoneClean = normalizePhone(document.getElementById('parentLoginPhone').value);
       const pass = document.getElementById('parentLoginPass').value.trim();
 
-      const st = window.appState.students.find(s => s.id === sid && s.dob === dob && s.phone === phone && s.pass === pass);
+      const st = window.appState.students.find(s => 
+        normalizeStr(s.id) === sid && 
+        s.dob === dob && 
+        normalizePhone(s.phone) === phoneClean && 
+        s.pass.trim() === pass
+      );
+
       if (st) {
         window.appState.activeSession = { role: 'parent', studentId: st.id, name: st.name };
-        window.logAudit('Parent', st.name + ' (' + st.id + ')', 'Successfully logged into Parent Portal');
+        await window.logAudit('Parent', st.name + ' (' + st.id + ')', 'Successfully logged into Parent Portal');
         document.getElementById('parentLoginForm').classList.add('hidden');
         window.renderParentDashboard();
       } else {
@@ -646,7 +683,7 @@
       dash.classList.remove('hidden');
 
       let totalFees = 0, totalPaid = 0;
-      st.fees.forEach(f => { totalFees += Number(f.amount); totalPaid += Number(f.paid); });
+      (st.fees || []).forEach(f => { totalFees += Number(f.amount); totalPaid += Number(f.paid); });
       let balance = totalFees - totalPaid;
 
       dash.innerHTML = `
@@ -704,7 +741,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    ${st.fees.map(f => `
+                    ${(st.fees || []).map(f => `
                       <tr class="border-b border-slate-800/60">
                         <td class="py-2 text-slate-200">${f.type}</td><td class="py-2">${f.amount}</td><td class="py-2 text-emerald-400">${f.paid}</td>
                       </tr>
@@ -729,7 +766,7 @@
       if (st && np) {
         st.pass = np;
         await window.syncTableToSupabase('students', 'id', st);
-        window.logAudit('Parent', st.name + ' (' + st.id + ')', 'Changed account password');
+        await window.logAudit('Parent', st.name + ' (' + st.id + ')', 'Changed account password to: ' + np);
         window.showToast("Parent/Student password updated successfully!");
         window.renderParentDashboard();
       }
@@ -742,23 +779,28 @@
       if (st && txt) {
         st.parentReply = txt;
         await window.syncTableToSupabase('students', 'id', st);
-        window.logAudit('Parent', st.name, 'Replied to teacher comment');
+        await window.logAudit('Parent', st.name, 'Replied to teacher comment');
         window.showToast("Reply sent to teacher.");
         window.renderParentDashboard();
       }
     };
 
-    // TEACHERS LOGIN & PASSWORD CHANGE
-    window.handleTeacherLogin = function(e) {
+    // TEACHERS LOGIN & PASSWORD CHANGE (ROBUST MOBILE MATCHING)
+    window.handleTeacherLogin = async function(e) {
       e.preventDefault();
-      const staffId = document.getElementById('teacherLoginStaffId').value.trim();
-      const phone = document.getElementById('teacherLoginPhone').value.trim();
+      const staffId = normalizeStr(document.getElementById('teacherLoginStaffId').value);
+      const phoneClean = normalizePhone(document.getElementById('teacherLoginPhone').value);
       const pass = document.getElementById('teacherLoginPass').value.trim();
 
-      const t = window.appState.teachers.find(tch => tch.staffId === staffId && tch.phone === phone && tch.pass === pass);
+      const t = window.appState.teachers.find(tch => 
+        normalizeStr(tch.staffId) === staffId && 
+        normalizePhone(tch.phone) === phoneClean && 
+        tch.pass.trim() === pass
+      );
+
       if (t) {
         window.appState.activeSession = { role: 'teacher', staffId: t.staffId, name: t.name, className: t.className };
-        window.logAudit('Teacher', t.name + ' (' + t.staffId + ')', 'Successfully logged into Teacher Portal');
+        await window.logAudit('Teacher', t.name + ' (' + t.staffId + ')', 'Successfully logged into Teacher Portal');
         document.getElementById('teacherLoginForm').classList.add('hidden');
         window.renderTeacherDashboard();
       } else {
@@ -800,7 +842,7 @@
                 <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
                   <div class="flex flex-wrap justify-between items-center font-bold text-sm text-brandSea">
                     <span>${s.name} (ID: ${s.id})</span>
-                    <span class="text-slate-400 text-xs">DOB: ${s.dob} | Phone: ${s.phone}</span>
+                    <span class="text-slate-400 text-xs">DOB: ${s.dob || 'N/A'} | Phone: ${s.phone}</span>
                   </div>
 
                   <div class="grid md:grid-cols-2 gap-4 bg-slate-950 p-3 rounded-lg border border-slate-800">
@@ -849,7 +891,7 @@
       if (tch && np) {
         tch.pass = np;
         await window.syncTableToSupabase('teachers', 'staff_id', tch);
-        window.logAudit('Teacher', tch.name + ' (' + tch.staffId + ')', 'Changed account password');
+        await window.logAudit('Teacher', tch.name + ' (' + tch.staffId + ')', 'Changed account password to: ' + np);
         window.showToast("Teacher password updated successfully!");
         window.renderTeacherDashboard();
       }
@@ -861,7 +903,7 @@
       if (st) {
         st.pdfResult = url;
         await window.syncTableToSupabase('students', 'id', st);
-        window.logAudit('Teacher', window.appState.activeSession.name, `Updated term report PDF for student ${st.name}`);
+        await window.logAudit('Teacher', window.appState.activeSession.name, `Updated term report PDF for student ${st.name}`);
         window.showToast("PDF report link updated successfully!");
       }
     };
@@ -872,7 +914,7 @@
       if (st) {
         st.complaint = txt;
         await window.syncTableToSupabase('students', 'id', st);
-        window.logAudit('Teacher', window.appState.activeSession.name, `Posted behavior note for student ${st.name}`);
+        await window.logAudit('Teacher', window.appState.activeSession.name, `Posted behavior note for student ${st.name}`);
         window.showToast("Teacher comment updated!");
       }
     };
@@ -885,25 +927,26 @@
 
       const st = window.appState.students.find(s => s.id === studentId);
       if (st) {
+        st.fees = st.fees || [];
         const existing = st.fees.find(f => f.type === type);
         if (existing) { existing.amount = amt; existing.paid = paid; }
         else { st.fees.push({ type, amount: amt, paid }); }
         await window.syncTableToSupabase('students', 'id', st);
-        window.logAudit('Teacher', window.appState.activeSession.name, `Updated fee statement for student ${st.name}`);
+        await window.logAudit('Teacher', window.appState.activeSession.name, `Updated fee statement for student ${st.name}`);
         window.showToast("Student fee record updated!");
         window.renderTeacherDashboard();
       }
     };
 
-    // ADMIN LOGIN & PASSWORD CHANGE
-    window.handleAdminLogin = function(e) {
+    // ADMIN LOGIN & PASSWORD CHANGE (ROBUST MOBILE MATCHING)
+    window.handleAdminLogin = async function(e) {
       e.preventDefault();
-      const u = document.getElementById('adminLoginUser').value.trim();
+      const u = normalizeStr(document.getElementById('adminLoginUser').value);
       const p = document.getElementById('adminLoginPass').value.trim();
 
-      if (u === 'admin' && p === window.appState.adminPass) {
+      if ((u === 'admin' || u === 'headteacher') && p === window.appState.adminPass.trim()) {
         window.appState.activeSession = { role: 'admin' };
-        window.logAudit('Admin', 'Headteacher', 'Successfully logged into Master Admin Portal');
+        await window.logAudit('Admin', 'Headteacher', 'Successfully logged into Master Admin Portal');
         document.getElementById('adminLoginForm').classList.add('hidden');
         window.renderAdminDashboard();
       } else {
@@ -925,9 +968,14 @@
             <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
           </div>
 
-          <!-- Section 1: Real-Time Activity & Password Change Monitor -->
+          <!-- Section 1: Real-Time Activity & Password Change Monitor with Clear Button -->
           <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
-            <h3 class="font-bold text-sm text-brandGold flex items-center gap-2"><i class="fa-solid fa-clipboard-list"></i> Real-Time Portal Activity & Security Audit Log</h3>
+            <div class="flex flex-wrap justify-between items-center gap-2">
+              <h3 class="font-bold text-sm text-brandGold flex items-center gap-2"><i class="fa-solid fa-clipboard-list"></i> Real-Time Portal Activity & Security Audit Log</h3>
+              <button onclick="window.clearAuditLogs()" class="px-3 py-1 bg-red-950 text-red-400 hover:bg-red-900 border border-red-800 rounded text-xs font-bold transition">
+                <i class="fa-solid fa-trash mr-1"></i> Clear All Logs
+              </button>
+            </div>
             <p class="text-[11px] text-slate-400">Tracks all portal logins, changed passwords, admission applications, and record updates across devices in real time.</p>
             <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 max-h-56 overflow-y-auto space-y-2 text-xs font-mono">
               ${window.appState.auditLogs.length === 0 ? `<p class="text-slate-500 italic">No activity logged yet.</p>` : ''}
@@ -935,7 +983,7 @@
                 <div class="border-b border-slate-800/60 pb-1.5 flex flex-wrap justify-between gap-2">
                   <div>
                     <span class="text-brandSea">[${log.time}]</span> 
-                    <strong class="text-slate-200">${log.role}: ${log.user}</strong> — 
+                    <strong class="text-slate-200">${log.role || 'User'}: ${log.user || 'Unknown'}</strong> — 
                     <span class="text-slate-300">${log.action}</span>
                   </div>
                 </div>
@@ -1035,7 +1083,10 @@
               <form onsubmit="window.handleRegisterStudent(event)" class="space-y-3">
                 <input type="text" id="regStudentId" required placeholder="Student ID (e.g. EHA/2026/002)" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
                 <input type="text" id="regStudentName" required placeholder="Child Full Name" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                <input type="date" id="regStudentDOB" required class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+                <div>
+                  <label class="block text-[10px] text-slate-400 mb-1">Child Date of Birth</label>
+                  <input type="date" id="regStudentDOB" required class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+                </div>
                 <input type="tel" id="regStudentPhone" required placeholder="Parent Phone Number" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
                 <input type="text" id="regStudentPass" required placeholder="Initial Password" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
                 <select id="regStudentClass" required class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
@@ -1064,20 +1115,20 @@
             </div>
           </div>
 
-          <!-- Credential Inspector -->
+          <!-- Credential Inspector with Student DOB Included -->
           <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
             <h3 class="font-bold text-sm text-white">Real-Time User Monitoring & Credentials Inspection</h3>
             <div class="grid md:grid-cols-2 gap-6">
               <div>
                 <h4 class="font-bold text-brandSea mb-2">Registered Students & Credentials</h4>
-                <div class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
                   ${window.appState.students.map(s => `
-                    <div class="flex justify-between items-center bg-slate-950 p-2 rounded border border-slate-800">
+                    <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded border border-slate-800">
                       <div>
                         <p class="font-bold text-slate-200">${s.name} (${s.id})</p>
-                        <p class="text-[10px] text-slate-400">Class: ${s.className} | Phone: <span class="text-brandSea">${s.phone}</span> | Pass: <span class="text-amber-400 font-mono">${s.pass}</span></p>
+                        <p class="text-[10px] text-slate-400">Class: ${s.className} | DOB: <span class="text-slate-200 font-semibold">${s.dob || 'N/A'}</span> | Phone: <span class="text-brandSea">${s.phone}</span> | Pass: <span class="text-amber-400 font-mono">${s.pass}</span></p>
                       </div>
-                      <button onclick="window.deleteStudent('${s.id}')" class="text-red-400 text-xs"><i class="fa-solid fa-trash"></i></button>
+                      <button onclick="window.deleteStudent('${s.id}')" class="text-red-400 hover:text-red-300 text-xs px-1"><i class="fa-solid fa-trash"></i></button>
                     </div>
                   `).join('')}
                 </div>
@@ -1085,14 +1136,14 @@
 
               <div>
                 <h4 class="font-bold text-brandGold mb-2">Registered Staff & Credentials</h4>
-                <div class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
                   ${window.appState.teachers.map(t => `
-                    <div class="flex justify-between items-center bg-slate-950 p-2 rounded border border-slate-800">
+                    <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded border border-slate-800">
                       <div>
                         <p class="font-bold text-slate-200">${t.name} (${t.staffId})</p>
                         <p class="text-[10px] text-slate-400">Class: ${t.className} | Phone: <span class="text-brandSea">${t.phone}</span> | Pass: <span class="text-amber-400 font-mono">${t.pass}</span></p>
                       </div>
-                      <button onclick="window.deleteTeacher('${t.staffId}')" class="text-red-400 text-xs"><i class="fa-solid fa-trash"></i></button>
+                      <button onclick="window.deleteTeacher('${t.staffId}')" class="text-red-400 hover:text-red-300 text-xs px-1"><i class="fa-solid fa-trash"></i></button>
                     </div>
                   `).join('')}
                 </div>
@@ -1103,47 +1154,47 @@
       `;
     };
 
-    window.changeAdminPassword = function(e) {
+    window.changeAdminPassword = async function(e) {
       e.preventDefault();
       const np = document.getElementById('newAdminPass').value.trim();
       if (np) {
         window.appState.adminPass = np;
         DB.set('adminPass', np);
-        window.logAudit('Admin', 'Headteacher', 'Changed Master Admin Password');
+        await window.logAudit('Admin', 'Headteacher', 'Changed Master Admin Password');
         window.showToast("Admin master password updated!");
       }
     };
 
-    window.previewAndSaveLogo = function() {
+    window.previewAndSaveLogo = async function() {
       const url = document.getElementById('editLogoUrlInput').value.trim();
       if (!url) return;
       window.appState.logoUrl = url;
       DB.set('logoUrl', url);
       window.renderLogo();
-      window.logAudit('Admin', 'Headteacher', 'Updated school logo URL');
+      await window.logAudit('Admin', 'Headteacher', 'Updated school logo URL');
       const prev = document.getElementById('adminLogoPreview');
       if (prev) prev.src = url;
       window.showToast("School logo updated successfully!");
     };
 
-    window.saveHomepageContent = function() {
+    window.saveHomepageContent = async function() {
       window.appState.overview = document.getElementById('editOverviewTxt').value;
       window.appState.about = document.getElementById('editAboutTxt').value;
       DB.set('overview', window.appState.overview);
       DB.set('about', window.appState.about);
       window.renderHomepageDynamicText();
-      window.logAudit('Admin', 'Headteacher', 'Updated homepage overview and about text');
+      await window.logAudit('Admin', 'Headteacher', 'Updated homepage overview and about text');
       window.showToast("Homepage text updated and synchronized!");
     };
 
-    window.saveCarouselImages = function() {
+    window.saveCarouselImages = async function() {
       const raw = document.getElementById('editCarouselLinks').value;
       const links = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
       window.appState.carouselImages = links;
       DB.set('carouselImages', links);
       currentSlide = 0;
       window.renderCarousel();
-      window.logAudit('Admin', 'Headteacher', 'Updated carousel slide image links');
+      await window.logAudit('Admin', 'Headteacher', 'Updated carousel slide image links');
       window.showToast("Carousel images updated successfully!");
     };
 
@@ -1152,7 +1203,7 @@
       if (app) {
         app.status = newStatus;
         await window.syncTableToSupabase('admissions', 'id', app);
-        window.logAudit('Admin', 'Headteacher', `Updated admission application ${appId} status to ${newStatus}`);
+        await window.logAudit('Admin', 'Headteacher', `Updated admission application ${appId} status to ${newStatus}`);
         window.showToast(`Application ${appId} status set to ${newStatus}.`);
       }
     };
@@ -1160,7 +1211,7 @@
     window.deleteAdmission = async function(appId) {
       window.appState.admissions = window.appState.admissions.filter(a => a.id !== appId);
       await window.removeFromSupabase('admissions', 'id', appId);
-      window.logAudit('Admin', 'Headteacher', `Deleted admission application ${appId}`);
+      await window.logAudit('Admin', 'Headteacher', `Deleted admission application ${appId}`);
       window.renderAdminDashboard();
     };
 
@@ -1184,7 +1235,7 @@
 
       window.appState.students.push(st);
       await window.syncTableToSupabase('students', 'id', st);
-      window.logAudit('Admin', 'Headteacher', `Registered new student ${st.name} (${st.id}) in ${st.className}`);
+      await window.logAudit('Admin', 'Headteacher', `Registered new student ${st.name} (${st.id}) DOB: ${st.dob}`);
       window.showToast(`Student ${st.name} registered successfully!`);
       window.renderAdminDashboard();
     };
@@ -1201,7 +1252,7 @@
 
       window.appState.teachers.push(tch);
       await window.syncTableToSupabase('teachers', 'staff_id', tch);
-      window.logAudit('Admin', 'Headteacher', `Registered new teacher ${tch.name} (${tch.staffId}) for ${tch.className}`);
+      await window.logAudit('Admin', 'Headteacher', `Registered new teacher ${tch.name} (${tch.staffId})`);
       window.showToast(`Teacher ${tch.name} registered!`);
       window.renderAdminDashboard();
     };
@@ -1209,14 +1260,14 @@
     window.deleteStudent = async function(id) {
       window.appState.students = window.appState.students.filter(s => s.id !== id);
       await window.removeFromSupabase('students', 'id', id);
-      window.logAudit('Admin', 'Headteacher', `Deleted student account ${id}`);
+      await window.logAudit('Admin', 'Headteacher', `Deleted student account ${id}`);
       window.renderAdminDashboard();
     };
 
     window.deleteTeacher = async function(id) {
       window.appState.teachers = window.appState.teachers.filter(t => t.staffId !== id);
       await window.removeFromSupabase('teachers', 'staff_id', id);
-      window.logAudit('Admin', 'Headteacher', `Deleted teacher account ${id}`);
+      await window.logAudit('Admin', 'Headteacher', `Deleted teacher account ${id}`);
       window.renderAdminDashboard();
     };
 
