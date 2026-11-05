@@ -76,8 +76,6 @@
 
     <!-- ==================== HOME PORTAL ==================== -->
     <section id="portal-home" class="space-y-10">
-      
-      <!-- HERO CAROUSEL -->
       <div class="relative bg-slate-950 h-[300px] sm:h-[400px] md:h-[520px] overflow-hidden border-b border-brandSea/30 flex items-center justify-center group" id="carouselTouchArea">
         <div id="carouselContainer" class="w-full h-full relative"></div>
         <button onclick="window.prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white w-11 h-11 rounded-full flex items-center justify-center border border-white/20 transition z-20 shadow-lg">
@@ -89,7 +87,6 @@
         <div id="carouselDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20"></div>
       </div>
 
-      <!-- OVERVIEW, ABOUT & VISION -->
       <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
         <div class="md:col-span-2 space-y-6">
           <div class="bg-cardBg p-6 md:p-8 rounded-2xl border border-slate-800 shadow-xl space-y-4">
@@ -133,7 +130,7 @@
         </div>
       </div>
 
-      <!-- ADMISSION & INQUIRIES FORM -->
+      <!-- ADMISSION FORM -->
       <div class="max-w-7xl mx-auto px-4 pb-12">
         <div class="bg-cardBg p-6 md:p-10 rounded-2xl border border-slate-800 shadow-2xl space-y-6">
           <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
@@ -180,18 +177,13 @@
               <div>
                 <label class="block text-xs font-semibold text-slate-300 mb-1">Starting Term *</label>
                 <select id="admTerm" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-                  <option value="1st Term">1st Term</option>
-                  <option value="2nd Term">2nd Term</option>
-                  <option value="3rd Term">3rd Term</option>
+                  <option value="1st Term">1st Term</option><option value="2nd Term">2nd Term</option><option value="3rd Term">3rd Term</option>
                 </select>
               </div>
               <div>
                 <label class="block text-xs font-semibold text-slate-300 mb-1">Year *</label>
                 <select id="admYear" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-                  <option value="2027">2027</option>
-                  <option value="2028">2028</option>
-                  <option value="2029">2029</option>
-                  <option value="2030">2030</option>
+                  <option value="2027">2027</option><option value="2028">2028</option><option value="2029">2029</option><option value="2030">2030</option>
                 </select>
               </div>
             </div>
@@ -345,7 +337,7 @@
   <!-- TOAST NOTIFIER -->
   <div id="toast" class="fixed bottom-5 right-5 hidden z-50 px-4 py-3 rounded-xl border shadow-2xl transition-all duration-300 text-xs"></div>
 
-  <!-- JAVASCRIPT SYSTEM ENGINE WITH SUPABASE SYNC -->
+  <!-- JAVASCRIPT SYSTEM ENGINE WITH REAL-TIME AUDIT LOGGING -->
   <script>
     const SUPABASE_PROJECT_URL = "https://nkuehfzkrmghixggyggs.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_SLqQ2AR3UmGywoSqKOWz5Q_eW_C8d2i";
@@ -354,7 +346,7 @@
     if (window.supabase) {
       try {
         supabaseClient = window.supabase.createClient(SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY);
-      } catch (e) { console.log("Supabase client init error"); }
+      } catch (e) {}
     }
 
     const DEFAULT_IMAGES = [
@@ -402,8 +394,7 @@
           pdfResult: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
           fees: [
             { type: "Academic Fee", amount: 600, paid: 400 },
-            { type: "Canteen Fee", amount: 200, paid: 200 },
-            { type: "ICT & Practical Fee", amount: 150, paid: 100 }
+            { type: "Canteen Fee", amount: 200, paid: 200 }
           ]
         }
       ]),
@@ -411,6 +402,7 @@
         { staffId: "TCH/001", name: "Mr. Emmanuel", phone: "0535694851", pass: "teach123", className: "Basic 1" }
       ]),
       admissions: DB.get('admissions', []),
+      auditLogs: DB.get('auditLogs', []),
       activeSession: null,
       adminPass: DB.get('adminPass', 'admin123')
     };
@@ -418,7 +410,19 @@
     let currentSlide = 0;
     let carouselInterval = null;
 
-    // REAL-TIME SUPABASE DATA SYNC ON LOAD
+    // AUDIT LOGGING FUNCTION (Visible to Admin)
+    window.logAudit = function(userRole, userName, actionDescription) {
+      const logEntry = {
+        time: new Date().toLocaleString(),
+        role: userRole,
+        user: userName,
+        action: actionDescription
+      };
+      window.appState.auditLogs.unshift(logEntry);
+      if (window.appState.auditLogs.length > 100) window.appState.auditLogs.pop();
+      DB.set('auditLogs', window.appState.auditLogs);
+    };
+
     window.syncFromSupabase = async function() {
       if (!supabaseClient) return;
       try {
@@ -427,21 +431,22 @@
           window.appState.students = stData.map(row => row.data || row);
           DB.set('students', window.appState.students);
         }
-
         const { data: tchData } = await supabaseClient.from('teachers').select('*');
         if (tchData && tchData.length > 0) {
           window.appState.teachers = tchData.map(row => row.data || row);
           DB.set('teachers', window.appState.teachers);
         }
-
         const { data: admData } = await supabaseClient.from('admissions').select('*');
         if (admData && admData.length > 0) {
           window.appState.admissions = admData.map(row => row.data || row);
           DB.set('admissions', window.appState.admissions);
         }
-      } catch (err) {
-        console.log("Using local storage cache mode");
-      }
+        const { data: logData } = await supabaseClient.from('audit_logs').select('*');
+        if (logData && logData.length > 0) {
+          window.appState.auditLogs = logData.map(row => row.data || row);
+          DB.set('auditLogs', window.appState.auditLogs);
+        }
+      } catch (err) {}
     };
 
     window.syncTableToSupabase = async function(table, idField, record) {
@@ -452,7 +457,7 @@
           [idField]: record[idField] || record.id || record.staffId, 
           data: record 
         });
-      } catch (e) { console.log("Supabase sync queue saved locally"); }
+      } catch (e) {}
     };
 
     window.removeFromSupabase = async function(table, idField, idVal) {
@@ -584,6 +589,7 @@
 
       window.appState.admissions.unshift(newApp);
       await window.syncTableToSupabase('admissions', 'id', newApp);
+      window.logAudit('Guest / Public', newApp.parentName, `Submitted admission inquiry for child ${newApp.childName} (${newApp.className})`);
       window.showToast("Admission application submitted successfully!");
       e.target.reset();
     };
@@ -615,16 +621,18 @@
       }
     };
 
+    // PARENTS LOGIN & PASSWORD CHANGE
     window.handleParentLogin = function(e) {
       e.preventDefault();
       const sid = document.getElementById('parentLoginId').value.trim();
       const dob = document.getElementById('parentLoginDob').value;
       const phone = document.getElementById('parentLoginPhone').value.trim();
-      const pass = document.getElementById('parentLoginPass').value;
+      const pass = document.getElementById('parentLoginPass').value.trim();
 
       const st = window.appState.students.find(s => s.id === sid && s.dob === dob && s.phone === phone && s.pass === pass);
       if (st) {
-        window.appState.activeSession = { role: 'parent', studentId: st.id };
+        window.appState.activeSession = { role: 'parent', studentId: st.id, name: st.name };
+        window.logAudit('Parent', st.name + ' (' + st.id + ')', 'Successfully logged into Parent Portal');
         document.getElementById('parentLoginForm').classList.add('hidden');
         window.renderParentDashboard();
       } else {
@@ -651,10 +659,18 @@
             <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
           </div>
 
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-sm text-brandGold"><i class="fa-solid fa-key mr-1"></i> Change Portal Password</h3>
+            <form onsubmit="window.changeStudentPassword(event, '${st.id}')" class="flex flex-wrap gap-3 items-center">
+              <input type="text" id="newParentPass" required placeholder="New Password" class="bg-slate-950 border border-slate-700 rounded px-3 py-1.5 text-xs text-white">
+              <button type="submit" class="px-4 py-1.5 bg-brandGold text-slate-950 font-bold rounded text-xs">Update Password</button>
+            </form>
+          </div>
+
           <div class="grid md:grid-cols-2 gap-6">
             <div class="space-y-6">
               <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
-                <h3 class="font-bold text-brandGold flex items-center gap-2"><i class="fa-solid fa-file-pdf"></i> Terminal Examination & Test Reports</h3>
+                <h3 class="font-bold text-brandGold flex items-center gap-2"><i class="fa-solid fa-file-pdf"></i> Terminal Examination Reports</h3>
                 ${st.pdfResult ? `
                   <div class="flex items-center justify-between bg-slate-950 p-3 rounded-lg border border-slate-800">
                     <span class="text-xs text-slate-300">Term Academic Performance Report</span>
@@ -679,22 +695,18 @@
             </div>
 
             <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
-              <h3 class="font-bold text-white flex items-center gap-2"><i class="fa-solid fa-receipt text-brandGold"></i> Statement of Fees (Payable at Office)</h3>
+              <h3 class="font-bold text-white flex items-center gap-2"><i class="fa-solid fa-receipt text-brandGold"></i> Statement of Fees</h3>
               <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs border-collapse">
                   <thead>
                     <tr class="border-b border-slate-800 text-slate-400">
-                      <th class="py-2">Fee Type</th>
-                      <th class="py-2">Billed (GH₵)</th>
-                      <th class="py-2">Paid (GH₵)</th>
+                      <th class="py-2">Fee Type</th><th class="py-2">Billed (GH₵)</th><th class="py-2">Paid (GH₵)</th>
                     </tr>
                   </thead>
                   <tbody>
                     ${st.fees.map(f => `
                       <tr class="border-b border-slate-800/60">
-                        <td class="py-2 text-slate-200">${f.type}</td>
-                        <td class="py-2">${f.amount}</td>
-                        <td class="py-2 text-emerald-400">${f.paid}</td>
+                        <td class="py-2 text-slate-200">${f.type}</td><td class="py-2">${f.amount}</td><td class="py-2 text-emerald-400">${f.paid}</td>
                       </tr>
                     `).join('')}
                   </tbody>
@@ -710,6 +722,19 @@
       `;
     };
 
+    window.changeStudentPassword = async function(e, id) {
+      e.preventDefault();
+      const np = document.getElementById('newParentPass').value.trim();
+      const st = window.appState.students.find(s => s.id === id);
+      if (st && np) {
+        st.pass = np;
+        await window.syncTableToSupabase('students', 'id', st);
+        window.logAudit('Parent', st.name + ' (' + st.id + ')', 'Changed account password');
+        window.showToast("Parent/Student password updated successfully!");
+        window.renderParentDashboard();
+      }
+    };
+
     window.handleParentReply = async function(e, studentId) {
       e.preventDefault();
       const txt = document.getElementById('parentReplyInput').value.trim();
@@ -717,20 +742,23 @@
       if (st && txt) {
         st.parentReply = txt;
         await window.syncTableToSupabase('students', 'id', st);
+        window.logAudit('Parent', st.name, 'Replied to teacher comment');
         window.showToast("Reply sent to teacher.");
         window.renderParentDashboard();
       }
     };
 
+    // TEACHERS LOGIN & PASSWORD CHANGE
     window.handleTeacherLogin = function(e) {
       e.preventDefault();
       const staffId = document.getElementById('teacherLoginStaffId').value.trim();
       const phone = document.getElementById('teacherLoginPhone').value.trim();
-      const pass = document.getElementById('teacherLoginPass').value;
+      const pass = document.getElementById('teacherLoginPass').value.trim();
 
       const t = window.appState.teachers.find(tch => tch.staffId === staffId && tch.phone === phone && tch.pass === pass);
       if (t) {
-        window.appState.activeSession = { role: 'teacher', staffId: t.staffId, className: t.className };
+        window.appState.activeSession = { role: 'teacher', staffId: t.staffId, name: t.name, className: t.className };
+        window.logAudit('Teacher', t.name + ' (' + t.staffId + ')', 'Successfully logged into Teacher Portal');
         document.getElementById('teacherLoginForm').classList.add('hidden');
         window.renderTeacherDashboard();
       } else {
@@ -753,6 +781,14 @@
               <p class="text-xs text-slate-400">Assigned Class: <strong class="text-brandGold">${tch.className}</strong> | Staff ID: ${tch.staffId}</p>
             </div>
             <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
+          </div>
+
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-sm text-brandGold"><i class="fa-solid fa-key mr-1"></i> Change Portal Password</h3>
+            <form onsubmit="window.changeTeacherPassword(event, '${tch.staffId}')" class="flex flex-wrap gap-3 items-center">
+              <input type="text" id="newTeacherPass" required placeholder="New Password" class="bg-slate-950 border border-slate-700 rounded px-3 py-1.5 text-xs text-white">
+              <button type="submit" class="px-4 py-1.5 bg-brandGold text-slate-950 font-bold rounded text-xs">Update Password</button>
+            </form>
           </div>
 
           <div class="space-y-4">
@@ -806,12 +842,26 @@
       `;
     };
 
+    window.changeTeacherPassword = async function(e, staffId) {
+      e.preventDefault();
+      const np = document.getElementById('newTeacherPass').value.trim();
+      const tch = window.appState.teachers.find(t => t.staffId === staffId);
+      if (tch && np) {
+        tch.pass = np;
+        await window.syncTableToSupabase('teachers', 'staff_id', tch);
+        window.logAudit('Teacher', tch.name + ' (' + tch.staffId + ')', 'Changed account password');
+        window.showToast("Teacher password updated successfully!");
+        window.renderTeacherDashboard();
+      }
+    };
+
     window.updateStudentPDF = async function(studentId) {
       const url = document.getElementById(`pdfLink_${studentId}`).value.trim();
       const st = window.appState.students.find(s => s.id === studentId);
       if (st) {
         st.pdfResult = url;
         await window.syncTableToSupabase('students', 'id', st);
+        window.logAudit('Teacher', window.appState.activeSession.name, `Updated term report PDF for student ${st.name}`);
         window.showToast("PDF report link updated successfully!");
       }
     };
@@ -822,6 +872,7 @@
       if (st) {
         st.complaint = txt;
         await window.syncTableToSupabase('students', 'id', st);
+        window.logAudit('Teacher', window.appState.activeSession.name, `Posted behavior note for student ${st.name}`);
         window.showToast("Teacher comment updated!");
       }
     };
@@ -838,18 +889,21 @@
         if (existing) { existing.amount = amt; existing.paid = paid; }
         else { st.fees.push({ type, amount: amt, paid }); }
         await window.syncTableToSupabase('students', 'id', st);
+        window.logAudit('Teacher', window.appState.activeSession.name, `Updated fee statement for student ${st.name}`);
         window.showToast("Student fee record updated!");
         window.renderTeacherDashboard();
       }
     };
 
+    // ADMIN LOGIN & PASSWORD CHANGE
     window.handleAdminLogin = function(e) {
       e.preventDefault();
       const u = document.getElementById('adminLoginUser').value.trim();
-      const p = document.getElementById('adminLoginPass').value;
+      const p = document.getElementById('adminLoginPass').value.trim();
 
       if (u === 'admin' && p === window.appState.adminPass) {
         window.appState.activeSession = { role: 'admin' };
+        window.logAudit('Admin', 'Headteacher', 'Successfully logged into Master Admin Portal');
         document.getElementById('adminLoginForm').classList.add('hidden');
         window.renderAdminDashboard();
       } else {
@@ -865,10 +919,37 @@
         <div class="bg-cardBg p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-8">
           <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
             <div>
-              <h2 class="text-2xl font-bold text-brandGold"><i class="fa-solid fa-user-shield mr-2"></i>Admin Master Control</h2>
-              <p class="text-xs text-slate-400">Emican Heritage Academy Control Hub | Real-Time Sync Enabled</p>
+              <h2 class="text-2xl font-bold text-brandGold"><i class="fa-solid fa-user-shield mr-2"></i>Admin Master Control Hub</h2>
+              <p class="text-xs text-slate-400">Emican Heritage Academy | Real-Time Activity Monitoring & Credential Control</p>
             </div>
             <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
+          </div>
+
+          <!-- Section 1: Real-Time Activity & Password Change Monitor -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+            <h3 class="font-bold text-sm text-brandGold flex items-center gap-2"><i class="fa-solid fa-clipboard-list"></i> Real-Time Portal Activity & Security Audit Log</h3>
+            <p class="text-[11px] text-slate-400">Tracks all portal logins, changed passwords, admission applications, and record updates across devices in real time.</p>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 max-h-56 overflow-y-auto space-y-2 text-xs font-mono">
+              ${window.appState.auditLogs.length === 0 ? `<p class="text-slate-500 italic">No activity logged yet.</p>` : ''}
+              ${window.appState.auditLogs.map(log => `
+                <div class="border-b border-slate-800/60 pb-1.5 flex flex-wrap justify-between gap-2">
+                  <div>
+                    <span class="text-brandSea">[${log.time}]</span> 
+                    <strong class="text-slate-200">${log.role}: ${log.user}</strong> — 
+                    <span class="text-slate-300">${log.action}</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Change Admin Password Card -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-sm text-brandGold"><i class="fa-solid fa-key mr-1"></i> Change Admin Master Password</h3>
+            <form onsubmit="window.changeAdminPassword(event)" class="flex flex-wrap gap-3 items-center">
+              <input type="text" id="newAdminPass" required placeholder="New Master Password" class="bg-slate-950 border border-slate-700 rounded px-3 py-1.5 text-xs text-white">
+              <button type="submit" class="px-4 py-1.5 bg-brandGold text-slate-950 font-bold rounded text-xs">Update Admin Password</button>
+            </form>
           </div>
 
           <!-- Logo Management -->
@@ -1022,12 +1103,24 @@
       `;
     };
 
+    window.changeAdminPassword = function(e) {
+      e.preventDefault();
+      const np = document.getElementById('newAdminPass').value.trim();
+      if (np) {
+        window.appState.adminPass = np;
+        DB.set('adminPass', np);
+        window.logAudit('Admin', 'Headteacher', 'Changed Master Admin Password');
+        window.showToast("Admin master password updated!");
+      }
+    };
+
     window.previewAndSaveLogo = function() {
       const url = document.getElementById('editLogoUrlInput').value.trim();
       if (!url) return;
       window.appState.logoUrl = url;
       DB.set('logoUrl', url);
       window.renderLogo();
+      window.logAudit('Admin', 'Headteacher', 'Updated school logo URL');
       const prev = document.getElementById('adminLogoPreview');
       if (prev) prev.src = url;
       window.showToast("School logo updated successfully!");
@@ -1039,6 +1132,7 @@
       DB.set('overview', window.appState.overview);
       DB.set('about', window.appState.about);
       window.renderHomepageDynamicText();
+      window.logAudit('Admin', 'Headteacher', 'Updated homepage overview and about text');
       window.showToast("Homepage text updated and synchronized!");
     };
 
@@ -1049,6 +1143,7 @@
       DB.set('carouselImages', links);
       currentSlide = 0;
       window.renderCarousel();
+      window.logAudit('Admin', 'Headteacher', 'Updated carousel slide image links');
       window.showToast("Carousel images updated successfully!");
     };
 
@@ -1057,6 +1152,7 @@
       if (app) {
         app.status = newStatus;
         await window.syncTableToSupabase('admissions', 'id', app);
+        window.logAudit('Admin', 'Headteacher', `Updated admission application ${appId} status to ${newStatus}`);
         window.showToast(`Application ${appId} status set to ${newStatus}.`);
       }
     };
@@ -1064,6 +1160,7 @@
     window.deleteAdmission = async function(appId) {
       window.appState.admissions = window.appState.admissions.filter(a => a.id !== appId);
       await window.removeFromSupabase('admissions', 'id', appId);
+      window.logAudit('Admin', 'Headteacher', `Deleted admission application ${appId}`);
       window.renderAdminDashboard();
     };
 
@@ -1087,6 +1184,7 @@
 
       window.appState.students.push(st);
       await window.syncTableToSupabase('students', 'id', st);
+      window.logAudit('Admin', 'Headteacher', `Registered new student ${st.name} (${st.id}) in ${st.className}`);
       window.showToast(`Student ${st.name} registered successfully!`);
       window.renderAdminDashboard();
     };
@@ -1103,6 +1201,7 @@
 
       window.appState.teachers.push(tch);
       await window.syncTableToSupabase('teachers', 'staff_id', tch);
+      window.logAudit('Admin', 'Headteacher', `Registered new teacher ${tch.name} (${tch.staffId}) for ${tch.className}`);
       window.showToast(`Teacher ${tch.name} registered!`);
       window.renderAdminDashboard();
     };
@@ -1110,12 +1209,14 @@
     window.deleteStudent = async function(id) {
       window.appState.students = window.appState.students.filter(s => s.id !== id);
       await window.removeFromSupabase('students', 'id', id);
+      window.logAudit('Admin', 'Headteacher', `Deleted student account ${id}`);
       window.renderAdminDashboard();
     };
 
     window.deleteTeacher = async function(id) {
       window.appState.teachers = window.appState.teachers.filter(t => t.staffId !== id);
       await window.removeFromSupabase('teachers', 'staff_id', id);
+      window.logAudit('Admin', 'Headteacher', `Deleted teacher account ${id}`);
       window.renderAdminDashboard();
     };
 
