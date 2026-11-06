@@ -970,20 +970,23 @@
     };
 
     // ADMIN LOGIN
-    window.handleAdminLogin = async function(e) {
-      e.preventDefault();
-      const u = normalizeStr(document.getElementById('adminLoginUser').value);
-      const p = document.getElementById('adminLoginPass').value.trim();
+   window.handleAdminLogin = async function(e) {
+  e.preventDefault();
+  const u = normalizeStr(document.getElementById('adminLoginUser').value);
+  const p = document.getElementById('adminLoginPass').value.trim();
 
-      if ((u === 'admin' || u === 'headteacher') && p === window.appState.adminPass.trim()) {
-        window.appState.activeSession = { role: 'admin' };
-        await window.logAudit('Admin', 'Headteacher', 'Successfully logged into Master Admin Portal');
-        document.getElementById('adminLoginForm').classList.add('hidden');
-        window.renderAdminDashboard();
-      } else {
-        window.showToast("Invalid Admin Password.", "error");
-      }
-    };
+  // Always read the latest active password from DB (localStorage) first
+  const currentSavedPass = DB.get('adminPass', window.appState.adminPass || 'admin123');
+
+  if ((u === 'admin' || u === 'headteacher') && p === currentSavedPass.trim()) {
+    window.appState.activeSession = { role: 'admin' };
+    await window.logAudit('Admin', 'Headteacher', 'Successfully logged into Master Admin Portal');
+    document.getElementById('adminLoginForm').classList.add('hidden');
+    window.renderAdminDashboard();
+  } else {
+    window.showToast("Invalid Admin Password.", "error");
+  }
+};
 
     window.renderAdminDashboard = function() {
       const dash = document.getElementById('adminDashboard');
@@ -1191,15 +1194,16 @@
     };
 
     window.changeAdminPassword = async function(e) {
-      e.preventDefault();
-      const np = document.getElementById('newAdminPass').value.trim();
-      if (np) {
-        window.appState.adminPass = np;
-        DB.set('adminPass', np);
-        await window.logAudit('Admin', 'Headteacher', 'Changed Master Admin Password');
-        window.showToast("Admin master password updated!");
-      }
-    };
+  e.preventDefault();
+  const np = document.getElementById('newAdminPass').value.trim();
+  if (np) {
+    window.appState.adminPass = np;
+    DB.set('adminPass', np);
+    await window.logAudit('Admin', 'Headteacher', 'Updated Master Admin Password');
+    window.showToast("Admin master password updated permanently!");
+    document.getElementById('newAdminPass').value = '';
+  }
+};
 
     window.previewAndSaveLogo = async function() {
       const url = document.getElementById('editLogoUrlInput').value.trim();
