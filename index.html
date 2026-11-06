@@ -454,28 +454,18 @@
       window.renderAdminDashboard();
     };
 
-    window.syncFromSupabase = async function() {
-      if (!supabaseClient) return;
-      try {
-        const { data: stData } = await supabaseClient.from('students').select('*');
-        if (stData && stData.length > 0) {
-          window.appState.students = stData.map(row => row.data || row);
-          DB.set('students', window.appState.students);
-        }
-        const { data: tchData } = await supabaseClient.from('teachers').select('*');
-        if (tchData && tchData.length > 0) {
-          window.appState.teachers = tchData.map(row => row.data || row);
-          DB.set('teachers', window.appState.teachers);
-        }
-        const { data: admData } = await supabaseClient.from('admissions').select('*');
-        if (admData && admData.length > 0) {
-          window.appState.admissions = admData.map(row => row.data || row);
-          DB.set('admissions', window.appState.admissions);
-        }
-        const { data: logData } = await supabaseClient.from('audit_logs').select('*');
+   const { data: logData } = await supabaseClient.from('audit_logs').select('*');
         if (logData && logData.length > 0) {
           window.appState.auditLogs = logData.map(row => row.data || row);
           DB.set('auditLogs', window.appState.auditLogs);
+        }
+
+        // Check if a global logo configuration exists in cloud logs
+        const { data: configData } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_LOGO_URL').maybeSingle();
+        if (configData && configData.data && configData.data.url) {
+          window.appState.logoUrl = configData.data.url;
+          DB.set('logoUrl', window.appState.logoUrl);
+          window.renderLogo();
         }
       } catch (err) {}
     };
@@ -1205,17 +1195,29 @@
   }
 };
 
-    window.previewAndSaveLogo = async function() {
-      const url = document.getElementById('editLogoUrlInput').value.trim();
-      if (!url) return;
-      window.appState.logoUrl = url;
-      DB.set('logoUrl', url);
-      window.renderLogo();
-      await window.logAudit('Admin', 'Headteacher', 'Updated school logo URL');
-      const prev = document.getElementById('adminLogoPreview');
-      if (prev) prev.src = url;
-      window.showToast("School logo updated successfully!");
-    };
+   window.previewAndSaveLogo = async function() {
+  const url = document.getElementById('editLogoUrlInput').value.trim();
+  if (!url) return;
+  window.appState.logoUrl = url;
+  DB.set('logoUrl', url);
+  window.renderLogo();
+
+  // Save logo configuration to Supabase cloud so mobile devices fetch it instantly
+  if (supabaseClient) {
+    try {
+      await supabaseClient.from('audit_logs').upsert({
+        id: 'CONFIG_LOGO_URL',
+        time: new Date().toLocaleString(),
+        data: { url: url }
+      });
+    } catch (e) {}
+  }
+
+  await window.logAudit('Admin', 'Headteacher', 'Updated school logo URL');
+  const prev = document.getElementById('adminLogoPreview');
+  if (prev) prev.src = url;
+  window.showToast("School logo updated and synced to cloud!");
+};
 
     window.saveHomepageContent = async function() {
       window.appState.overview = document.getElementById('editOverviewTxt').value;
