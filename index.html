@@ -1353,15 +1353,16 @@
       }
     };
 
-    window.addEventListener('DOMContentLoaded', async () => {
-      await window.syncFromSupabase();
-      window.renderLogo();
-      window.renderCarousel();
-      initTouchSwipe();
-      window.renderHomepageDynamicText();
-      if (carouselInterval) clearInterval(carouselInterval);
-      carouselInterval = setInterval(() => window.nextSlide(), 5000);
-    });
+  window.addEventListener('DOMContentLoaded', async () => {
+  window.renderLogo();
+  await window.syncFromSupabase();
+  window.renderLogo();
+  window.renderCarousel();
+  initTouchSwipe();
+  window.renderHomepageDynamicText();
+  if (carouselInterval) clearInterval(carouselInterval);
+  carouselInterval = setInterval(() => window.nextSlide(), 5000);
+}); 
   </script>
 </body>
 </html>
