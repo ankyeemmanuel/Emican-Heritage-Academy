@@ -454,21 +454,40 @@
       window.renderAdminDashboard();
     };
 
-   const { data: logData } = await supabaseClient.from('audit_logs').select('*');
-        if (logData && logData.length > 0) {
-          window.appState.auditLogs = logData.map(row => row.data || row);
-          DB.set('auditLogs', window.appState.auditLogs);
-        }
+  window.syncFromSupabase = async function() {
+  if (!supabaseClient) return;
+  try {
+    const { data: stData } = await supabaseClient.from('students').select('*');
+    if (stData && stData.length > 0) {
+      window.appState.students = stData.map(row => row.data || row);
+      DB.set('students', window.appState.students);
+    }
+    const { data: tchData } = await supabaseClient.from('teachers').select('*');
+    if (tchData && tchData.length > 0) {
+      window.appState.teachers = tchData.map(row => row.data || row);
+      DB.set('teachers', window.appState.teachers);
+    }
+    const { data: admData } = await supabaseClient.from('admissions').select('*');
+    if (admData && admData.length > 0) {
+      window.appState.admissions = admData.map(row => row.data || row);
+      DB.set('admissions', window.appState.admissions);
+    }
+    const { data: logData } = await supabaseClient.from('audit_logs').select('*');
+    if (logData && logData.length > 0) {
+      window.appState.auditLogs = logData.map(row => row.data || row);
+      DB.set('auditLogs', window.appState.auditLogs);
+    }
 
-        // Check if a global logo configuration exists in cloud logs
-        const { data: configData } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_LOGO_URL').maybeSingle();
-        if (configData && configData.data && configData.data.url) {
-          window.appState.logoUrl = configData.data.url;
-          DB.set('logoUrl', window.appState.logoUrl);
-          window.renderLogo();
-        }
-      } catch (err) {}
-    };
+    try {
+      const { data: configData } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_LOGO_URL');
+      if (configData && configData.length > 0 && configData[0].data && configData[0].data.url) {
+        window.appState.logoUrl = configData[0].data.url;
+        DB.set('logoUrl', window.appState.logoUrl);
+        window.renderLogo();
+      }
+    } catch (e) {}
+  } catch (err) {}
+};
 
     window.pushAllToCloud = async function() {
       if (!supabaseClient) {
