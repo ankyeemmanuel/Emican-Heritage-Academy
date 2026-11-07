@@ -1233,7 +1233,7 @@
       `;
     };
 
- window.changeAdminPassword = async function(e) {
+window.changeAdminPassword = async function(e) {
     e.preventDefault();
     const np = document.getElementById('newAdminPass').value.trim();
     if (np) {
@@ -1242,24 +1242,24 @@
         window.appState.sessionVersion = newSessionVersion;
         DB.set('adminPass', np);
         DB.set('sessionVersion', newSessionVersion);
-
-        // Save the new password and session version to Supabase cloud
+        
+        // Push configuration securely to Supabase cloud
         if (supabaseClient) {
             try {
                 await supabaseClient.from('audit_logs').upsert({
-                    id: 'CONFIG_ADMIN_PASS',
-                    time: new Date().toISOString(),
-                    data: { 
-                        password: np,
-                        sessionVersion: newSessionVersion 
-                    }
+                    id: 'CONFIG_ADMIN_PASS', 
+                    time: new Date().toISOString(), 
+                    data: { password: np, sessionVersion: newSessionVersion }
                 });
             } catch (err) {}
         }
-
+        
         await window.logAudit('Admin', 'Headteacher', 'Updated Master Admin Password');
-        window.showToast("Master password updated! All active sessions invalidated.");
+        window.showToast("Master password updated globally!");
         document.getElementById('newAdminPass').value = '';
+        window.logout();
+    }
+};
 
         // Immediately log out current device
         if (typeof window.handleAdminLogout === 'function') {
@@ -1417,19 +1417,20 @@ window.showPortal = function(portal) {
       window.renderAdminDashboard();
     };
 
-    window.logout = function() {
-      window.appState.activeSession = null;
-      ['parent', 'teacher', 'admin'].forEach(r => {
-    window.showPortal = function(portal) {
-  ['home', 'parents', 'teachers', 'admin'].forEach(p => {
-    const portalEl = document.getElementById(`portal-${p}`);
-    const navEl = document.getElementById(`nav-${p}`);
-    if (portalEl) portalEl.classList.add('hidden');
-    if (navEl) {
-      navEl.classList.remove('bg-brandSea', 'text-slate-950', 'font-bold');
-      navEl.classList.add('hover:bg-slate-800', 'text-slate-200');
-    }
-  });
+  window.logout = function() {
+    window.appState.activeSession = null;
+    ['home', 'parents', 'teachers', 'admin'].forEach(p => {
+        const portalEl = document.getElementById(`portal-${p}`);
+        const navEl = document.getElementById(`nav-${p}`);
+        if (portalEl) portalEl.classList.add('hidden');
+        if (navEl) {
+            navEl.classList.remove('bg-brandSea', 'text-slate-950', 'font-bold');
+            navEl.classList.add('hover:bg-slate-800', 'text-slate-200');
+        }
+    });
+    window.showPortal('home');
+    window.showToast("Logged out successfully.");
+};
 
   const targetPortal = document.getElementById(`portal-${portal}`);
   const targetNav = document.getElementById(`nav-${portal}`);
@@ -1450,17 +1451,39 @@ window.showPortal = function(portal) {
     window.renderParentDashboard();
   }
 };
-
 window.addEventListener('DOMContentLoaded', async () => {
-  window.renderLogo();
-  await window.syncFromSupabase();
-  window.renderLogo();
-  window.renderCarousel();
-  initTouchSwipe();
-  window.renderHomepageDynamicText();
- if (typeof carouseInterval !== 'undefined' && carouseInterval) clearInterval(carouseInterval);
+    window.renderLogo();
+    await window.syncFromSupabase();
+    window.renderLogo();
+    window.renderCarousel();
+    initTouchSwipe();
+    window.renderHomepageDynamicText();
+    
+    if (typeof carouseInterval !== 'undefined' && carouseInterval) clearInterval(carouseInterval);
     carouseInterval = setInterval(() => window.nextSlide(), 5000);
+    
+    // Check cloud config every 15 seconds for cross-device security sync
+    setInterval(async () => {
+        if (supabaseClient) {
+            try {
+                const { data: passConfig } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_ADMIN_PASS');
+                if (passConfig && passConfig.length > 0 && passConfig[0].data) {
+                    const cloudVersion = passConfig[0].data.sessionVersion;
+                    const localVersion = DB.get('sessionVersion');
+                    if (cloudVersion && localVersion && Number(cloudVersion) !== Number(localVersion)) {
+                        DB.set('sessionVersion', cloudVersion);
+                        window.appState.adminPass = passConfig[0].data.password;
+                        if (window.appState.activeSession) {
+                            window.showToast("Security credentials updated. Please log in again.", "error");
+                            window.logout();
+                        }
+                    }
+                }
+            } catch (err) {}
+        }
+    }, 15000);
 });
+
 </script>
 </body>
 </html>   
