@@ -1209,28 +1209,41 @@
       `;
     };
 
-  window.changeAdminPassword = async function(e) {
-  e.preventDefault();
-  const np = document.getElementById('newAdminPass').value.trim();
-  if (np) {
-    window.appState.adminPass = np;
-    DB.set('adminPass', np);
-    
-    // Save the new password to Supabase cloud for global sync
-    if (supabaseClient) {
-      try {
-        await supabaseClient.from('audit_logs').upsert({
-          id: 'CONFIG_ADMIN_PASS',
-          time: new Date().toISOString(),
-          data: { password: np }
-        });
-      } catch (err) {}
-    }
+ window.changeAdminPassword = async function(e) {
+    e.preventDefault();
+    const np = document.getElementById('newAdminPass').value.trim();
+    if (np) {
+        const newSessionVersion = Date.now();
+        window.appState.adminPass = np;
+        window.appState.sessionVersion = newSessionVersion;
+        DB.set('adminPass', np);
+        DB.set('sessionVersion', newSessionVersion);
 
-    await window.logAudit('Admin', 'Headteacher', 'Updated Master Admin Password');
-    window.showToast("Admin master password updated globally!");
-    document.getElementById('newAdminPass').value = '';
-  }
+        // Save the new password and session version to Supabase cloud
+        if (supabaseClient) {
+            try {
+                await supabaseClient.from('audit_logs').upsert({
+                    id: 'CONFIG_ADMIN_PASS',
+                    time: new Date().toISOString(),
+                    data: { 
+                        password: np,
+                        sessionVersion: newSessionVersion 
+                    }
+                });
+            } catch (err) {}
+        }
+
+        await window.logAudit('Admin', 'Headteacher', 'Updated Master Admin Password');
+        window.showToast("Master password updated! All active sessions invalidated.");
+        document.getElementById('newAdminPass').value = '';
+
+        // Immediately log out current device
+        if (typeof window.handleAdminLogout === 'function') {
+            window.handleAdminLogout();
+        } else {
+            location.reload();
+        }
+    }
 };
 
    window.previewAndSaveLogo = async function() {
