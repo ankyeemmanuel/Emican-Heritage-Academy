@@ -470,11 +470,35 @@
         window.renderLogo();
       }
  try {
-      const { data: passConfig } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_ADMIN_PASS');
-      if (passConfig && passConfig.length > 0 && passConfig[0].data && passConfig[0].data.password) {
-        window.appState.adminPass = passConfig[0].data.password;
-        DB.set('adminPass', window.appState.adminPass);
-      }
+    const { data: passConfig } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_ADMIN_PASS');
+    if (passConfig && passConfig.length > 0 && passConfig[0].data && passConfig[0].data.password) {
+        const cloudPass = passConfig[0].data.password;
+        const cloudSessionVersion = passConfig[0].data.sessionVersion;
+        const localSessionVersion = DB.get('sessionVersion');
+
+        if (cloudSessionVersion && localSessionVersion && cloudSessionVersion !== localSessionVersion) {
+            window.appState.adminPass = cloudPass;
+            window.appState.sessionVersion = cloudSessionVersion;
+            DB.set('adminPass', cloudPass);
+            DB.set('sessionVersion', cloudSessionVersion);
+
+            if (typeof window.handleAdminLogout === 'function') {
+                window.handleAdminLogout();
+            } else {
+                location.reload();
+            }
+            window.showToast("Password updated on another device. Please log in again.", "warning");
+            return;
+        }
+
+        window.appState.adminPass = cloudPass;
+        DB.set('adminPass', cloudPass);
+        if (cloudSessionVersion) {
+            window.appState.sessionVersion = cloudSessionVersion;
+            DB.set('sessionVersion', cloudSessionVersion);
+        }
+    }
+} catch (e) {}
 
       const { data: configData } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_LOGO_URL');
       if (configData && configData.length > 0 && configData[0].data && configData[0].data.url) {
