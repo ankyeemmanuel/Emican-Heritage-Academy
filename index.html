@@ -454,29 +454,13 @@
       window.renderAdminDashboard();
     };
 
-  window.syncFromSupabase = async function() {
-  if (!supabaseClient) return;
-  try {
-    const { data: stData } = await supabaseClient.from('students').select('*');
-    if (stData && stData.length > 0) {
-      window.appState.students = stData.map(row => row.data || row);
-      DB.set('students', window.appState.students);
+ window.syncFromSupabase = async function() {
+    if (!supabaseClient) {
+        console.error("Supabase client is NOT initialized yet!");
+        return;
     }
-    const { data: tchData } = await supabaseClient.from('teachers').select('*');
-    if (tchData && tchData.length > 0) {
-      window.appState.teachers = tchData.map(row => row.data || row);
-      DB.set('teachers', window.appState.teachers);
-    }
-    const { data: admData } = await supabaseClient.from('admissions').select('*');
-    if (admData && admData.length > 0) {
-      window.appState.admissions = admData.map(row => row.data || row);
-      DB.set('admissions', window.appState.admissions);
-    }
-    const { data: logData } = await supabaseClient.from('audit_logs').select('*');
-    if (logData && logData.length > 0) {
-      window.appState.auditLogs = logData.map(row => row.data || row);
-      DB.set('auditLogs', window.appState.auditLogs);
-    }
+    console.log("Supabase client is ready, starting sync...");
+    try {
 
     try {
       const { data: configData } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_LOGO_URL');
