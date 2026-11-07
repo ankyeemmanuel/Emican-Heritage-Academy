@@ -1243,7 +1243,6 @@ window.changeAdminPassword = async function(e) {
         DB.set('adminPass', np);
         DB.set('sessionVersion', newSessionVersion);
         
-        // Push configuration securely to Supabase cloud
         if (supabaseClient) {
             try {
                 await supabaseClient.from('audit_logs').upsert({
@@ -1253,7 +1252,6 @@ window.changeAdminPassword = async function(e) {
                 });
             } catch (err) {}
         }
-        
         await window.logAudit('Admin', 'Headteacher', 'Updated Master Admin Password');
         window.showToast("Master password updated globally!");
         document.getElementById('newAdminPass').value = '';
@@ -1261,162 +1259,115 @@ window.changeAdminPassword = async function(e) {
     }
 };
 
-        // Immediately log out current device
-        if (typeof window.handleAdminLogout === 'function') {
-            window.handleAdminLogouSt();
-        } else {
-            location.reload();
-        }
+window.previewAndSaveLogo = async function() {
+    const url = document.getElementById('editLogoUrlInput').value.trim();
+    if (!url) return;
+    window.appState.logoUrl = url;
+    DB.set('logoUrl', url);
+    window.renderLogo();
+    if (supabaseClient) {
+        try {
+            await supabaseClient.from('audit_logs').upsert({
+                id: 'CONFIG_LOGO_URL', 
+                time: new Date().toLocaleString(), 
+                data: { url: url }
+            });
+        } catch (e) {}
     }
+    await window.logAudit('Admin', 'Headteacher', 'Updated school logo URL');
+    const prev = document.getElementById('adminLogoPreview');
+    if (prev) prev.src = url;
+    window.showToast("School logo updated and synced to cloud!");
 };
 
-   window.previewAndSaveLogo = async function() {
-  const url = document.getElementById('editLogoUrlInput').value.trim();
-  if (!url) return;
-  window.appState.logoUrl = url;
-  DB.set('logoUrl', url);
-  window.renderLogo();
-
-  // Save logo configuration to Supabase cloud so mobile devices fetch it instantly
-  if (supabaseClient) {
-    try {
-      await supabaseClient.from('audit_logs').upsert({
-        id: 'CONFIG_LOGO_URL',
-        time: new Date().toLocaleString(),
-        data: { url: url }
-      });
-    } catch (e) {}
-  }
-
-  await window.logAudit('Admin', 'Headteacher', 'Updated school logo URL');
-  const prev = document.getElementById('adminLogoPreview');
-  if (prev) prev.src = url;
-  window.showToast("School logo updated and synced to cloud!");
+window.saveHomepageContent = async function() {
+    window.appState.overview = document.getElementById('editOverviewTxt').value;
+    window.appState.about = document.getElementById('editAboutTxt').value;
+    DB.set('overview', window.appState.overview);
+    DB.set('about', window.appState.about);
+    window.renderHomepageDynamicText();
+    await window.logAudit('Admin', 'Headteacher', 'Updated homepage overview and about text');
+    window.showToast("Homepage text updated and synchronized!");
 };
 
-    window.saveHomepageContent = async function() {
-      window.appState.overview = document.getElementById('editOverviewTxt').value;
-      window.appState.about = document.getElementById('editAboutTxt').value;
-      DB.set('overview', window.appState.overview);
-      DB.set('about', window.appState.about);
-      window.renderHomepageDynamicText();
-      await window.logAudit('Admin', 'Headteacher', 'Updated homepage overview and about text');
-      window.showToast("Homepage text updated and synchronized!");
-    };
-window.showPortal = function(portal) {
-  ['home', 'parents', 'teachers', 'admin'].forEach(p => {
-    const portalEl = document.getElementById(`portal-${p}`);
-    const navEl = document.getElementById(`nav-${p}`);
-    if (portalEl) portalEl.classList.add('hidden');
-    if (navEl) {
-      navEl.classList.remove('bg-brandSea', 'text-slate-950', 'font-bold');
-      navEl.classList.add('hover:bg-slate-800', 'text-slate-200');
-    }
-  });
-
-  const targetPortal = document.getElementById(`portal-${portal}`);
-  const targetNav = document.getElementById(`nav-${portal}`);
-
-  if (targetPortal) targetPortal.classList.remove('hidden');
-  if (targetNav) {
-    targetNav.classList.add('bg-brandSea', 'text-slate-950', 'font-bold');
-    targetNav.classList.remove('hover:bg-slate-800');
-  }
-
-  if (portal === 'admin' && typeof window.renderAdminDashboard === 'function') {
-    window.renderAdminDashboard();
-  }
-  if (portal === 'teachers' && typeof window.renderTeacherDashboard === 'function') {
-    window.renderTeacherDashboard();
-  }
-  if (portal === 'parents' && typeof window.renderParentDashboard === 'function') {
-    window.renderParentDashboard();
-  }
+window.saveCarouselImages = async function() {
+    const raw = document.getElementById('editCarouselLinks').value;
+    const links = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    window.appState.carouselImages = links;
+    DB.set('carouselImages', links);
+    currentSlide = 0;
+    window.renderCarousel();
+    await window.logAudit('Admin', 'Headteacher', 'Updated carousel slide image links');
+    window.showToast("Carousel images updated successfully!");
 };
-    window.saveCarouselImages = async function() {
-      const raw = document.getElementById('editCarouselLinks').value;
-      const links = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-      window.appState.carouselImages = links;
-      DB.set('carouselImages', links);
-      currentSlide = 0;
-      window.renderCarousel();
-      await window.logAudit('Admin', 'Headteacher', 'Updated carousel slide image links');
-      window.showToast("Carousel images updated successfully!");
-    };
 
-    window.updateAppStatus = async function(appId, newStatus) {
-      const app = window.appState.admissions.find(a => a.id === appId);
-      if (app) {
+window.updateAppStatus = async function(appId, newStatus) {
+    const app = window.appState.admissions.find(a => a.id === appId);
+    if (app) {
         app.status = newStatus;
         await window.syncTableToSupabase('admissions', 'id', app);
         await window.logAudit('Admin', 'Headteacher', `Updated admission application ${appId} status to ${newStatus}`);
         window.showToast(`Application ${appId} status set to ${newStatus}.`);
-      }
-    };
+    }
+};
 
-    window.deleteAdmission = async function(appId) {
-      window.appState.admissions = window.appState.admissions.filter(a => a.id !== appId);
-      await window.removeFromSupabase('admissions', 'id', appId);
-      await window.logAudit('Admin', 'Headteacher', `Deleted admission application ${appId}`);
-      window.renderAdminDashboard();
-    };
+window.deleteAdmission = async function(appId) {
+    window.appState.admissions = window.appState.admissions.filter(a => a.id !== appId);
+    await window.removeFromSupabase('admissions', 'id', appId);
+    await window.logAudit('Admin', 'Headteacher', `Deleted admission application ${appId}`);
+    window.renderAdminDashboard();
+};
 
-    window.handleRegisterStudent = async function(e) {
-      e.preventDefault();
-      const st = {
+window.handleRegisterStudent = async function(e) {
+    e.preventDefault();
+    const st = {
         id: document.getElementById('regStudentId').value.trim(),
         name: document.getElementById('regStudentName').value.trim(),
         dob: document.getElementById('regStudentDOB').value,
         phone: document.getElementById('regStudentPhone').value.trim(),
         pass: document.getElementById('regStudentPass').value.trim(),
         className: document.getElementById('regStudentClass').value,
-        complaint: "",
-        parentReply: "",
-        pdfResult: "",
-        fees: [
-          { type: "Academic Fee", amount: 500, paid: 0 },
-          { type: "Canteen Fee", amount: 150, paid: 0 }
-        ]
-      };
-
-      window.appState.students.push(st);
-      await window.syncTableToSupabase('students', 'id', st);
-      await window.logAudit('Admin', 'Headteacher', `Registered new student ${st.name} (${st.id}) DOB: ${st.dob}`);
-      window.showToast(`Student ${st.name} registered successfully!`);
-      window.renderAdminDashboard();
+        complaint: "", parentReply: "", pdfResult: "",
+        fees: [{ type: "Academic Fee", amount: 500, paid: 0 }, { type: "Canteen Fee", amount: 150, paid: 0 }]
     };
+    window.appState.students.push(st);
+    await window.syncTableToSupabase('students', 'id', st);
+    await window.logAudit('Admin', 'Headteacher', `Registered new student ${st.name} (${st.id})`);
+    window.showToast(`Student ${st.name} registered successfully!`);
+    window.renderAdminDashboard();
+};
 
-    window.handleRegisterTeacher = async function(e) {
-      e.preventDefault();
-      const tch = {
+window.handleRegisterTeacher = async function(e) {
+    e.preventDefault();
+    const tch = {
         staffId: document.getElementById('regStaffId').value.trim(),
         name: document.getElementById('regTeacherName').value.trim(),
         phone: document.getElementById('regTeacherPhone').value.trim(),
         pass: document.getElementById('regTeacherPass').value.trim(),
         className: document.getElementById('regTeacherClass').value
-      };
-
-      window.appState.teachers.push(tch);
-      await window.syncTableToSupabase('teachers', 'staff_id', tch);
-      await window.logAudit('Admin', 'Headteacher', `Registered new teacher ${tch.name} (${tch.staffId})`);
-      window.showToast(`Teacher ${tch.name} registered!`);
-      window.renderAdminDashboard();
     };
+    window.appState.teachers.push(tch);
+    await window.syncTableToSupabase('teachers', 'staff_id', tch);
+    await window.logAudit('Admin', 'Headteacher', `Registered new teacher ${tch.name} (${tch.staffId})`);
+    window.showToast(`Teacher ${tch.name} registered!`);
+    window.renderAdminDashboard();
+};
 
-    window.deleteStudent = async function(id) {
-      window.appState.students = window.appState.students.filter(s => s.id !== id);
-      await window.removeFromSupabase('students', 'id', id);
-      await window.logAudit('Admin', 'Headteacher', `Deleted student account ${id}`);
-      window.renderAdminDashboard();
-    };
+window.deleteStudent = async function(id) {
+    window.appState.students = window.appState.students.filter(s => s.id !== id);
+    await window.removeFromSupabase('students', 'id', id);
+    await window.logAudit('Admin', 'Headteacher', `Deleted student account ${id}`);
+    window.renderAdminDashboard();
+};
 
-    window.deleteTeacher = async function(id) {
-      window.appState.teachers = window.appState.teachers.filter(t => t.staffId !== id);
-      await window.removeFromSupabase('teachers', 'staff_id', id);
-      await window.logAudit('Admin', 'Headteacher', `Deleted teacher account ${id}`);
-      window.renderAdminDashboard();
-    };
+window.deleteTeacher = async function(id) {
+    window.appState.teachers = window.appState.teachers.filter(t => t.staffId !== id);
+    await window.removeFromSupabase('teachers', 'staff_id', id);
+    await window.logAudit('Admin', 'Headteacher', `Deleted teacher account ${id}`);
+    window.renderAdminDashboard();
+};
 
+// SINGLE, CLEAN DEFINITION OF showPortal
 window.showPortal = function(portal) {
     if (!portal) return;
     ['home', 'parents', 'teachers', 'admin'].forEach(p => {
@@ -1444,9 +1395,8 @@ window.showPortal = function(portal) {
     if (portal === 'parents' && window.appState?.activeSession?.role === 'parent' && typeof window.renderParentDashboard === 'function') {
         window.renderParentDashboard();
     }
-}; 
+};
 
-  
 window.addEventListener('DOMContentLoaded', async () => {
     window.renderLogo();
     await window.syncFromSupabase();
@@ -1458,7 +1408,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (typeof carouseInterval !== 'undefined' && carouseInterval) clearInterval(carouseInterval);
     carouseInterval = setInterval(() => window.nextSlide(), 5000);
     
-    // Check cloud config every 15 seconds for cross-device security sync
     setInterval(async () => {
         if (supabaseClient) {
             try {
@@ -1479,6 +1428,8 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
     }, 15000);
 });
+    
+   
 
 </script>
 </body>
