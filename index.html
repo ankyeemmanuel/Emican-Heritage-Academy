@@ -1458,8 +1458,8 @@ window.addEventListener('DOMContentLoaded', async () => {
   window.renderCarousel();
   initTouchSwipe();
   window.renderHomepageDynamicText();
-  if (typeof carouselInterval !== 'undefined' && carouselInterval) clearInterval(carouselInterval);
-  carouselInterval = setInterval(() => window.nextSlide(), 5000);
+ if (typeof carouseInterval !== 'undefined' && carouseInterval) clearInterval(carouseInterval);
+    carouseInterval = setInterval(() => window.nextSlide(), 5000);
 });
 </script>
 </body>
