@@ -1420,66 +1420,48 @@ window.showPortal = function(portal) {
     window.logout = function() {
       window.appState.activeSession = null;
       ['parent', 'teacher', 'admin'].forEach(r => {
-        const f = document.getElementById(`${r}LoginForm`);
-        const d = document.getElementById(`${r}Dashboard`);
-        if (f) f.classList.remove('hidden');
-        if (d) d.classList.add('hidden');
-      });
-      window.showPortal('home');
-      window.showToast("Logged out successfully.");
-    };
-
-    window.renderHomepageDynamicText = function() {
-      const ov = document.getElementById('displayOverview');
-      const ab = document.getElementById('displayAbout');
-      if (ov) ov.textContent = window.appState.overview;
-      if (ab) {
-        ab.innerHTML = window.appState.about.split('\n\n').map(p => `<p>${p}</p>`).join('');
-      }
-    };
-window.showPortal = function(portal) {
-    if (!portal) return;
-
-    ['home', 'parents', 'teachers', 'admin'].forEach(p => {
-        const portalEl = document.getElementById(`portal-${p}`);
-        const navEl = document.getElementById(`nav-${p}`);
-        if (portalEl) portalEl.classList.add('hidden');
-        if (navEl) {
-            navEl.classList.remove('bg-brandSea', 'text-slate-950', 'font-bold');
-            navEl.classList.add('hover:bg-slate-800', 'text-slate-200');
-        }
-    });
-
-    const targetPortal = document.getElementById(`portal-${portal}`);
-    const targetNav = document.getElementById(`nav-${portal}`);
-
-    if (targetPortal) targetPortal.classList.remove('hidden');
-    if (targetNav) {
-        targetNav.classList.add('bg-brandSea', 'text-slate-950', 'font-bold');
-        targetNav.classList.remove('hover:bg-slate-800');
+    window.showPortal = function(portal) {
+  ['home', 'parents', 'teachers', 'admin'].forEach(p => {
+    const portalEl = document.getElementById(`portal-${p}`);
+    const navEl = document.getElementById(`nav-${p}`);
+    if (portalEl) portalEl.classList.add('hidden');
+    if (navEl) {
+      navEl.classList.remove('bg-brandSea', 'text-slate-950', 'font-bold');
+      navEl.classList.add('hover:bg-slate-800', 'text-slate-200');
     }
+  });
 
-    if (portal === 'admin' && typeof window.renderAdminDashboard === 'function') {
-        window.renderAdminDashboard();
-    }
-    if (portal === 'teachers' && typeof window.renderTeacherDashboard === 'function') {
-        window.renderTeacherDashboard();
-    }
-    if (portal === 'parents' && typeof window.renderParentDashboard === 'function') {
-        window.renderParentDashboard();
-    }
+  const targetPortal = document.getElementById(`portal-${portal}`);
+  const targetNav = document.getElementById(`nav-${portal}`);
+
+  if (targetPortal) targetPortal.classList.remove('hidden');
+  if (targetNav) {
+    targetNav.classList.add('bg-brandSea', 'text-slate-950', 'font-bold');
+    targetNav.classList.remove('hover:bg-slate-800');
+  }
+
+  if (portal === 'admin' && typeof window.renderAdminDashboard === 'function') {
+    window.renderAdminDashboard();
+  }
+  if (portal === 'teachers' && typeof window.renderTeacherDashboard === 'function') {
+    window.renderTeacherDashboard();
+  }
+  if (portal === 'parents' && typeof window.renderParentDashboard === 'function') {
+    window.renderParentDashboard();
+  }
 };
 
 window.addEventListener('DOMContentLoaded', async () => {
-    window.renderLogo();
-    await window.syncFromSupabase();
-    window.renderLogo();
-    window.renderCarousel();
-    initTouchSwipe();
-    window.renderHomepageDynamicText();
-    if (carouseInterval) clearInterval(carouseInterval);
-    carouseInterval = setInterval(() => window.nextSlide(), 5000);
+  window.renderLogo();
+  await window.syncFromSupabase();
+  window.renderLogo();
+  window.renderCarousel();
+  initTouchSwipe();
+  window.renderHomepageDynamicText();
+  if (typeof carouselInterval !== 'undefined' && carouselInterval) clearInterval(carouselInterval);
+  carouselInterval = setInterval(() => window.nextSlide(), 5000);
 });
-  </script>
+</script>
 </body>
-</html>
+</html>   
+   
