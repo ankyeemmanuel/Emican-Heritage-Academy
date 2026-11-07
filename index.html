@@ -293,12 +293,12 @@
         <form onsubmit="window.handleAdminLogin(event)" class="space-y-4 text-sm">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Username / Phone *</label>
-            <input type="text" id="adminLoginUser" required value="admin" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandGold focus:outline-none">
+            <input type="text" id="adminLoginUser" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandGold focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Password *</label>
             <div class="relative">
-              <input type="password" id="adminLoginPass" required value="admin123" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandGold focus:outline-none pr-10">
+            <input type="password" id="adminLoginPass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandGold focus:outline-none pr-10">  
               <button type="button" onclick="window.togglePasswordInput('adminLoginPass', 'adminEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
                 <i id="adminEyeIcon" class="fa-solid fa-eye"></i>
               </button>
