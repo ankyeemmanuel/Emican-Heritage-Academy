@@ -27,542 +27,497 @@
 </head>
 <body class="bg-darkBg text-slate-100 min-h-screen flex flex-col justify-between font-sans selection:bg-brandSea selection:text-white">
 
-  <!-- TOP BAR WITH GHANA FLAG -->
-  <div class="bg-slate-900 border-b border-slate-800 text-xs py-2 px-4 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
-      <div class="flex items-center gap-3">
-        <div class="flex h-4 w-7 rounded overflow-hidden shadow border border-white/20" title="Ghana">
-          <div class="w-1/3 bg-red-600"></div>
-          <div class="w-1/3 bg-yellow-400 flex items-center justify-center">
-            <span class="text-[8px] text-black leading-none">★</span>
-          </div>
-          <div class="w-1/3 bg-green-600"></div>
+<!-- TOP BAR WITH GHANA FLAG -->
+<div class="bg-slate-900 border-b border-slate-800 text-xs py-2 px-4 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+    <div class="flex items-center gap-3">
+      <div class="flex h-4 w-7 rounded overflow-hidden shadow border border-white/20" title="Ghana">
+        <div class="w-1/3 bg-red-600"></div>
+        <div class="w-1/3 bg-yellow-400 flex items-center justify-center">
+          <span class="text-[8px] text-black leading-none">★</span>
         </div>
-        <span class="text-slate-200 font-semibold">Emican Heritage Academy | Techiman - Bono East Regional Capital</span>
+        <div class="w-1/3 bg-green-600"></div>
       </div>
-      <div class="flex items-center gap-4 text-slate-300 text-xs">
-        <span><i class="fa-solid fa-phone text-brandSea mr-1"></i> +233(0) 535 694851</span>
-        <span><i class="fa-solid fa-envelope text-brandGold mr-1"></i> emicangh@gmail.com</span>
-      </div>
+      <span class="text-slate-200 font-semibold">Emican Heritage Academy | Techiman - Bono East Regional Capital</span>
+    </div>
+    <div class="flex items-center gap-4 text-slate-300 text-xs">
+      <span><i class="fa-solid fa-phone text-brandSea mr-1"></i> +233(0) 535 694851</span>
+      <span><i class="fa-solid fa-envelope text-brandGold mr-1"></i> emicangh@gmail.com</span>
     </div>
   </div>
+</div>
 
-  <!-- NAVIGATION HEADER -->
-  <header class="bg-slate-900/90 backdrop-blur sticky top-8 z-40 border-b border-slate-800 shadow-xl">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
-      
-      <!-- LOGO & BRANDING -->
-      <div class="flex items-center gap-3 cursor-pointer" onclick="window.showPortal('home')">
-      <img id="siteLogoImg" alt="EHA Logo" class="w-11 h-11 object-cover rounded-full">  
-        <div>
-          <h1 class="text-base md:text-lg font-extrabold tracking-wide text-white">EMICAN HERITAGE ACADEMY</h1>
-          <p class="text-[10px] text-brandGold font-bold tracking-wider uppercase">Knowledge • Integrity • Excellence</p>
-        </div>
+<!-- NAVIGATION HEADER -->
+<header class="bg-slate-900/90 backdrop-blur sticky top-8 z-40 border-b border-slate-800 shadow-xl">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+    <!-- LOGO & BRANDING -->
+    <div class="flex items-center gap-3 cursor-pointer" onclick="window.showPortal('home')">
+      <img id="siteLogoImg" alt="EHA Logo" class="w-11 h-11 object-cover rounded-full">
+      <div>
+        <h1 class="text-base md:text-lg font-extrabold tracking-wide text-white">EMICAN HERITAGE ACADEMY</h1>
+        <p class="text-[10px] text-brandGold font-bold tracking-wider uppercase">Knowledge • Integrity • Excellence</p>
       </div>
-
-      <!-- NAV BUTTONS -->
-      <nav class="flex flex-wrap items-center gap-2 text-xs md:text-sm font-semibold">
-        <button id="nav-home" onclick="window.showPortal('home')" class="px-3.5 py-2 rounded-lg bg-brandSea text-slate-950 font-bold shadow transition">Home</button>
-        <button id="nav-parents" onclick="window.showPortal('parents')" class="px-3.5 py-2 rounded-lg hover:bg-slate-800 text-slate-200 transition">Parents Portal</button>
-        <button id="nav-teachers" onclick="window.showPortal('teachers')" class="px-3.5 py-2 rounded-lg hover:bg-slate-800 text-slate-200 transition">Teachers Portal</button>
-        <button id="nav-admin" onclick="window.showPortal('admin')" class="px-3.5 py-2 rounded-lg hover:bg-slate-800 text-slate-200 transition">Admin Portal</button>
-      </nav>
-
     </div>
-  </header>
 
-  <!-- MAIN BODY CONTENT -->
-  <main class="flex-grow">
+    <!-- NAV BUTTONS -->
+    <nav class="flex flex-wrap items-center gap-2 text-xs md:text-sm font-semibold">
+      <button id="nav-home" onclick="window.showPortal('home')" class="px-3.5 py-2 rounded-lg bg-brandSea text-slate-950 font-bold shadow transition">Home</button>
+      <button id="nav-parents" onclick="window.showPortal('parents')" class="px-3.5 py-2 rounded-lg hover:bg-slate-800 text-slate-200 transition">Parents Portal</button>
+      <button id="nav-teachers" onclick="window.showPortal('teachers')" class="px-3.5 py-2 rounded-lg hover:bg-slate-800 text-slate-200 transition">Teachers Portal</button>
+      <button id="nav-admin" onclick="window.showPortal('admin')" class="px-3.5 py-2 rounded-lg hover:bg-slate-800 text-slate-200 transition">Admin Portal</button>
+    </nav>
+  </div>
+</header>
 
-    <!-- ==================== HOME PORTAL ==================== -->
-    <section id="portal-home" class="space-y-10">
-      <div class="relative bg-slate-950 h-[300px] sm:h-[400px] md:h-[520px] overflow-hidden border-b border-brandSea/30 flex items-center justify-center group" id="carouselTouchArea">
-        <div id="carouselContainer" class="w-full h-full relative"></div>
-        <button onclick="window.prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white w-11 h-11 rounded-full flex items-center justify-center border border-white/20 transition z-20 shadow-lg">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button onclick="window.nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white w-10 h-10 md:w-11 md:h-11 rounded-full flex items-center justify-center border border-white/20 transition z-20 shadow-lg">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-        <div id="carouselDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20"></div>
-      </div>
+<!-- MAIN BODY CONTENT -->
+<main class="flex-grow">
 
-      <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
-        <div class="md:col-span-2 space-y-6">
-          <div class="bg-cardBg p-6 md:p-8 rounded-2xl border border-slate-800 shadow-xl space-y-4">
-            <div class="flex items-center gap-3">
-              <i class="fa-solid fa-school text-2xl text-brandSea"></i>
-              <h2 class="text-2xl font-bold text-white">School Overview</h2>
-            </div>
-            <p id="displayOverview" class="text-slate-300 leading-relaxed text-sm md:text-base"></p>
+  <!-- =============================== HOME PORTAL =============================== -->
+  <section id="portal-home" class="space-y-10">
+    <div class="relative bg-slate-950 h-[300px] sm:h-[400px] md:h-[520px] overflow-hidden border-b border-brandSea/30 flex items-center justify-center group" id="carouselTouchArea">
+      <div id="carouselContainer" class="w-full h-full relative"></div>
+      <button onclick="window.prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white w-11 h-11 rounded-full flex items-center justify-center border border-white/20 transition z-20 shadow-lg">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button onclick="window.nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white w-10 h-10 md:w-11 md:h-11 rounded-full flex items-center justify-center border border-white/20 transition z-20 shadow-lg">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      <div id="carouselDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
+      <div class="md:col-span-2 space-y-6">
+        <div class="bg-cardBg p-6 md:p-8 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-school text-2xl text-brandSea"></i>
+            <h2 class="text-2xl font-bold text-white">School Overview</h2>
           </div>
-
-          <div class="bg-cardBg p-6 md:p-8 rounded-2xl border border-slate-800 shadow-xl space-y-4">
-            <div class="flex items-center gap-3">
-              <i class="fa-solid fa-book-open text-2xl text-brandGold"></i>
-              <h2 class="text-2xl font-bold text-white">About Emican Heritage Academy</h2>
-            </div>
-            <div id="displayAbout" class="text-slate-300 leading-relaxed space-y-3 text-sm md:text-base"></div>
-            <div class="pt-4 border-t border-slate-800 flex flex-wrap gap-6 text-xs text-slate-400">
-              <div><strong class="text-slate-200">Address:</strong> Techiman - Bono East Regional Capital, Ghana</div>
-              <div><strong class="text-slate-200">Contact:</strong> +233(0) 535 694851</div>
-              <div><strong class="text-slate-200">Email:</strong> emicangh@gmail.com</div>
-            </div>
-          </div>
+          <p id="displayOverview" class="text-slate-300 leading-relaxed text-sm md:text-base"></p>
         </div>
 
-        <div class="space-y-6">
-          <div class="bg-cardBg p-6 md:p-8 rounded-2xl border border-slate-800 shadow-xl space-y-4">
-            <h3 class="text-xl font-bold text-brandGold flex items-center gap-2">
-              <i class="fa-solid fa-eye"></i> Our Vision & Values
-            </h3>
-            <div id="displayVision" class="text-slate-300 text-sm leading-relaxed space-y-3">
-              <p><strong>Vision:</strong> To cultivate disciplined, innovative, and holistic future leaders fully equipped to excel in a dynamic global society.</p>
-              <p><strong>Values:</strong> Integrity, Perseverance, Hard Work, Respect, Community, and Academic Excellence.</p>
-            </div>
+        <div class="bg-cardBg p-6 md:p-8 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-book-open text-2xl text-brandGold"></i>
+            <h2 class="text-2xl font-bold text-white">About Emican Heritage Academy</h2>
           </div>
-
-          <div class="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-2xl border border-brandSea/30 shadow-xl space-y-3 text-sm">
-            <h4 class="font-bold text-brandSea uppercase tracking-wider text-xs">Admissions Hotline</h4>
-            <p class="text-slate-200 font-semibold text-lg"><i class="fa-solid fa-phone text-brandGold mr-2"></i>+233(0) 535 694851</p>
-            <p class="text-slate-400 text-xs">Mon - Fri: 7:30 AM - 4:30 PM</p>
+          <div id="displayAbout" class="text-slate-300 leading-relaxed text-sm md:text-base space-y-3"></div>
+          <div class="pt-4 border-t border-slate-800 flex flex-wrap gap-6 text-xs text-slate-400">
+            <div><strong class="text-slate-200">Address:</strong> Techiman - Bono East Regional Capital, Ghana</div>
+            <div><strong class="text-slate-200">Contact:</strong> +233(0) 535 694851</div>
+            <div><strong class="text-slate-200">Email:</strong> emicangh@gmail.com</div>
           </div>
         </div>
       </div>
 
-      <!-- ADMISSION FORM -->
-      <div class="max-w-7xl mx-auto px-4 pb-12">
-        <div class="bg-cardBg p-6 md:p-10 rounded-2xl border border-slate-800 shadow-2xl space-y-6">
-          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
-            <div>
-              <h3 class="text-2xl font-bold text-white flex items-center gap-2">
-                <i class="fa-solid fa-paper-plane text-brandSea"></i> Admission & Inquiries Form
-              </h3>
-              <p class="text-xs text-slate-400 mt-1">Submit an official application for your child or check your application status below.</p>
-            </div>
-            <button onclick="window.toggleApplicationStatusModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-brandGold border border-brandGold/40 rounded-xl text-xs font-bold transition">
-              <i class="fa-solid fa-magnifying-glass mr-1"></i> Click here for Application Status
-            </button>
+      <div class="space-y-6">
+        <div class="bg-cardBg p-6 md:p-8 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+          <h3 class="text-xl font-bold text-brandGold flex items-center gap-2">
+            <i class="fa-solid fa-eye"></i> Our Vision & Values
+          </h3>
+          <div id="displayVision" class="text-slate-300 text-sm leading-relaxed space-y-3">
+            <p><strong>Vision:</strong> To cultivate disciplined, innovative, and holistic future leaders fully equipped to excel in a dynamic global society.</p>
+            <p><strong>Values:</strong> Integrity, Perseverance, Hard Work, Respect, Community, and Academic Excellence.</p>
           </div>
+        </div>
 
-          <form onsubmit="window.handleAdmissionSubmit(event)" class="grid md:grid-cols-2 gap-6 text-sm">
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1">Parent Full Name *</label>
-              <input type="text" id="admParentName" required placeholder="e.g. Kwadwo Mensah" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1">Phone Number *</label>
-              <input type="tel" id="admPhone" required placeholder="e.g. 0535694851" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1">Child's Name *</label>
-              <input type="text" id="admChildName" required placeholder="e.g. Yaw Mensah" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1">Child's Date of Birth *</label>
-              <input type="date" id="admChildDOB" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1">Class Applying For *</label>
-              <select id="admClass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-                <option value="">-- Select Class --</option>
-                <option value="Crèche 1">Crèche 1</option><option value="Crèche 2">Crèche 2</option>
-                <option value="KG 1">KG 1</option><option value="KG 2">KG 2</option>
-                <option value="Basic 1">Basic 1</option><option value="Basic 2">Basic 2</option><option value="Basic 3">Basic 3</option>
-                <option value="Basic 4">Basic 4</option><option value="Basic 5">Basic 5</option><option value="Basic 6">Basic 6</option>
-                <option value="J.H.S 1">J.H.S 1</option><option value="J.H.S 2">J.H.S 2</option><option value="J.H.S 3">J.H.S 3</option>
-              </select>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1">Starting Term *</label>
-                <select id="admTerm" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-                  <option value="1st Term">1st Term</option><option value="2nd Term">2nd Term</option><option value="3rd Term">3rd Term</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1">Year *</label>
-                <select id="admYear" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-                  <option value="2027">2027</option><option value="2028">2028</option><option value="2029">2029</option><option value="2030">2030</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="md:col-span-2 flex items-center gap-3 bg-slate-900/80 p-3 rounded-lg border border-slate-700 w-fit">
-              <input type="checkbox" id="admCaptcha" required class="w-4 h-4 accent-brandSea">
-              <label for="admCaptcha" class="text-xs text-slate-300 font-semibold cursor-pointer">I AM NOT A ROBOT</label>
-            </div>
-
-            <div class="md:col-span-2">
-              <button type="submit" class="w-full md:w-auto px-8 py-3 bg-brandSea text-slate-950 font-bold rounded-xl hover:brightness-110 shadow-lg transition">
-                SEND APPLICATION
-              </button>
-            </div>
-          </form>
+        <div class="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-2xl border border-brandSea/30 shadow-xl space-y-3 text-sm">
+          <h4 class="font-bold text-brandSea uppercase tracking-wider text-xs">Admissions Hotline</h4>
+          <p class="text-slate-200 font-semibold text-lg"><i class="fa-solid fa-phone text-brandGold mr-2"></i>+233(0) 535 694851</p>
+          <p class="text-slate-400 text-xs">Mon - Fri: 7:30 AM - 4:30 PM</p>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- ==================== PARENTS PORTAL ==================== -->
-    <section id="portal-parents" class="max-w-7xl mx-auto px-4 py-8 hidden">
-      <div id="parentLoginForm" class="max-w-md mx-auto bg-cardBg p-8 rounded-2xl border border-slate-700 shadow-2xl space-y-6">
-        <div class="text-center space-y-2">
-          <div class="w-16 h-16 bg-brandSea/10 text-brandSea rounded-full flex items-center justify-center mx-auto text-2xl border border-brandSea/30">
-            <i class="fa-solid fa-users"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-white">Parents Portal Login</h2>
-          <p class="text-xs text-slate-400">Enter Student ID, Child's Date of Birth, Phone Number, and Password</p>
-        </div>
-
-        <form onsubmit="window.handleParentLogin(event)" class="space-y-4 text-sm">
+    <!-- ADMISSION FORM -->
+    <div class="max-w-7xl mx-auto px-4 pb-12">
+      <div class="bg-cardBg p-6 md:p-10 rounded-2xl border border-slate-800 shadow-2xl space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Student ID *</label>
-            <input type="text" id="parentLoginId" required placeholder="e.g. EHA/2026/001" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+            <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-paper-plane text-brandSea"></i> Admission & Inquiries Form
+            </h3>
+            <p class="text-xs text-slate-400 mt-1">Submit an official application for your child or check your application status below.</p>
+          </div>
+          <button onclick="window.toggleApplicationStatusModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-brandGold border border-brandGold/40 rounded-xl text-xs font-bold transition">
+            <i class="fa-solid fa-magnifying-glass mr-1"></i> Click here for Application Status
+          </button>
+        </div>
+
+        <form onsubmit="window.handleAdmissionsSubmit(event)" class="grid md:grid-cols-2 gap-6 text-sm">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Parent Full Name *</label>
+            <input type="text" id="admParentName" required placeholder="e.g. Kwadwo Mensah" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Phone Number *</label>
+            <input type="tel" id="admPhone" required placeholder="e.g. 0535694851" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Child's Name *</label>
+            <input type="text" id="admChildName" required placeholder="e.g. Yaw Mensah" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Child's Date of Birth *</label>
-            <input type="date" id="parentLoginDob" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+            <input type="date" id="admChildDOB" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Phone Number *</label>
-            <input type="tel" id="parentLoginPhone" required placeholder="Phone provided at registration" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Class Applying For *</label>
+            <select id="admClass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+              <option value="">-- Select Class --</option>
+              <option value="Crèche 1">Crèche 1</option>
+              <option value="Crèche 2">Crèche 2</option>
+              <option value="KG 1">KG 1</option>
+              <option value="KG 2">KG 2</option>
+              <option value="Basic 1">Basic 1</option>
+              <option value="Basic 2">Basic 2</option>
+              <option value="Basic 3">Basic 3</option>
+              <option value="Basic 4">Basic 4</option>
+              <option value="Basic 5">Basic 5</option>
+              <option value="Basic 6">Basic 6</option>
+              <option value="J.H.S 1">J.H.S 1</option>
+              <option value="J.H.S 2">J.H.S 2</option>
+              <option value="J.H.S 3">J.H.S 3</option>
+            </select>
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Password *</label>
-            <div class="relative">
-              <input type="password" id="parentLoginPass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none pr-10">
-              <button type="button" onclick="window.togglePasswordInput('parentLoginPass', 'parentEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
-                <i id="parentEyeIcon" class="fa-solid fa-eye"></i>
-              </button>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Academic Term *</label>
+              <select id="admTerm" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+                <option value="Term 1">Term 1</option>
+                <option value="Term 2">Term 2</option>
+                <option value="Term 3">Term 3</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Academic Year *</label>
+              <input type="text" id="admYear" required value="2026/2027" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
             </div>
           </div>
-          <button type="submit" class="w-full py-3 bg-brandSea text-slate-950 font-bold rounded-xl hover:brightness-110 shadow-lg transition">LOG IN</button>
+          <div class="md:col-span-2 pt-2">
+            <button type="submit" class="w-full py-3 bg-brandSea text-slate-950 font-bold rounded-xl hover:brightness-110 shadow-lg transition">Submit Application</button>
+          </div>
         </form>
       </div>
+    </div>
+  </section>
 
-      <div id="parentDashboard" class="hidden space-y-6"></div>
-    </section>
-
-    <!-- ==================== TEACHERS PORTAL ==================== -->
-    <section id="portal-teachers" class="max-w-7xl mx-auto px-4 py-8 hidden">
-      <div id="teacherLoginForm" class="max-w-md mx-auto bg-cardBg p-8 rounded-2xl border border-slate-700 shadow-2xl space-y-6">
-        <div class="text-center space-y-2">
-          <div class="w-16 h-16 bg-brandSea/10 text-brandSea rounded-full flex items-center justify-center mx-auto text-2xl border border-brandSea/30">
-            <i class="fa-solid fa-chalkboard-user"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-white">Teachers Portal Login</h2>
-          <p class="text-xs text-slate-400">Enter Staff ID, Registered Phone Number, and Password</p>
+  <!-- =============================== PARENTS PORTAL =============================== -->
+  <section id="portal-parents" class="max-w-7xl mx-auto px-4 py-8 hidden space-y-6">
+    <div id="parentLoginForm" class="max-w-md mx-auto bg-cardBg p-8 rounded-2xl border border-slate-700 shadow-2xl space-y-6">
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 bg-brandSea/10 text-brandSea rounded-full flex items-center justify-center mx-auto text-2xl border border-brandSea/30">
+          <i class="fa-solid fa-user-graduate"></i>
         </div>
-
-        <form onsubmit="window.handleTeacherLogin(event)" class="space-y-4 text-sm">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Staff ID *</label>
-            <input type="text" id="teacherLoginStaffId" required placeholder="e.g. TCH/001" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Phone Number *</label>
-            <input type="tel" id="teacherLoginPhone" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Password *</label>
-            <div class="relative">
-              <input type="password" id="teacherLoginPass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none pr-10">
-              <button type="button" onclick="window.togglePasswordInput('teacherLoginPass', 'teacherEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
-                <i id="teacherEyeIcon" class="fa-solid fa-eye"></i>
-              </button>
-            </div>
-          </div>
-          <button type="submit" class="w-full py-3 bg-brandSea text-slate-950 font-bold rounded-xl hover:brightness-110 shadow-lg transition">LOG IN</button>
-        </form>
+        <h2 class="text-2xl font-bold text-white">Parents Portal Login</h2>
+        <p class="text-xs text-slate-400">Enter Student ID, DOB, Registered Phone, and Password</p>
       </div>
 
-      <div id="teacherDashboard" class="hidden space-y-6"></div>
-    </section>
-
-    <!-- ==================== ADMIN PORTAL ==================== -->
-    <section id="portal-admin" class="max-w-7xl mx-auto px-4 py-8 hidden">
-      <div id="adminLoginForm" class="max-w-md mx-auto bg-cardBg p-8 rounded-2xl border border-amber-500/40 shadow-2xl space-y-6">
-        <div class="text-center space-y-2">
-          <div class="w-16 h-16 bg-amber-500/10 text-brandGold rounded-full flex items-center justify-center mx-auto text-2xl border border-amber-500/30">
-            <i class="fa-solid fa-user-shield"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-white">Admin Master Portal</h2>
-          <p class="text-xs text-slate-400">Enter Admin Credentials to control system</p>
+      <form onsubmit="window.handleParentLogin(event)" class="space-y-4 text-sm">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Student ID *</label>
+          <input type="text" id="parentLoginId" required placeholder="e.g. EHA/2026/001" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
         </div>
-
-        <form onsubmit="window.handleAdminLogin(event)" class="space-y-4 text-sm">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Username / Phone *</label>
-            <input type="text" id="adminLoginUser" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandGold focus:outline-none">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Child's Date of Birth *</label>
+          <input type="date" id="parentLoginDob" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Phone Number *</label>
+          <input type="tel" id="parentLoginPhone" required placeholder="Phone provided at registration" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Password *</label>
+          <div class="relative">
+            <input type="password" id="parentLoginPass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none pr-10">
+            <button type="button" onclick="window.togglePasswordInput('parentLoginPass', 'parentEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
+              <i id="parentEyeIcon" class="fa-solid fa-eye"></i>
+            </button>
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Password *</label>
-            <div class="relative">
-            <input type="password" id="adminLoginPass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandGold focus:outline-none pr-10">  
-              <button type="button" onclick="window.togglePasswordInput('adminLoginPass', 'adminEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
-                <i id="adminEyeIcon" class="fa-solid fa-eye"></i>
-              </button>
-            </div>
+        </div>
+        <button type="submit" class="w-full py-3 bg-brandSea text-slate-950 font-bold rounded-xl hover:brightness-110 shadow-lg transition">LOG IN</button>
+      </form>
+    </div>
+
+    <div id="parentDashboard" class="hidden space-y-6"></div>
+  </section>
+
+  <!-- =============================== TEACHERS PORTAL =============================== -->
+  <section id="portal-teachers" class="max-w-7xl mx-auto px-4 py-8 hidden space-y-6">
+    <div id="teacherLoginForm" class="max-w-md mx-auto bg-cardBg p-8 rounded-2xl border border-slate-700 shadow-2xl space-y-6">
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 bg-brandSea/10 text-brandSea rounded-full flex items-center justify-center mx-auto text-2xl border border-brandSea/30">
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-white">Teachers Portal Login</h2>
+        <p class="text-xs text-slate-400">Enter Staff ID, Registered Phone, and Password</p>
+      </div>
+
+      <form onsubmit="window.handleTeacherLogin(event)" class="space-y-4 text-sm">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Staff ID *</label>
+          <input type="text" id="teacherLoginStaffId" required placeholder="e.g. TCH/001" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Phone Number *</label>
+          <input type="tel" id="teacherLoginPhone" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Password *</label>
+          <div class="relative">
+            <input type="password" id="teacherLoginPass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none pr-10">
+            <button type="button" onclick="window.togglePasswordInput('teacherLoginPass', 'teacherEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
+              <i id="teacherEyeIcon" class="fa-solid fa-eye"></i>
+            </button>
           </div>
-          <button type="submit" class="w-full py-3 bg-brandGold text-slate-950 font-bold rounded-xl hover:brightness-110 shadow-lg transition">MASTER LOG IN</button>
-        </form>
+        </div>
+        <button type="submit" class="w-full py-3 bg-brandSea text-slate-950 font-bold rounded-xl hover:brightness-110 shadow-lg transition">LOG IN</button>
+      </form>
+    </div>
+
+    <div id="teacherDashboard" class="hidden space-y-6"></div>
+  </section>
+
+  <!-- =============================== ADMIN PORTAL =============================== -->
+  <section id="portal-admin" class="max-w-7xl mx-auto px-4 py-8 hidden space-y-6">
+    <div id="adminLoginForm" class="max-w-md mx-auto bg-cardBg p-8 rounded-2xl border border-amber-500/40 shadow-2xl space-y-6">
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 bg-amber-500/10 text-brandGold rounded-full flex items-center justify-center mx-auto text-2xl border border-amber-500/30">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-white">Admin Master Portal</h2>
+        <p class="text-xs text-slate-400">Enter Admin Credentials to control system</p>
       </div>
 
-      <div id="adminDashboard" class="hidden space-y-8"></div>
-    </section>
+      <form onsubmit="window.handleAdminLogin(event)" class="space-y-4 text-sm">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Username / Phone *</label>
+          <input type="text" id="adminLoginUser" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandGold focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Password *</label>
+          <div class="relative">
+            <input type="password" id="adminLoginPass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandGold focus:outline-none pr-10">
+            <button type="button" onclick="window.togglePasswordInput('adminLoginPass', 'adminEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
+              <i id="adminEyeIcon" class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="w-full py-3 bg-brandGold text-slate-950 font-bold rounded-xl hover:brightness-110 shadow-lg transition">MASTER LOG IN</button>
+      </form>
+    </div>
 
-  </main>
+    <div id="adminDashboard" class="hidden space-y-8"></div>
+  </section>
 
-  <!-- APPLICATION STATUS MODAL -->
-  <div id="statusModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-    <div class="bg-cardBg max-w-md w-full p-6 rounded-2xl border border-slate-700 shadow-2xl space-y-4">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <h3 class="font-bold text-white text-lg"><i class="fa-solid fa-graduation-cap text-brandSea mr-2"></i>Check Application Status</h3>
-        <button onclick="window.toggleApplicationStatusModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-      </div>
-      <div class="space-y-3 text-sm">
-        <label class="block text-xs font-semibold text-slate-300">Enter Parent Phone or Child's Name</label>
-        <input type="text" id="statusSearchQuery" placeholder="e.g. 0535694851 or Yaw" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
-        <button onclick="window.checkApplicationStatus()" class="w-full py-2.5 bg-brandSea text-slate-950 font-bold rounded-lg hover:brightness-110 transition">Search Status</button>
-      </div>
+</main>
+
+<!-- APPLICATION STATUS MODAL -->
+<div id="statusModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+  <div class="bg-cardBg max-w-md w-full p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-4">
+    <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+      <h3 class="font-bold text-white text-lg"><i class="fa-solid fa-graduation-cap text-brandSea mr-2"></i>Check Application Status</h3>
+      <button onclick="window.toggleApplicationStatusModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+    </div>
+    <div class="space-y-3 text-sm">
+      <label class="block text-xs font-semibold text-slate-300">Enter Parent Phone or Child's Name</label>
+      <input type="text" id="statusSearchQuery" placeholder="e.g. 0535694851 or Yaw" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-brandSea focus:outline-none">
+      <button onclick="window.checkApplicationStatus()" class="w-full py-2.5 bg-brandSea text-slate-950 font-bold rounded-lg hover:brightness-110 transition">Search Status</button>
       <div id="statusResultBox" class="mt-4 p-4 rounded-xl bg-slate-900/90 border border-slate-800 hidden text-xs space-y-2"></div>
     </div>
   </div>
+</div>
 
-  <!-- FOOTER -->
-  <footer class="bg-slate-900 border-t border-slate-800 text-center py-6 text-xs text-slate-400">
-    <p>&copy; 2026 Emican Heritage Academy (E.H.G.). All rights reserved. Techiman - Bono East Regional Capital.</p>
-  </footer>
+<!-- FOOTER -->
+<footer class="bg-slate-900 border-t border-slate-800 text-center py-6 text-xs text-slate-400">
+  <p>&copy; 2026 Emican Heritage Academy (E.H.G.). All rights reserved. Techiman - Bono East Regional Capital.</p>
+</footer>
 
-  <!-- TOAST NOTIFIER -->
-  <div id="toast" class="fixed bottom-5 right-5 hidden z-50 px-4 py-3 rounded-xl border shadow-2xl transition-all duration-300 text-xs"></div>
+<!-- TOAST NOTIFIER -->
+<div id="toast" class="fixed bottom-5 right-5 hidden z-50 px-4 py-3 rounded-xl border shadow-2xl transition-all duration-300"></div>
 
-  <!-- JAVASCRIPT ENGINE WITH EXPLICIT SUPABASE CONFIGURATION -->
-  <script>
-    const SUPABASE_PROJECT_URL = "https://nkuehfzkrmghixggyggs.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_SLqQ2AR3UmGywoSqKOWz5Q_eW_C8d2i";
-    
-    let supabaseClient = null;
-    if (window.supabase) {
+<!-- JAVASCRIPT ENGINE WITH SUPABASE & SECURITY -->
+<script>
+  const SUPABASE_PROJECT_URL = "https://nkuehfzkrmghixggyggs.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_SlQQ2AR3UmGywoSqKOWz5Q_ew_C8d2i";
+
+  let supabaseClient = null;
+  if (window.supabase) {
+    try {
+      supabaseClient = window.supabase.createClient(SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY);
+    } catch (e) {}
+  }
+
+  const DEFAULT_IMAGES = [
+    "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH1.jpeg",
+    "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH2.jpeg",
+    "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH3.jpeg",
+    "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH4.jpeg",
+    "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH5.jpeg",
+    "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/ehapen1.jpeg",
+    "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/Emilogo.jpeg",
+    "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/master.png",
+    "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/SirEHA.jpeg"
+  ];
+
+  const DEFAULT_ABOUT = `Emican Heritage Academy is a premier educational institution situated in Techiman, the vibrant Bono East Regional Capital of Ghana. Dedicated to academic rigour, moral integrity, and technological innovation, the academy provides a comprehensive learning environment for students ranging from Crèche through Junior High School (J.H.S 3). Founded under the parent brand Emican Heritage Ghana (E.H.G.), our campus is built to nurture well-rounded leaders who are grounded in cultural heritage while prepared for global challenges.`;
+
+  const DB = {
+    get: (key, fallback) => {
       try {
-        supabaseClient = window.supabase.createClient(SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY);
+        const val = localStorage.getItem('EHA_' + key);
+        return val ? JSON.parse(val) : fallback;
+      } catch { return fallback; }
+    },
+    set: (key, val) => {
+      try { localStorage.setItem('EHA_' + key, JSON.stringify(val)); } catch {}
+    }
+  };
+
+  window.appState = {
+    overview: DB.get('overview', "Welcome to Emican Heritage Academy, situated in Techiman, Bono East Region. We are committed to fostering a supportive, engaging, and academic environment for basic education excellence."),
+    about: DB.get('about', DEFAULT_ABOUT),
+    vision: DB.get('vision', "Vision: To nurture disciplined, innovative, and holistic future leaders equipped for global opportunities.\nValues: Integrity, Hard Work, Respect, Community, and Academic Perseverance."),
+    carouselImages: DB.get('carouselImages', DEFAULT_IMAGES),
+    logoUrl: DB.get('logoUrl', "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/Emilogo.jpeg"),
+    students: DB.get('students', [
+      {
+        id: "EHA/2026/001",
+        name: "Yaw Mensah",
+        dob: "2018-05-12",
+        phone: "0535694851",
+        pass: "123456",
+        className: "Basic 1",
+        complaint: "Punctual and brilliant in reading. Keep up the high effort!",
+        parentReply: "Thank you teacher, we will support him at home.",
+        pdfResult: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+        fees: [
+          { type: "Academic Fee", amount: 600, paid: 400 },
+          { type: "Canteen Fee", amount: 200, paid: 200 }
+        ]
+      }
+    ]),
+    teachers: DB.get('teachers', [
+      { staffId: "TCH/001", name: "Mr. Emmanuel", phone: "0535694851", pass: "teach123", className: "Basic 1" }
+    ]),
+    admissions: DB.get('admissions', []),
+    auditLogs: DB.get('auditLogs', []),
+    activeSession: null,
+    adminPass: DB.get('adminPass', 'admin123'),
+    sessionVersion: DB.get('sessionVersion', 1)
+  };
+
+  let currentSlide = 0;
+  let carouseInterval = null;
+
+  function normalizeStr(str) {
+    return (str || '').toString().trim().toLowerCase();
+  }
+  function normalizePhone(phone) {
+    return (phone || '').toString().replace(/\D/g, '');
+  }
+
+  // AUDIT LOGGING
+  window.logAudit = async function(userRole, username, actionDescription) {
+    const logEntry = {
+      id: 'LOG-' + Date.now().toString() + '-' + Math.floor(Math.random() * 1000),
+      time: new Date().toLocaleString(),
+      role: userRole,
+      user: username,
+      action: actionDescription
+    };
+    window.appState.auditLogs.unshift(logEntry);
+    if (window.appState.auditLogs.length > 200) window.appState.auditLogs.pop();
+    DB.set('auditLogs', window.appState.auditLogs);
+
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('audit_logs').upsert({
+          id: logEntry.id,
+          time: logEntry.time,
+          data: logEntry
+        });
       } catch (e) {}
     }
+  };
 
-    const DEFAULT_IMAGES = [
-      "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH1.jpeg",
-      "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH2.jpeg",
-      "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH3.jpeg",
-      "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH4.jpeg",
-      "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH5.jpeg",
-      "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/ehapen1.jpeg",
-      "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/Emilogo.jpeg",
-      "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/master.png",
-      "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/SirEHA.jpeg"
-    ];
-
-    const DEFAULT_ABOUT = `Emican Heritage Academy is a premier educational institution situated in Techiman, the vibrant Bono East Regional Capital of Ghana. Dedicated to academic rigour, moral integrity, and technological innovation, the academy provides a comprehensive learning environment for students ranging from Crèche through Junior High School (J.H.S 3). Founded under the parent brand Emican Heritage Ghana (E.H.G.), our campus is built to nurture well-rounded leaders who are grounded in cultural heritage while prepared for global challenges.`;
-
-    const DB = {
-      get: (key, fallback) => {
-        try {
-          const val = localStorage.getItem('EHA_' + key);
-          return val ? JSON.parse(val) : fallback;
-        } catch { return fallback; }
-      },
-      set: (key, val) => {
-        try { localStorage.setItem('EHA_' + key, JSON.stringify(val)); } catch {}
-      }
-    };
-
-    window.appState = {
-      overview: DB.get('overview', "Welcome to Emican Heritage Academy, situated in Techiman, Bono East Region. We are committed to fostering a supportive, engaging, and academic environment for basic education excellence."),
-      about: DB.get('about', DEFAULT_ABOUT),
-      vision: DB.get('vision', "Vision: To nurture disciplined, innovative, and holistic future leaders equipped for global opportunities.\nValues: Integrity, Hard Work, Respect, Community, and Academic Perseverance."),
-      carouselImages: DB.get('carouselImages', DEFAULT_IMAGES),
-      logoUrl: DB.get('logoUrl', "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/Emilogo.jpeg"),
-      students: DB.get('students', [
-        {
-          id: "EHA/2026/001",
-          name: "Yaw Mensah",
-          dob: "2018-05-12",
-          phone: "0535694851",
-          pass: "123456",
-          className: "Basic 1",
-          complaint: "Punctual and brilliant in reading. Keep up the high effort!",
-          parentReply: "Thank you teacher, we will support him at home.",
-          pdfResult: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-          fees: [
-            { type: "Academic Fee", amount: 600, paid: 400 },
-            { type: "Canteen Fee", amount: 200, paid: 200 }
-          ]
-        }
-      ]),
-      teachers: DB.get('teachers', [
-        { staffId: "TCH/001", name: "Mr. Emmanuel", phone: "0535694851", pass: "teach123", className: "Basic 1" }
-      ]),
-      admissions: DB.get('admissions', []),
-      auditLogs: DB.get('auditLogs', []),
-      activeSession: null,
-      adminPass: DB.get('adminPass', 'admin123')
-    };
-
-    let currentSlide = 0;
-    let carouselInterval = null;
-
-    function normalizeStr(str) {
-      return (str || '').toString().trim().toLowerCase();
+  window.clearAuditLogs = async function() {
+    if (!confirm("Are you sure you want to clear all activity logs?")) return;
+    window.appState.auditLogs = [];
+    DB.set('auditLogs', []);
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('audit_logs').delete().neq('id', '0');
+      } catch (e) {}
     }
-    function normalizePhone(phone) {
-      return (phone || '').toString().replace(/\D/g, '');
-    }
+    window.showToast("Activity logs cleared!");
+    window.renderAdminDashboard();
+  };
 
-    // AUDIT LOGGING FUNCTION WITH MATCHING SCHEMA
-    window.logAudit = async function(userRole, userName, actionDescription) {
-      const logEntry = {
-        id: 'LOG-' + Date.now().toString() + '-' + Math.floor(Math.random() * 1000),
-        time: new Date().toLocaleString(),
-        role: userRole,
-        user: userName,
-        action: actionDescription
-      };
-      window.appState.auditLogs.unshift(logEntry);
-      if (window.appState.auditLogs.length > 200) window.appState.auditLogs.pop();
-      DB.set('auditLogs', window.appState.auditLogs);
-
-      if (supabaseClient) {
-        try {
-          await supabaseClient.from('audit_logs').upsert({
-            id: logEntry.id,
-            time: logEntry.time,
-            data: logEntry
-          });
-        } catch (e) {}
-      }
-    };
-
-    window.clearAuditLogs = async function() {
-      if (!confirm("Are you sure you want to clear all activity logs?")) return;
-      window.appState.auditLogs = [];
-      DB.set('auditLogs', []);
-      if (supabaseClient) {
-        try {
-          await supabaseClient.from('audit_logs').delete().neq('id', '0');
-        } catch (e) {}
-      }
-      window.showToast("Activity logs cleared!");
-      window.renderAdminDashboard();
-    };
-
- window.syncFromSupabase = async function() {
-    if (!supabaseClient) {
-        console.error("Supabase client is NOT initialized yet!");
-        return;
-    }
-    console.log("Supabase client is ready, starting sync...");
+  // CLOUD SYNC & GLOBAL SECURITY CHECK
+  window.syncFromSupabase = async function() {
+    if (!supabaseClient) return;
     try {
-
-    try {
-      const { data: configData } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_LOGO_URL');
-      if (configData && configData.length > 0 && configData[0].data && configData[0].data.url) {
-        window.appState.logoUrl = configData[0].data.url;
+      // 1. Sync Logo
+      const { data: logoData } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_LOGO_URL');
+      if (logoData && logoData.length > 0 && logoData[0].data && logoData[0].data.url) {
+        window.appState.logoUrl = logoData[0].data.url;
         DB.set('logoUrl', window.appState.logoUrl);
         window.renderLogo();
       }
- try {
-    const { data: passConfig } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_ADMIN_PASS');
-    if (passConfig && passConfig.length > 0 && passConfig[0].data && passConfig[0].data.password) {
-        const cloudPass = passConfig[0].data.password;
-        const cloudSessionVersion = passConfig[0].data.sessionVersion;
-        const localSessionVersion = DB.get('sessionVersion');
 
-        if (cloudSessionVersion && localSessionVersion && cloudSessionVersion !== localSessionVersion) {
-            window.appState.adminPass = cloudPass;
-            window.appState.sessionVersion = cloudSessionVersion;
-            DB.set('adminPass', cloudPass);
-            DB.set('sessionVersion', cloudSessionVersion);
+      // 2. Sync Admin Password & Global Session Version (Force Multi-Device Logout Security)
+      const { data: passData } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_ADMIN_PASS');
+      if (passData && passData.length > 0 && passData[0].data && passData[0].data.password) {
+        const cloudPass = passData[0].data.password;
+        const cloudSessionVersion = passData[0].data.sessionVersion || 1;
+        const localSessionVersion = DB.get('sessionVersion', 1);
 
-            if (typeof window.handleAdminLogout === 'function') {
-                window.handleAdminLogout();
-            } else {
-                location.reload();
-            }
-            window.showToast("Password updated on another device. Please log in again.", "warning");
-            return;
+        if (cloudSessionVersion !== localSessionVersion) {
+          // Global Security Trigger: Password changed elsewhere, force immediate logout
+          window.appState.adminPass = cloudPass;
+          window.appState.sessionVersion = cloudSessionVersion;
+          DB.set('adminPass', cloudPass);
+          DB.set('sessionVersion', cloudSessionVersion);
+
+          window.appState.activeSession = null;
+          window.showPortal('home');
+          window.showToast("Security notice: Admin password updated. All sessions logged out globally.", "error");
+          return;
         }
-
-        window.appState.adminPass = cloudPass;
-        DB.set('adminPass', cloudPass);
-        if (cloudSessionVersion) {
-            window.appState.sessionVersion = cloudSessionVersion;
-            DB.set('sessionVersion', cloudSessionVersion);
-        }
-    }
-} catch (e) {}
-
-    // Paste the admin password sync block right here:
-   try {
-        const { data: passConfig } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_ADMIN_PASS');
-        if (passConfig && passConfig.length > 0 && passConfig[0].data && passConfig[0].data.password) {
-            window.appState.adminPass = passConfig[0].data.password;
-            DB.set('adminPass', window.appState.adminPass);
-        }
-    } catch (err) {
-        console.error(err);
-    }
-
-    window.pushAllToCloud = async function() {
-      if (!supabaseClient) {
-        window.showToast("Supabase connection not initialized.", "error");
-        return;
       }
-      try {
-        for (const st of window.appState.students) {
-          await supabaseClient.from('students').upsert({ id: st.id, data: st });
-        }
-        for (const tch of window.appState.teachers) {
-          await supabaseClient.from('teachers').upsert({ staff_id: tch.staffId, data: tch });
-        }
-        for (const adm of window.appState.admissions) {
-          await supabaseClient.from('admissions').upsert({ id: adm.id, data: adm });
-        }
-        window.showToast("All local records successfully synced to Supabase Cloud!");
-        window.logAudit('Admin', 'Headteacher', 'Manually pushed all local database records to Supabase Cloud');
-      } catch (err) {
-        window.showToast("Cloud sync failed. Check connection.", "error");
-      }
-    };
+    } catch (e) {}
+  };
 
-    window.syncTableToSupabase = async function(table, idField, record) {
-      DB.set(table, window.appState[table]);
-      if (!supabaseClient) return;
-      try {
-        await supabaseClient.from(table).upsert({ 
-          [idField]: record[idField] || record.id || record.staffId, 
-          data: record 
-        });
-      } catch (e) {}
-    };
+  window.syncTableToSupabase = async function(table, idField, record) {
+    DB.set(table, window.appState[table]);
+    if (!supabaseClient) return;
+    try {
+      await supabaseClient.from(table).upsert({
+        [idField]: record[idField] || record.id || record.staffId,
+        data: record
+      });
+    } catch (e) {}
+  };
 
-    window.removeFromSupabase = async function(table, idField, idVal) {
-      DB.set(table, window.appState[table]);
-      if (!supabaseClient) return;
-      try {
-        await supabaseClient.from(table).delete().eq(idField, idVal);
-      } catch (e) {}
-    };
+  window.removeFromSupabase = async function(table, idField, idVal) {
+    DB.set(table, window.appState[table]);
+    if (!supabaseClient) return;
+    try {
+      await supabaseClient.from(table).delete().eq(idField, idVal);
+    } catch (e) {}
+  };
 
+  // PORTAL SWITCHER & NAVIGATION
   window.showPortal = function(portal) {
     if (!portal) return;
-
     ['home', 'parents', 'teachers', 'admin'].forEach(p => {
-        const portalEl = document.getElementById(`portal-${p}`);
-        const navEl = document.getElementById(`nav-${p}`);
-        if (portalEl) portalEl.classList.add('hidden');
-        if (navEl) {
-            navEl.classList.remove('bg-brandSea', 'text-slate-950', 'font-bold');
-            navEl.classList.add('hover:bg-slate-800', 'text-slate-200');
-        }
+      const portalEl = document.getElementById(`portal-${p}`);
+      const navEl = document.getElementById(`nav-${p}`);
+      if (portalEl) portalEl.classList.add('hidden');
+      if (navEl) {
+        navEl.classList.remove('bg-brandSea', 'text-slate-950', 'font-bold');
+        navEl.classList.add('hover:bg-slate-800', 'text-slate-200');
+      }
     });
 
     const targetPortal = document.getElementById(`portal-${portal}`);
@@ -570,377 +525,374 @@
 
     if (targetPortal) targetPortal.classList.remove('hidden');
     if (targetNav) {
-        targetNav.classList.add('bg-brandSea', 'text-slate-950', 'font-bold');
-        targetNav.classList.remove('hover:bg-slate-800');
+      targetNav.classList.add('bg-brandSea', 'text-slate-950', 'font-bold');
+      targetNav.classList.remove('hover:bg-slate-800');
     }
 
     if (portal === 'admin' && window.appState?.activeSession?.role === 'admin' && typeof window.renderAdminDashboard === 'function') {
-        window.renderAdminDashboard();
+      window.renderAdminDashboard();
     }
     if (portal === 'teachers' && window.appState?.activeSession?.role === 'teacher' && typeof window.renderTeacherDashboard === 'function') {
-        window.renderTeacherDashboard();
+      window.renderTeacherDashboard();
     }
     if (portal === 'parents' && window.appState?.activeSession?.role === 'parent' && typeof window.renderParentDashboard === 'function') {
-        window.renderParentDashboard();
+      window.renderParentDashboard();
     }
-}; 
+  };
 
-    window.renderLogo = function() {
-      document.querySelectorAll('#siteLogoImg').forEach(img => { img.src = window.appState.logoUrl; });
-    };
+  window.renderLogo = function() {
+    document.querySelectorAll('#siteLogoImg').forEach(img => { img.src = window.appState.logoUrl; });
+  };
 
-    window.renderCarousel = function() {
-      const container = document.getElementById('carouselContainer');
-      const dotsContainer = document.getElementById('carouselDots');
-      if (!container || !dotsContainer) return;
+  window.renderCarousel = function() {
+    const container = document.getElementById('carouselContainer');
+    const dotsContainer = document.getElementById('carouselDots');
+    if (!container || !dotsContainer) return;
 
-      container.innerHTML = '';
-      dotsContainer.innerHTML = '';
+    container.innerHTML = '';
+    dotsContainer.innerHTML = '';
 
-      window.appState.carouselImages.forEach((imgUrl, index) => {
-        const slide = document.createElement('div');
-        slide.className = `absolute inset-0 transition-opacity duration-700 ease-in-out flex items-center justify-center bg-slate-950 ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`;
-        slide.innerHTML = `<img src="${imgUrl}" alt="EHA Slide ${index+1}" class="w-full h-full object-contain object-top">`;
-        container.appendChild(slide);
+    window.appState.carouselImages.forEach((imgUrl, index) => {
+      const slide = document.createElement('div');
+      slide.className = `absolute inset-0 transition-opacity duration-700 ease-in-out flex items-center justify-center bg-slate-950 ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`;
+      slide.innerHTML = `<img src="${imgUrl}" alt="EHA slide ${index+1}" class="w-full h-full object-contain object-top">`;
+      container.appendChild(slide);
 
-        const dot = document.createElement('button');
-        dot.className = `h-2.5 rounded-full transition-all ${index === currentSlide ? 'bg-brandGold w-6' : 'bg-white/40 w-2.5'}`;
-        dot.onclick = () => window.goToSlide(index);
-        dotsContainer.appendChild(dot);
-      });
-    };
+      const dot = document.createElement('button');
+      dot.className = `h-2.5 rounded-full transition-all ${index === currentSlide ? 'bg-brandGold w-6' : 'bg-white/40 w-2.5'}`;
+      dot.onclick = () => window.goToSlide(index);
+      dotsContainer.appendChild(dot);
+    });
+  };
 
-    window.nextSlide = function() {
-      if (window.appState.carouselImages.length === 0) return;
-      currentSlide = (currentSlide + 1) % window.appState.carouselImages.length;
-      window.renderCarousel();
-    };
+  window.nextSlide = function() {
+    if (window.appState.carouselImages.length === 0) return;
+    currentSlide = (currentSlide + 1) % window.appState.carouselImages.length;
+    window.renderCarousel();
+  };
 
-    window.prevSlide = function() {
-      if (window.appState.carouselImages.length === 0) return;
-      currentSlide = (currentSlide - 1 + window.appState.carouselImages.length) % window.appState.carouselImages.length;
-      window.renderCarousel();
-    };
+  window.prevSlide = function() {
+    if (window.appState.carouselImages.length === 0) return;
+    currentSlide = (currentSlide - 1 + window.appState.carouselImages.length) % window.appState.carouselImages.length;
+    window.renderCarousel();
+  };
 
-    window.goToSlide = function(index) {
-      currentSlide = index;
-      window.renderCarousel();
-    };
+  window.goToSlide = function(index) {
+    currentSlide = index;
+    window.renderCarousel();
+  };
 
-    function initTouchSwipe() {
-      const area = document.getElementById('carouselTouchArea');
-      if (!area) return;
-      let startX = 0;
-      area.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive: true});
-      area.addEventListener('touchend', e => {
-        let diff = startX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) {
-          if (diff > 0) window.nextSlide();
-          else window.prevSlide();
-        }
-      }, {passive: true});
+  function initTouchSwipe() {
+    const area = document.getElementById('carouselTouchArea');
+    if (!area) return;
+    let startX = 0;
+    area.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive: true});
+    area.addEventListener('touchend', e => {
+      let diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) window.nextSlide();
+        else window.prevSlide();
+      }
+    }, {passive: true});
+  }
+
+  window.showToast = function(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.className = `fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl border shadow-2xl transition-all duration-300 ${type === 'error' ? 'bg-red-950 border-red-500 text-red-200' : 'bg-emerald-950 border-emerald-500 text-emerald-200'}`;
+    toast.innerHTML = `<i class="fa-solid ${type === 'error' ? 'fa-circle-exclamation text-red-400' : 'fa-circle-check text-emerald-400'} text-base mr-2"></i><span>${message}</span>`;
+    setTimeout(() => toast.classList.add('hidden'), 4000);
+  };
+
+  window.togglePasswordInput = function(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (!input || !icon) return;
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.classList.remove('fa-eye');
+      icon.classList.add('fa-eye-slash');
+    } else {
+      input.type = 'password';
+      icon.classList.remove('fa-eye-slash');
+      icon.classList.add('fa-eye');
     }
+  };
 
-    window.showToast = function(message, type = 'success') {
-      const toast = document.getElementById('toast');
-      if (!toast) return;
-      toast.className = `fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl border shadow-2xl transition-all duration-300 ${type === 'error' ? 'bg-red-950 border-red-500 text-red-200' : 'bg-emerald-950 border-emerald-500 text-emerald-200'}`;
-      toast.innerHTML = `<i class="fa-solid ${type === 'error' ? 'fa-circle-exclamation text-red-400' : 'fa-circle-check text-emerald-400'} text-base mr-2"></i><span>${message}</span>`;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 4000);
+  // ADMISSIONS
+  window.handleAdmissionsSubmit = async function(e) {
+    e.preventDefault();
+    const newApp = {
+      id: 'APP-' + Date.now().toString().slice(-5),
+      parentName: document.getElementById('admParentName').value.trim(),
+      phone: document.getElementById('admPhone').value.trim(),
+      childName: document.getElementById('admChildName').value.trim(),
+      dob: document.getElementById('admChildDOB').value,
+      className: document.getElementById('admClass').value,
+      term: document.getElementById('admTerm').value,
+      year: document.getElementById('admYear').value,
+      status: 'Pending',
+      submittedAt: new Date().toLocaleDateString()
     };
+    window.appState.admissions.unshift(newApp);
+    await window.syncTableToSupabase('admissions', 'id', newApp);
+    await window.logAudit('Guest / Public', newApp.parentName, `Submitted admission inquiry for child ${newApp.childName} (${newApp.className})`);
+    window.showToast("Admission application submitted successfully!");
+    e.target.reset();
+  };
 
-    window.togglePasswordInput = function(inputId, iconId) {
-      const input = document.getElementById(inputId);
-      const icon = document.getElementById(iconId);
-      if (!input || !icon) return;
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-      } else {
-        input.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
-      }
-    };
+  window.toggleApplicationStatusModal = function() {
+    document.getElementById('statusModal').classList.toggle('hidden');
+  };
 
-    window.handleAdmissionSubmit = async function(e) {
-      e.preventDefault();
-      const newApp = {
-        id: 'APP-' + Date.now().toString().slice(-5),
-        parentName: document.getElementById('admParentName').value.trim(),
-        phone: document.getElementById('admPhone').value.trim(),
-        childName: document.getElementById('admChildName').value.trim(),
-        dob: document.getElementById('admChildDOB').value,
-        className: document.getElementById('admClass').value,
-        term: document.getElementById('admTerm').value,
-        year: document.getElementById('admYear').value,
-        status: 'Pending',
-        submittedAt: new Date().toLocaleDateString()
-      };
+  window.checkApplicationStatus = function() {
+    const q = normalizeStr(document.getElementById('statusSearchQuery').value);
+    const resBox = document.getElementById('statusResultBox');
+    if (!q) return;
 
-      window.appState.admissions.unshift(newApp);
-      await window.syncTableToSupabase('admissions', 'id', newApp);
-      await window.logAudit('Guest / Public', newApp.parentName, `Submitted admission inquiry for child ${newApp.childName} (${newApp.className})`);
-      window.showToast("Admission application submitted successfully!");
-      e.target.reset();
-    };
+    const found = window.appState.admissions.filter(a => 
+      normalizeStr(a.phone).includes(q) || normalizeStr(a.childName).includes(q) || normalizeStr(a.id) === q
+    );
 
-    window.toggleApplicationStatusModal = function() {
-      document.getElementById('statusModal').classList.toggle('hidden');
-    };
+    resBox.classList.remove('hidden');
+    if (found.length === 0) {
+      resBox.innerHTML = `<p class="text-red-400 font-semibold">No application found. Please verify phone number or child's name.</p>`;
+    } else {
+      resBox.innerHTML = found.map(a => `
+        <div class="border-b border-slate-800 pb-2 last:border-0">
+          <p><strong>App ID:</strong> ${a.id} | <strong>Child:</strong> ${a.childName}</p>
+          <p><strong>Class:</strong> ${a.className} (${a.term} ${a.year})</p>
+          <p><strong>Status:</strong> <span class="px-2 py-0.5 rounded font-bold ${a.status === 'Admitted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-600' : 'bg-amber-950 text-amber-400 border border-amber-600'}">${a.status}</span></p>
+        </div>
+      `).join('');
+    }
+  };
 
-    window.checkApplicationStatus = function() {
-      const q = normalizeStr(document.getElementById('statusSearchQuery').value);
-      const resBox = document.getElementById('statusResultBox');
-      if (!q) return;
-
-      const found = window.appState.admissions.filter(a => 
-        normalizeStr(a.phone).includes(q) || normalizeStr(a.childName).includes(q) || normalizeStr(a.id) === q
-      );
-
-      resBox.classList.remove('hidden');
-      if (found.length === 0) {
-        resBox.innerHTML = `<p class="text-red-400 font-semibold">No application found. Please verify phone number or child's name.</p>`;
-      } else {
-        resBox.innerHTML = found.map(a => `
-          <div class="border-b border-slate-800 pb-2 last:border-0">
-            <p><strong>App ID:</strong> ${a.id} | <strong>Child:</strong> ${a.childName}</p>
-            <p><strong>Class:</strong> ${a.className} (${a.term} ${a.year})</p>
-            <p><strong>Status:</strong> <span class="px-2 py-0.5 rounded font-bold ${a.status === 'Admitted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-600' : a.status === 'Not Admitted' ? 'bg-red-950 text-red-400 border border-red-600' : 'bg-amber-950 text-amber-400 border border-amber-600'}">${a.status}</span></p>
-          </div>
-        `).join('');
-      }
-    };
-
-    // PARENTS LOGIN
+  // PARENTS LOGIN & DASHBOARD
   window.handleParentLogin = async function(e) {
-      e.preventDefault();
-      await window.syncFromSupabase();
+    e.preventDefault();
+    await window.syncFromSupabase();
 
-      const sid = normalizeStr(document.getElementById('parentLoginId').value);
-      const inputDob = (document.getElementById('parentLoginDob').value || '').trim();
-      const phoneClean = normalizePhone(document.getElementById('parentLoginPhone').value);
-      const pass = document.getElementById('parentLoginPass').value.trim();
+    const sid = normalizeStr(document.getElementById('parentLoginId').value);
+    const inputDob = (document.getElementById('parentLoginDob').value || '').trim();
+    const phoneClean = normalizePhone(document.getElementById('parentLoginPhone').value);
+    const pass = document.getElementById('parentLoginPass').value.trim();
 
-      const st = window.appState.students.find(s => {
-        const storedId = normalizeStr(s.id);
-        const storedDob = (s.dob || '').trim();
-        const storedPhone = normalizePhone(s.phone);
-        const storedPass = (s.pass || '').trim();
+    const st = window.appState.students.find(s => {
+      return normalizeStr(s.id) === sid &&
+             (s.dob || '').trim() === inputDob &&
+             normalizePhone(s.phone) === phoneClean &&
+             (s.pass || '').trim() === pass;
+    });
 
-        return storedId === sid && 
-               storedDob === inputDob && 
-               storedPhone === phoneClean && 
-               storedPass === pass;
-      });
+    if (st) {
+      window.appState.activeSession = { role: 'parent', studentId: st.id, name: st.name };
+      await window.logAudit('Parent', st.name + ' (' + st.id + ')', 'Successfully logged into Parent Portal');
+      document.getElementById('parentLoginForm').classList.add('hidden');
+      window.renderParentDashboard();
+    } else {
+      window.showToast("Invalid Student ID, DOB, Phone or Password.", "error");
+    }
+  };
 
-      if (st) {
-        window.appState.activeSession = { role: 'parent', studentId: st.id, name: st.name };
-        await window.logAudit('Parent', st.name + ' (' + st.id + ')', 'Successfully logged into Parent Portal');
-        document.getElementById('parentLoginForm').classList.add('hidden');
-        window.renderParentDashboard();
-      } else {
-        window.showToast("Invalid Student ID, DOB, Phone or Password.", "error");
-      }
-    };
+  window.renderParentDashboard = function() {
+    const st = window.appState.students.find(s => s.id === window.appState.activeSession.studentId);
+    const dash = document.getElementById('parentDashboard');
+    dash.classList.remove('hidden');
 
-    window.renderParentDashboard = function() {
-      const st = window.appState.students.find(s => s.id === window.appState.activeSession.studentId);
-      const dash = document.getElementById('parentDashboard');
-      dash.classList.remove('hidden');
+    let totalFees = 0, totalPaid = 0;
+    (st.fees || []).forEach(f => { totalFees += Number(f.amount); totalPaid += Number(f.paid); });
+    let balance = totalFees - totalPaid;
 
-      let totalFees = 0, totalPaid = 0;
-      (st.fees || []).forEach(f => { totalFees += Number(f.amount); totalPaid += Number(f.paid); });
-      let balance = totalFees - totalPaid;
-
-      dash.innerHTML = `
-        <div class="bg-cardBg p-6 rounded-2xl border border-slate-700 shadow-xl space-y-6">
-          <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
-            <div>
-              <h2 class="text-2xl font-bold text-white"><i class="fa-solid fa-child text-brandSea mr-2"></i>${st.name}</h2>
-              <p class="text-xs text-slate-400">Student ID: ${st.id} | Class: ${st.className} | DOB: ${st.dob}</p>
-            </div>
-            <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
+    dash.innerHTML = `
+      <div class="bg-cardBg p-6 rounded-2xl border border-slate-700 shadow-xl space-y-6">
+        <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="text-2xl font-bold text-white"><i class="fa-solid fa-child text-brandSea mr-2"></i>${st.name}</h2>
+            <p class="text-xs text-slate-400">Student ID: ${st.id} | Class: ${st.className} | DOB: ${st.dob}</p>
           </div>
+          <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
+        </div>
 
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
-            <h3 class="font-bold text-sm text-brandGold"><i class="fa-solid fa-key mr-1"></i> Change Portal Password</h3>
-            <form onsubmit="window.changeStudentPassword(event, '${st.id}')" class="flex flex-wrap gap-3 items-center">
-              <input type="text" id="newParentPass" required placeholder="New Password" class="bg-slate-950 border border-slate-700 rounded px-3 py-1.5 text-xs text-white">
-              <button type="submit" class="px-4 py-1.5 bg-brandGold text-slate-950 font-bold rounded text-xs">Update Password</button>
-            </form>
-          </div>
+        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
+          <h3 class="font-bold text-sm text-brandGold"><i class="fa-solid fa-key mr-1"></i> Change Portal Password</h3>
+          <form onsubmit="window.changeStudentPassword(event, '${st.id}')" class="flex flex-wrap gap-3 items-center">
+            <input type="text" id="newParentPass" required placeholder="New Password" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white">
+            <button type="submit" class="px-4 py-1.5 bg-brandGold text-slate-950 font-bold rounded text-xs">Update Password</button>
+          </form>
+        </div>
 
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="space-y-6">
-              <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
-                <h3 class="font-bold text-brandGold flex items-center gap-2"><i class="fa-solid fa-file-pdf"></i> Terminal Examination Reports</h3>
-                ${st.pdfResult ? `
-                  <div class="flex items-center justify-between bg-slate-950 p-3 rounded-lg border border-slate-800">
-                    <span class="text-xs text-slate-300">Term Academic Performance Report</span>
-                    <a href="${st.pdfResult}" target="_blank" class="px-3 py-1.5 bg-brandSea text-slate-950 font-bold rounded text-xs hover:brightness-110">
-                      <i class="fa-solid fa-download mr-1"></i> View / Print PDF
-                    </a>
-                  </div>
-                ` : `<p class="text-xs text-slate-400 italic">No PDF report card uploaded yet for this term.</p>`}
-              </div>
-
-              <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
-                <h3 class="font-bold text-brandSea flex items-center gap-2"><i class="fa-solid fa-comments"></i> Behavior Notes & Complaints</h3>
-                <div class="bg-slate-950 p-3 rounded-lg text-xs space-y-2 border border-slate-800">
-                  <p><strong>Teacher Comment:</strong> ${st.complaint || "No active complaints or comments."}</p>
-                  ${st.parentReply ? `<p class="text-slate-400 pt-2 border-t border-slate-800"><strong>Your Reply:</strong> ${st.parentReply}</p>` : ''}
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="space-y-6">
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
+              <h3 class="font-bold text-brandGold flex items-center gap-2"><i class="fa-solid fa-file-pdf"></i> Terminal Examination Reports</h3>
+              ${st.pdfResult ? `
+                <div class="flex items-center justify-between bg-slate-950 p-3 rounded-lg border border-slate-800">
+                  <span class="text-xs text-slate-300">Term Academic Performance Report</span>
+                  <a href="${st.pdfResult}" target="_blank" class="px-3 py-1.5 bg-brandSea text-slate-950 font-bold rounded text-xs hover:brightness-110">
+                    <i class="fa-solid fa-download mr-1"></i> View / Print PDF
+                  </a>
                 </div>
-                <form onsubmit="window.handleParentReply(event, '${st.id}')" class="space-y-2">
-                  <textarea id="parentReplyInput" required placeholder="Type reply to teacher..." class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs text-white focus:outline-none"></textarea>
-                  <button type="submit" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold">Send Reply</button>
-                </form>
-              </div>
+              ` : `<p class="text-xs text-slate-400 italic">No PDF report card uploaded yet for this term.</p>`}
             </div>
 
-            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
-              <h3 class="font-bold text-white flex items-center gap-2"><i class="fa-solid fa-receipt text-brandGold"></i> Statement of Fees</h3>
-              <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs border-collapse">
-                  <thead>
-                    <tr class="border-b border-slate-800 text-slate-400">
-                      <th class="py-2">Fee Type</th><th class="py-2">Billed (GH₵)</th><th class="py-2">Paid (GH₵)</th>
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-2">
+              <h3 class="font-bold text-slate-200 flex items-center gap-2"><i class="fa-solid fa-comments"></i> Behavior Notes & Complaints</h3>
+              <div class="bg-slate-950 p-3 rounded-lg text-xs space-y-2 border border-slate-800">
+                <p><strong>Teacher Comment:</strong> ${st.complaint || "No active complaints or comments."}</p>
+                ${st.parentReply ? `<p class="text-slate-400 pt-2 border-t border-slate-800"><strong>Your Reply:</strong> ${st.parentReply}</p>` : ''}
+              </div>
+              <form onsubmit="window.handleParentReply(event, '${st.id}')" class="space-y-2">
+                <textarea id="parentReplyInput" required placeholder="Type reply to teacher..." class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs text-white focus:outline-none"></textarea>
+                <button type="submit" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold">Send Reply</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+            <h3 class="font-bold text-white flex items-center gap-2"><i class="fa-solid fa-receipt text-brandGold"></i> Statement of Fees</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400">
+                    <th class="py-2">Fee Type</th><th class="py-2">Billed (GH₵)</th><th class="py-2">Paid (GH₵)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${(st.fees || []).map(f => `
+                    <tr class="border-b border-slate-800/60">
+                      <td class="py-2 text-slate-200">${f.type}</td><td class="py-2">${f.amount}</td><td class="py-2 text-emerald-400">${f.paid}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    ${(st.fees || []).map(f => `
-                      <tr class="border-b border-slate-800/60">
-                        <td class="py-2 text-slate-200">${f.type}</td><td class="py-2">${f.amount}</td><td class="py-2 text-emerald-400">${f.paid}</td>
-                      </tr>
-                    `).join('')}
-                  </tbody>
-                </table>
-              </div>
-              <div class="pt-3 border-t border-slate-800 flex justify-between items-center text-sm font-bold">
-                <span>Remaining Balance:</span>
-                <span class="${balance > 0 ? 'text-red-400' : 'text-emerald-400'}">GH₵ ${balance}</span>
-              </div>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex justify-between items-center text-sm font-bold">
+              <span>Remaining Balance:</span>
+              <span class="${balance > 0 ? 'text-red-400' : 'text-emerald-400'}">GH₵ ${balance}</span>
             </div>
           </div>
         </div>
-      `;
-    };
+      </div>
+    `;
+  };
 
-    window.changeStudentPassword = async function(e, id) {
-      e.preventDefault();
-      const np = document.getElementById('newParentPass').value.trim();
-      const st = window.appState.students.find(s => s.id === id);
-      if (st && np) {
-        st.pass = np;
-        await window.syncTableToSupabase('students', 'id', st);
-        await window.logAudit('Parent', st.name + ' (' + st.id + ')', 'Changed account password to: ' + np);
-        window.showToast("Parent/Student password updated successfully!");
-        window.renderParentDashboard();
-      }
-    };
+  window.changeStudentPassword = async function(e, id) {
+    e.preventDefault();
+    const np = document.getElementById('newParentPass').value.trim();
+    const st = window.appState.students.find(s => s.id === id);
+    if (st && np) {
+      st.pass = np;
+      await window.syncTableToSupabase('students', 'id', st);
+      await window.logAudit('Parent', st.name + ' (' + st.id + ')', 'Changed account password to: ' + np);
+      window.showToast("Parent/Student password updated successfully!");
+      window.renderParentDashboard();
+    }
+  };
 
-    window.handleParentReply = async function(e, studentId) {
-      e.preventDefault();
-      const txt = document.getElementById('parentReplyInput').value.trim();
-      const st = window.appState.students.find(s => s.id === studentId);
-      if (st && txt) {
-        st.parentReply = txt;
-        await window.syncTableToSupabase('students', 'id', st);
-        await window.logAudit('Parent', st.name, 'Replied to teacher comment');
-        window.showToast("Reply sent to teacher.");
-        window.renderParentDashboard();
-      }
-    };
+  window.handleParentReply = async function(e, studentId) {
+    e.preventDefault();
+    const txt = document.getElementById('parentReplyInput').value.trim();
+    const st = window.appState.students.find(s => s.id === studentId);
+    if (st && txt) {
+      st.parentReply = txt;
+      await window.syncTableToSupabase('students', 'id', st);
+      await window.logAudit('Parent', st.name, 'Replied to teacher comment');
+      window.showToast("Reply sent to teacher.");
+      window.renderParentDashboard();
+    }
+  };
 
-    // TEACHERS LOGIN
-    window.handleTeacherLogin = async function(e) {
-      e.preventDefault();
-      await window.syncFromSupabase();
+  // TEACHERS LOGIN & DASHBOARD
+  window.handleTeacherLogin = async function(e) {
+    e.preventDefault();
+    await window.syncFromSupabase();
 
-      const staffId = normalizeStr(document.getElementById('teacherLoginStaffId').value);
-      const phoneClean = normalizePhone(document.getElementById('teacherLoginPhone').value);
-      const pass = document.getElementById('teacherLoginPass').value.trim();
+    const staffId = normalizeStr(document.getElementById('teacherLoginStaffId').value);
+    const phoneClean = normalizePhone(document.getElementById('teacherLoginPhone').value);
+    const pass = document.getElementById('teacherLoginPass').value.trim();
 
-      const t = window.appState.teachers.find(tch => 
-        normalizeStr(tch.staffId) === staffId && 
-        normalizePhone(tch.phone) === phoneClean && 
-        tch.pass.trim() === pass
-      );
+    const t = window.appState.teachers.find(tch => 
+      normalizeStr(tch.staffId) === staffId &&
+      normalizePhone(tch.phone) === phoneClean &&
+      tch.pass.trim() === pass
+    );
 
-      if (t) {
-        window.appState.activeSession = { role: 'teacher', staffId: t.staffId, name: t.name, className: t.className };
-        await window.logAudit('Teacher', t.name + ' (' + t.staffId + ')', 'Successfully logged into Teacher Portal');
-        document.getElementById('teacherLoginForm').classList.add('hidden');
-        window.renderTeacherDashboard();
-      } else {
-        window.showToast("Invalid Staff ID, Phone or Password.", "error");
-      }
-    };
+    if (t) {
+      window.appState.activeSession = { role: 'teacher', staffId: t.staffId, name: t.name, className: t.className };
+      await window.logAudit('Teacher', t.name + ' (' + t.staffId + ')', 'Successfully logged into Teacher Portal');
+      document.getElementById('teacherLoginForm').classList.add('hidden');
+      window.renderTeacherDashboard();
+    } else {
+      window.showToast("Invalid Staff ID, Phone or Password.", "error");
+    }
+  };
 
-    window.renderTeacherDashboard = function() {
-      const tch = window.appState.teachers.find(t => t.staffId === window.appState.activeSession.staffId);
-      const dash = document.getElementById('teacherDashboard');
-      dash.classList.remove('hidden');
+  window.renderTeacherDashboard = function() {
+    const tch = window.appState.teachers.find(t => t.staffId === window.appState.activeSession.staffId);
+    const dash = document.getElementById('teacherDashboard');
+    dash.classList.remove('hidden');
 
-      const classStudents = window.appState.students.filter(s => s.className === tch.className);
+    const classStudents = window.appState.students.filter(s => s.className === tch.className);
 
-      dash.innerHTML = `
-        <div class="bg-cardBg p-6 rounded-2xl border border-slate-700 shadow-xl space-y-6">
-          <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
-            <div>
-              <h2 class="text-2xl font-bold text-white"><i class="fa-solid fa-chalkboard-user text-brandSea mr-2"></i>Teacher Portal (${tch.name})</h2>
-              <p class="text-xs text-slate-400">Assigned Class: <strong class="text-brandGold">${tch.className}</strong> | Staff ID: ${tch.staffId}</p>
-            </div>
-            <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
+    dash.innerHTML = `
+      <div class="bg-cardBg p-6 md:p-8 rounded-2xl border border-slate-700 shadow-xl space-y-6">
+        <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="text-2xl font-bold text-white"><i class="fa-solid fa-chalkboard text-brandSea mr-2"></i>Teacher: ${tch.name}</h2>
+            <p class="text-xs text-slate-400">Assigned Class: ${tch.className} | Staff ID: ${tch.staffId}</p>
           </div>
+          <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
+        </div>
 
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
-            <h3 class="font-bold text-sm text-brandGold"><i class="fa-solid fa-key mr-1"></i> Change Portal Password</h3>
-            <form onsubmit="window.changeTeacherPassword(event, '${tch.staffId}')" class="flex flex-wrap gap-3 items-center">
-              <input type="text" id="newTeacherPass" required placeholder="New Password" class="bg-slate-950 border border-slate-700 rounded px-3 py-1.5 text-xs text-white">
-              <button type="submit" class="px-4 py-1.5 bg-brandGold text-slate-950 font-bold rounded text-xs">Update Password</button>
-            </form>
-          </div>
+        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
+          <h3 class="font-bold text-sm text-brandGold"><i class="fa-solid fa-key mr-1"></i> Change Portal Password</h3>
+          <form onsubmit="window.changeTeacherPassword(event, '${tch.staffId}')" class="flex flex-wrap gap-3 items-center">
+            <input type="text" id="newTeacherPass" required placeholder="New Password" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white">
+            <button type="submit" class="px-4 py-1.5 bg-brandGold text-slate-950 font-bold rounded text-xs">Update Password</button>
+          </form>
+        </div>
 
+        <div class="space-y-4">
+          <h3 class="text-lg font-bold text-white">Students in ${tch.className} (${classStudents.length})</h3>
+          ${classStudents.length === 0 ? `<p class="text-xs text-slate-400">No students registered in this class yet.</p>` : ''}
           <div class="space-y-4">
-            <h3 class="font-bold text-lg text-slate-200">Class Register & Student Records</h3>
-            ${classStudents.length === 0 ? `<p class="text-xs text-slate-400">No students currently registered under ${tch.className}.</p>` : ''}
-            
-            <div class="grid gap-6">
-              ${classStudents.map(s => `
-                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-                  <div class="flex flex-wrap justify-between items-center font-bold text-sm text-brandSea">
-                    <span>${s.name} (ID: ${s.id})</span>
-                    <span class="text-slate-400 text-xs">DOB: ${s.dob || 'N/A'} | Phone: ${s.phone}</span>
+            ${classStudents.map(s => `
+              <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+                <div class="flex flex-wrap justify-between items-center gap-2">
+                  <div>
+                    <h4 class="font-bold text-white text-base">${s.name} <span class="text-xs text-brandSea font-normal">(${s.id})</span></h4>
+                    <p class="text-xs text-slate-400">DOB: ${s.dob} | Phone: ${s.phone}</p>
+                  </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4 pt-3 border-t border-slate-800 text-xs">
+                  <div class="space-y-2">
+                    <h4 class="font-bold text-slate-200">Behavior & Performance Note</h4>
+                    <form onsubmit="window.updateStudentNote(event, '${s.id}')" class="space-y-2">
+                      <textarea id="note_${s.id}" required placeholder="Write comment..." class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">${s.complaint || ''}</textarea>
+                      <button type="submit" class="px-3 py-1 bg-brandSea text-slate-950 font-bold rounded">Save Comment</button>
+                    </form>
                   </div>
 
-                  <div class="grid md:grid-cols-2 gap-4 bg-slate-950 p-3 rounded-lg border border-slate-800">
-                    <div>
-                      <label class="block font-semibold text-slate-300 mb-1">Upload/Paste PDF Test Result Link</label>
-                      <div class="flex gap-2">
-                        <input type="url" id="pdfLink_${s.id}" value="${s.pdfResult || ''}" placeholder="https://..." class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-white">
-                        <button onclick="window.updateStudentPDF('${s.id}')" class="px-3 py-1 bg-brandSea text-slate-950 font-bold rounded">Save</button>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label class="block font-semibold text-slate-300 mb-1">Teacher Comment / Behavior Note</label>
-                      <div class="flex gap-2">
-                        <input type="text" id="note_${s.id}" value="${s.complaint || ''}" placeholder="Write comment..." class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-white">
-                        <button onclick="window.updateStudentNote('${s.id}')" class="px-3 py-1 bg-brandGold text-slate-950 font-bold rounded">Post</button>
-                      </div>
-                    </div>
+                  <div class="space-y-2">
+                    <h4 class="font-bold text-slate-200">Terminal Report Card PDF Link</h4>
+                    <form onsubmit="window.updateStudentPDF(event, '${s.id}')" class="space-y-2">
+                      <input type="url" id="pdfLink_${s.id}" required value="${s.pdfResult || ''}" placeholder="https://..." class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+                      <button type="submit" class="px-3 py-1 bg-brandGold text-slate-950 font-bold rounded">Update PDF Link</button>
+                    </form>
                   </div>
 
                   <div class="space-y-2">
                     <h4 class="font-bold text-slate-200">Update Student Fees Record</h4>
                     <form onsubmit="window.handleAddFeeItem(event, '${s.id}')" class="flex flex-wrap gap-2">
                       <select id="feeType_${s.id}" required class="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white">
-                        <option value="Academic Fee">Academic Fee</option><option value="Canteen Fee">Canteen Fee</option>
-                        <option value="Entertainment Fee">Entertainment Fee</option><option value="Boarding Fee">Boarding Fee</option>
-                        <option value="ICT Fee">ICT Fee</option><option value="Maintenance Fee">Maintenance Fee</option><option value="Practicals Fee">Practicals Fee</option>
+                        <option value="Academic Fee">Academic Fee</option>
+                        <option value="Entertainment Fee">Entertainment Fee</option>
+                        <option value="Boarding Fee">Boarding Fee</option>
+                        <option value="ICT Fee">ICT Fee</option>
+                        <option value="Maintenance Fee">Maintenance Fee</option>
+                        <option value="Practicals Fee">Practicals Fee</option>
                       </select>
                       <input type="number" id="feeAmt_${s.id}" required placeholder="Amount Billed" class="w-24 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white">
                       <input type="number" id="feePaid_${s.id}" required placeholder="Amount Paid" class="w-24 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white">
@@ -948,339 +900,352 @@
                     </form>
                   </div>
                 </div>
-              `).join('')}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  };
+
+  window.changeTeacherPassword = async function(e, staffId) {
+    e.preventDefault();
+    const np = document.getElementById('newTeacherPass').value.trim();
+    const tch = window.appState.teachers.find(t => t.staffId === staffId);
+    if (tch && np) {
+      tch.pass = np;
+      await window.syncTableToSupabase('teachers', 'staff_id', tch);
+      await window.logAudit('Teacher', tch.name + ' (' + tch.staffId + ')', 'Changed account password to: ' + np);
+      window.showToast("Teacher password updated successfully!");
+      window.renderTeacherDashboard();
+    }
+  };
+
+  window.updateStudentPDF = async function(studentId) {
+    const url = document.getElementById(`pdfLink_${studentId}`).value.trim();
+    const st = window.appState.students.find(s => s.id === studentId);
+    if (st) {
+      st.pdfResult = url;
+      await window.syncTableToSupabase('students', 'id', st);
+      await window.logAudit('Teacher', window.appState.activeSession.name, `Updated term report PDF for student ${st.name}`);
+      window.showToast("PDF report link updated successfully!");
+    }
+  };
+
+  window.updateStudentNote = async function(studentId) {
+    const txt = document.getElementById(`note_${studentId}`).value.trim();
+    const st = window.appState.students.find(s => s.id === studentId);
+    if (st) {
+      st.complaint = txt;
+      await window.syncTableToSupabase('students', 'id', st);
+      await window.logAudit('Teacher', window.appState.activeSession.name, `Posted behavior note for student ${st.name}`);
+      window.showToast("Teacher comment updated!");
+    }
+  };
+
+  window.handleAddFeeItem = async function(e, studentId) {
+    e.preventDefault();
+    const type = document.getElementById(`feeType_${studentId}`).value;
+    const amt = Number(document.getElementById(`feeAmt_${studentId}`).value);
+    const paid = Number(document.getElementById(`feePaid_${studentId}`).value);
+
+    const st = window.appState.students.find(s => s.id === studentId);
+    if (st) {
+      st.fees = st.fees || [];
+      const existing = st.fees.find(f => f.type === type);
+      if (existing) { existing.amount = amt; existing.paid = paid; }
+      else { st.fees.push({ type, amount: amt, paid }); }
+      await window.syncTableToSupabase('students', 'id', st);
+      await window.logAudit('Teacher', window.appState.activeSession.name, `Updated fee statement for student ${st.name}`);
+      window.showToast("Student fee record updated!");
+      window.renderTeacherDashboard();
+    }
+  };
+
+  // ADMIN LOGIN & MASTER DASHBOARD
+  window.handleAdminLogin = async function(e) {
+    e.preventDefault();
+    await window.syncFromSupabase();
+
+    const u = normalizeStr(document.getElementById('adminLoginUser').value);
+    const p = document.getElementById('adminLoginPass').value.trim();
+    const currentSavedPass = window.appState.adminPass || DB.get('adminPass', 'admin123');
+
+    if ((u === 'admin' || u === 'headteacher') && p === currentSavedPass.trim()) {
+      window.appState.activeSession = { role: 'admin' };
+      await window.logAudit('Admin', 'Headteacher', 'Successfully logged into Master Admin Portal');
+      document.getElementById('adminLoginForm').classList.add('hidden');
+      window.renderAdminDashboard();
+    } else {
+      window.showToast("Invalid Admin Password.", "error");
+    }
+  };
+
+  window.renderAdminDashboard = function() {
+    const dash = document.getElementById('adminDashboard');
+    dash.classList.remove('hidden');
+
+    dash.innerHTML = `
+      <div class="bg-cardBg p-6 md:p-8 rounded-2xl border border-amber-500/40 shadow-2xl space-y-8">
+        <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="text-2xl font-bold text-brandGold"><i class="fa-solid fa-user-shield mr-2"></i>Admin Master Control Hub</h2>
+            <p class="text-xs text-slate-400">Emican Heritage Academy | Real-Time Activity Monitoring & Credential Control</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="window.syncFromSupabase()" class="px-3 py-2 bg-brandSea text-slate-950 font-bold rounded-xl text-xs hover:brightness-110 transition"><i class="fa-solid fa-cloud-arrow-up mr-1"></i> Sync All to Cloud</button>
+            <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
+          </div>
+        </div>
+
+        <!-- ACTIVITY AUDIT LOG -->
+        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+          <div class="flex flex-wrap justify-between items-center gap-2">
+            <h3 class="font-bold text-sm text-brandGold flex items-center gap-2"><i class="fa-solid fa-clipboard-list"></i> Real-Time Portal Activity & Security Audit Log</h3>
+            <button onclick="window.clearAuditLogs()" class="px-3 py-1 bg-red-950 text-red-400 border border-red-800 rounded text-xs font-bold hover:bg-red-900 transition">
+              <i class="fa-solid fa-trash mr-1"></i> Clear All Logs
+            </button>
+          </div>
+          <p class="text-[11px] text-slate-400">Tracks all portal logins, changed passwords, admission applications, and record updates across devices in real time.</p>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 max-h-56 overflow-y-auto space-y-2 text-xs font-mono">
+            ${window.appState.auditLogs.length === 0 ? `<p class="text-slate-500 italic">No activity logged yet.</p>` : ''}
+            ${window.appState.auditLogs.map(log => `
+              <div class="border-b border-slate-800/60 pb-1.5 flex flex-wrap justify-between gap-2">
+                <div>
+                  <span class="text-brandSea">[${log.time}]</span>
+                  <strong class="text-slate-200">${log.role || 'User'}: ${log.user || 'Unknown'}</strong> – 
+                  <span class="text-slate-300">${log.action}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- CHANGE ADMIN PASSWORD WITH GLOBAL FORCE LOGOUT -->
+        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
+          <h3 class="font-bold text-sm text-brandGold"><i class="fa-solid fa-key mr-1"></i> Change Admin Master Password</h3>
+          <form onsubmit="window.changeAdminPassword(event)" class="flex flex-wrap gap-3 items-center">
+            <input type="text" id="newAdminPass" required placeholder="New Master Password" class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white">
+            <button type="submit" class="px-4 py-1.5 bg-brandGold text-slate-950 font-bold rounded text-xs">Update Admin Password</button>
+          </form>
+        </div>
+
+        <!-- LOGO MANAGEMENT -->
+        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+          <h3 class="font-bold text-sm text-white text-brandGold flex items-center gap-2"><i class="fa-solid fa-image"></i> School Logo Management & Live Preview</h3>
+          <div class="grid md:grid-cols-3 gap-6 items-center">
+            <div class="flex items-center gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800 justify-center">
+              <img id="adminLogoPreview" src="${window.appState.logoUrl}" alt="Logo Preview" class="w-16 h-16 rounded-full border-2 border-brandGold object-cover shadow">
+              <span class="text-xs text-slate-400">Current Logo</span>
+            </div>
+            <div class="md:col-span-2 space-y-3">
+              <label class="block text-xs font-semibold text-slate-300">Paste New Logo Image URL</label>
+              <div class="flex gap-2">
+                <input type="url" id="editLogoUrlInput" value="${window.appState.logoUrl}" placeholder="https://..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white text-xs">
+                <button onclick="window.previewAndSaveLogo()" class="px-4 py-2 bg-brandGold text-slate-950 font-bold rounded-lg hover:brightness-110 transition">Save Logo</button>
+              </div>
             </div>
           </div>
         </div>
-      `;
-    };
 
-    window.changeTeacherPassword = async function(e, staffId) {
-      e.preventDefault();
-      const np = document.getElementById('newTeacherPass').value.trim();
-      const tch = window.appState.teachers.find(t => t.staffId === staffId);
-      if (tch && np) {
-        tch.pass = np;
-        await window.syncTableToSupabase('teachers', 'staff_id', tch);
-        await window.logAudit('Teacher', tch.name + ' (' + tch.staffId + ')', 'Changed account password to: ' + np);
-        window.showToast("Teacher password updated successfully!");
-        window.renderTeacherDashboard();
-      }
-    };
-
-    window.updateStudentPDF = async function(studentId) {
-      const url = document.getElementById(`pdfLink_${studentId}`).value.trim();
-      const st = window.appState.students.find(s => s.id === studentId);
-      if (st) {
-        st.pdfResult = url;
-        await window.syncTableToSupabase('students', 'id', st);
-        await window.logAudit('Teacher', window.appState.activeSession.name, `Updated term report PDF for student ${st.name}`);
-        window.showToast("PDF report link updated successfully!");
-      }
-    };
-
-    window.updateStudentNote = async function(studentId) {
-      const txt = document.getElementById(`note_${studentId}`).value.trim();
-      const st = window.appState.students.find(s => s.id === studentId);
-      if (st) {
-        st.complaint = txt;
-        await window.syncTableToSupabase('students', 'id', st);
-        await window.logAudit('Teacher', window.appState.activeSession.name, `Posted behavior note for student ${st.name}`);
-        window.showToast("Teacher comment updated!");
-      }
-    };
-
-    window.handleAddFeeItem = async function(e, studentId) {
-      e.preventDefault();
-      const type = document.getElementById(`feeType_${studentId}`).value;
-      const amt = Number(document.getElementById(`feeAmt_${studentId}`).value);
-      const paid = Number(document.getElementById(`feePaid_${studentId}`).value);
-
-      const st = window.appState.students.find(s => s.id === studentId);
-      if (st) {
-        st.fees = st.fees || [];
-        const existing = st.fees.find(f => f.type === type);
-        if (existing) { existing.amount = amt; existing.paid = paid; }
-        else { st.fees.push({ type, amount: amt, paid }); }
-        await window.syncTableToSupabase('students', 'id', st);
-        await window.logAudit('Teacher', window.appState.activeSession.name, `Updated fee statement for student ${st.name}`);
-        window.showToast("Student fee record updated!");
-        window.renderTeacherDashboard();
-      }
-    };
-
-    // ADMIN LOGIN
-   window.handleAdminLogin = async function(e) {
-  e.preventDefault();
-  const u = normalizeStr(document.getElementById('adminLoginUser').value);
-  const p = document.getElementById('adminLoginPass').value.trim();
-
-  // Always read the latest active password from DB (localStorage) first
-  const currentSavedPass = window.appState.adminPass || DB.get('adminPass') || '';
-
-  if ((u === 'admin' || u === 'headteacher') && p === currentSavedPass.trim()) {
-    window.appState.activeSession = { role: 'admin' };
-    await window.logAudit('Admin', 'Headteacher', 'Successfully logged into Master Admin Portal');
-    document.getElementById('adminLoginForm').classList.add('hidden');
-    window.renderAdminDashboard();
-  } else {
-    window.showToast("Invalid Admin Password.", "error");
-  }
-};
-
-    window.renderAdminDashboard = function() {
-      const dash = document.getElementById('adminDashboard');
-      dash.classList.remove('hidden');
-
-      dash.innerHTML = `
-        <div class="bg-cardBg p-6 rounded-2xl border border-amber-500/40 shadow-2xl space-y-8">
-          <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
+        <!-- HOMEPAGE CONTENT -->
+        <div class="grid md:grid-cols-2 gap-6 bg-slate-900 p-5 rounded-xl border border-slate-800 text-xs space-y-4 md:space-y-0">
+          <div class="space-y-3">
+            <h3 class="font-bold text-sm text-white">Homepage Content Editor</h3>
             <div>
-              <h2 class="text-2xl font-bold text-brandGold"><i class="fa-solid fa-user-shield mr-2"></i>Admin Master Control Hub</h2>
-              <p class="text-xs text-slate-400">Emican Heritage Academy | Real-Time Activity Monitoring & Credential Control</p>
+              <label class="block font-semibold text-slate-300 mb-1">School Overview</label>
+              <textarea id="editOverviewTxt" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">${window.appState.overview}</textarea>
             </div>
-            <div class="flex gap-2">
-              <button onclick="window.pushAllToCloud()" class="px-3 py-2 bg-brandSea text-slate-950 font-bold rounded-xl text-xs hover:brightness-110 transition">
-                <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Sync All to Cloud
-              </button>
-              <button onclick="window.logout()" class="px-4 py-2 bg-red-950 text-red-400 border border-red-800 rounded-xl text-xs font-bold hover:bg-red-900 transition">Log Out</button>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">About Us (200+ words)</label>
+              <textarea id="editAboutTxt" rows="5" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">${window.appState.about}</textarea>
             </div>
+            <button onclick="window.saveHomepageContent()" class="px-4 py-2 bg-brandSea text-slate-950 font-bold rounded">Save Site Text</button>
           </div>
 
-          <!-- Section 1: Real-Time Activity & Password Change Monitor with Clear Button -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
-            <div class="flex flex-wrap justify-between items-center gap-2">
-              <h3 class="font-bold text-sm text-brandGold flex items-center gap-2"><i class="fa-solid fa-clipboard-list"></i> Real-Time Portal Activity & Security Audit Log</h3>
-              <button onclick="window.clearAuditLogs()" class="px-3 py-1 bg-red-950 text-red-400 hover:bg-red-900 border border-red-800 rounded text-xs font-bold transition">
-                <i class="fa-solid fa-trash mr-1"></i> Clear All Logs
-              </button>
-            </div>
-            <p class="text-[11px] text-slate-400">Tracks all portal logins, changed passwords, admission applications, and record updates across devices in real time.</p>
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 max-h-56 overflow-y-auto space-y-2 text-xs font-mono">
-              ${window.appState.auditLogs.length === 0 ? `<p class="text-slate-500 italic">No activity logged yet.</p>` : ''}
-              ${window.appState.auditLogs.map(log => `
-                <div class="border-b border-slate-800/60 pb-1.5 flex flex-wrap justify-between gap-2">
-                  <div>
-                    <span class="text-brandSea">[${log.time}]</span> 
-                    <strong class="text-slate-200">${log.role || 'User'}: ${log.user || 'Unknown'}</strong> — 
-                    <span class="text-slate-300">${log.action}</span>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
+          <div class="space-y-3">
+            <h3 class="font-bold text-sm text-white">Carousel Images Links</h3>
+            <textarea id="editCarouselLinks" rows="8" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white font-mono text-[11px]">${window.appState.carouselImages.join('\n')}</textarea>
+            <button onclick="window.saveCarouselImages()" class="px-4 py-2 bg-brandGold text-slate-950 font-bold rounded">Update Carousel Slides</button>
           </div>
+        </div>
 
-          <!-- Change Admin Password Card -->
+        <!-- ADMISSIONS MANAGER -->
+        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+          <h3 class="font-bold text-lg text-white">Admission Applications</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400">
+                  <th class="py-2">App ID</th><th class="py-2">Parent Name</th><th class="py-2">Phone</th><th class="py-2">Child Name</th><th class="py-2">Class</th><th class="py-2">Status</th><th class="py-2">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${window.appState.admissions.length === 0 ? `<tr><td colspan="7" class="py-3 text-slate-500 italic">No admission inquiries submitted yet.</td></tr>` : ''}
+                ${window.appState.admissions.map(a => `
+                  <tr class="border-b border-slate-800/60">
+                    <td class="py-2 font-mono">${a.id}</td>
+                    <td class="py-2 text-slate-200">${a.parentName}</td>
+                    <td class="py-2">${a.phone}</td>
+                    <td class="py-2 font-bold text-slate-200">${a.childName}</td>
+                    <td class="py-2">${a.className} (${a.term})</td>
+                    <td class="py-2">
+                      <select onchange="window.updateAppStatus('${a.id}', this.value)" class="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white">
+                        <option value="Pending" ${a.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                        <option value="Admitted" ${a.status === 'Admitted' ? 'selected' : ''}>Admitted</option>
+                        <option value="Not Admitted" ${a.status === 'Not Admitted' ? 'selected' : ''}>Not Admitted</option>
+                      </select>
+                    </td>
+                    <td class="py-2">
+                      <button onclick="window.deleteAdmission('${a.id}')" class="text-red-400 hover:text-red-300"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- REGISTRATIONS -->
+        <div class="grid md:grid-cols-2 gap-6 text-xs">
           <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
-            <h3 class="font-bold text-sm text-brandGold"><i class="fa-solid fa-key mr-1"></i> Change Admin Master Password</h3>
-            <form onsubmit="window.changeAdminPassword(event)" class="flex flex-wrap gap-3 items-center">
-              <input type="text" id="newAdminPass" required placeholder="New Master Password" class="bg-slate-950 border border-slate-700 rounded px-3 py-1.5 text-xs text-white">
-              <button type="submit" class="px-4 py-1.5 bg-brandGold text-slate-950 font-bold rounded text-xs">Update Admin Password</button>
+            <h3 class="font-bold text-sm text-brandSea">Register Student & Parent Credentials</h3>
+            <form onsubmit="window.handleRegisterStudent(event)" class="space-y-3">
+              <input type="text" id="regStudentId" required placeholder="Student ID (e.g. EHA/2026/002)" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+              <input type="text" id="regStudentName" required placeholder="Child Full Name" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+              <div>
+                <label class="block text-[10px] text-slate-400 mb-1">Child Date of Birth</label>
+                <input type="date" id="regStudentDOB" required class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+              </div>
+              <input type="tel" id="regStudentPhone" required placeholder="Parent Phone Number" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+              <input type="text" id="regStudentPass" required placeholder="Initial Password" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+              <select id="regStudentClass" required class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+                <option value="Crèche 1">Crèche 1</option><option value="Crèche 2">Crèche 2</option>
+                <option value="KG 1">KG 1</option><option value="KG 2">KG 2</option>
+                <option value="Basic 1">Basic 1</option><option value="Basic 2">Basic 2</option>
+                <option value="Basic 3">Basic 3</option><option value="Basic 4">Basic 4</option>
+                <option value="Basic 5">Basic 5</option><option value="Basic 6">Basic 6</option>
+                <option value="J.H.S 1">J.H.S 1</option><option value="J.H.S 2">J.H.S 2</option><option value="J.H.S 3">J.H.S 3</option>
+              </select>
+              <button type="submit" class="w-full py-2 bg-brandSea text-slate-950 font-bold rounded">Create Student Account</button>
             </form>
           </div>
 
-          <!-- Logo Management -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
-            <h3 class="font-bold text-sm text-white flex items-center gap-2"><i class="fa-solid fa-image text-brandGold"></i> School Logo Management & Live Preview</h3>
-            <div class="grid md:grid-cols-3 gap-6 items-center">
-              <div class="flex items-center gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800 justify-center">
-                <img id="adminLogoPreview" src="${window.appState.logoUrl}" alt="Logo Preview" class="w-16 h-16 rounded-full border-2 border-brandGold object-cover shadow">
-                <span class="text-xs text-slate-400">Current Logo</span>
-              </div>
-              <div class="md:col-span-2 space-y-2">
-                <label class="block text-xs font-semibold text-slate-300">Paste New Logo Image URL</label>
-                <div class="flex gap-2">
-                  <input type="url" id="editLogoUrlInput" value="${window.appState.logoUrl}" placeholder="https://..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white text-xs">
-                  <button onclick="window.previewAndSaveLogo()" class="px-4 py-2 bg-brandGold text-slate-950 font-bold rounded-lg text-xs hover:brightness-110">Save Logo</button>
-                </div>
-              </div>
-            </div>
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-sm text-brandGold">Register Teacher</h3>
+            <form onsubmit="window.handleRegisterTeacher(event)" class="space-y-3">
+              <input type="text" id="regStaffId" required placeholder="Staff ID (e.g. TCH/002)" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+              <input type="text" id="regTeacherName" required placeholder="Teacher Full Name" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+              <input type="tel" id="regTeacherPhone" required placeholder="Phone Number" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+              <input type="text" id="regTeacherPass" required placeholder="Initial Password" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+              <select id="regTeacherClass" required class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
+                <option value="Crèche 1">Crèche 1</option><option value="Crèche 2">Crèche 2</option>
+                <option value="KG 1">KG 1</option><option value="KG 2">KG 2</option>
+                <option value="Basic 1">Basic 1</option><option value="Basic 2">Basic 2</option>
+                <option value="Basic 3">Basic 3</option><option value="Basic 4">Basic 4</option>
+                <option value="Basic 5">Basic 5</option><option value="Basic 6">Basic 6</option>
+                <option value="J.H.S 1">J.H.S 1</option><option value="J.H.S 2">J.H.S 2</option><option value="J.H.S 3">J.H.S 3</option>
+              </select>
+              <button type="submit" class="w-full py-2 bg-brandGold text-slate-950 font-bold rounded">Create Teacher Account</button>
+            </form>
           </div>
+        </div>
 
-          <!-- Homepage & Carousel Content -->
-          <div class="grid md:grid-cols-2 gap-6 bg-slate-900 p-5 rounded-xl border border-slate-800 text-xs space-y-4 md:space-y-0">
-            <div class="space-y-3">
-              <h3 class="font-bold text-sm text-white">Homepage Content Editor</h3>
-              <div>
-                <label class="block font-semibold text-slate-300 mb-1">School Overview</label>
-                <textarea id="editOverviewTxt" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">${window.appState.overview}</textarea>
-              </div>
-              <div>
-                <label class="block font-semibold text-slate-300 mb-1">About Us (200+ words)</label>
-                <textarea id="editAboutTxt" rows="5" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">${window.appState.about}</textarea>
-              </div>
-              <button onclick="window.saveHomepageContent()" class="px-4 py-2 bg-brandSea text-slate-950 font-bold rounded">Save Site Text</button>
-            </div>
-
-            <div class="space-y-3">
-              <h3 class="font-bold text-sm text-white">Carousel Images Links</h3>
-              <textarea id="editCarouselLinks" rows="8" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white font-mono text-[11px]">${window.appState.carouselImages.join('\n')}</textarea>
-              <button onclick="window.saveCarouselImages()" class="px-4 py-2 bg-brandGold text-slate-950 font-bold rounded">Update Carousel Slides</button>
-            </div>
-          </div>
-
-          <!-- Admissions -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
-            <h3 class="font-bold text-lg text-white">Admission Applications</h3>
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr class="border-b border-slate-800 text-slate-400">
-                    <th class="py-2">App ID</th><th class="py-2">Parent Name</th><th class="py-2">Phone</th><th class="py-2">Child Name</th><th class="py-2">Class</th><th class="py-2">Status</th><th class="py-2">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${window.appState.admissions.length === 0 ? `<tr><td colspan="7" class="py-3 text-slate-500 italic">No admission inquiries submitted yet.</td></tr>` : ''}
-                  ${window.appState.admissions.map(a => `
-                    <tr class="border-b border-slate-800/60">
-                      <td class="py-2 font-mono">${a.id}</td>
-                      <td class="py-2">${a.parentName}</td>
-                      <td class="py-2">${a.phone}</td>
-                      <td class="py-2 font-bold text-slate-200">${a.childName}</td>
-                      <td class="py-2">${a.className} (${a.term})</td>
-                      <td class="py-2">
-                        <select onchange="window.updateAppStatus('${a.id}', this.value)" class="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-xs">
-                          <option value="Pending" ${a.status === 'Pending' ? 'selected' : ''}>Pending</option>
-                          <option value="Admitted" ${a.status === 'Admitted' ? 'selected' : ''}>Admitted</option>
-                          <option value="Not Admitted" ${a.status === 'Not Admitted' ? 'selected' : ''}>Not Admitted</option>
-                        </select>
-                      </td>
-                      <td class="py-2">
-                        <button onclick="window.deleteAdmission('${a.id}')" class="text-red-400 hover:text-red-300"><i class="fa-solid fa-trash"></i></button>
-                      </td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Registrations -->
-          <div class="grid md:grid-cols-2 gap-6 text-xs">
-            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
-              <h3 class="font-bold text-sm text-brandSea">Register Student & Parent Credentials</h3>
-              <form onsubmit="window.handleRegisterStudent(event)" class="space-y-3">
-                <input type="text" id="regStudentId" required placeholder="Student ID (e.g. EHA/2026/002)" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                <input type="text" id="regStudentName" required placeholder="Child Full Name" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                <div>
-                  <label class="block text-[10px] text-slate-400 mb-1">Child Date of Birth</label>
-                  <input type="date" id="regStudentDOB" required class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                </div>
-                <input type="tel" id="regStudentPhone" required placeholder="Parent Phone Number" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                <input type="text" id="regStudentPass" required placeholder="Initial Password" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                <select id="regStudentClass" required class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                  <option value="Crèche 1">Crèche 1</option><option value="Crèche 2">Crèche 2</option><option value="KG 1">KG 1</option><option value="KG 2">KG 2</option>
-                  <option value="Basic 1">Basic 1</option><option value="Basic 2">Basic 2</option><option value="Basic 3">Basic 3</option><option value="Basic 4">Basic 4</option><option value="Basic 5">Basic 5</option><option value="Basic 6">Basic 6</option>
-                  <option value="J.H.S 1">J.H.S 1</option><option value="J.H.S 2">J.H.S 2</option><option value="J.H.S 3">J.H.S 3</option>
-                </select>
-                <button type="submit" class="w-full py-2 bg-brandSea text-slate-950 font-bold rounded">Create Student Account</button>
-              </form>
-            </div>
-
-            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
-              <h3 class="font-bold text-sm text-brandGold">Register Teacher</h3>
-              <form onsubmit="window.handleRegisterTeacher(event)" class="space-y-3">
-                <input type="text" id="regStaffId" required placeholder="Staff ID (e.g. TCH/002)" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                <input type="text" id="regTeacherName" required placeholder="Teacher Full Name" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                <input type="tel" id="regTeacherPhone" required placeholder="Phone Number" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                <input type="text" id="regTeacherPass" required placeholder="Initial Password" class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                <select id="regTeacherClass" required class="w-full bg-slate-950 border border-slate-700 rounded p-2 text-white">
-                  <option value="Crèche 1">Crèche 1</option><option value="Crèche 2">Crèche 2</option><option value="KG 1">KG 1</option><option value="KG 2">KG 2</option>
-                  <option value="Basic 1">Basic 1</option><option value="Basic 2">Basic 2</option><option value="Basic 3">Basic 3</option><option value="Basic 4">Basic 4</option><option value="Basic 5">Basic 5</option><option value="Basic 6">Basic 6</option>
-                  <option value="J.H.S 1">J.H.S 1</option><option value="J.H.S 2">J.H.S 2</option><option value="J.H.S 3">J.H.S 3</option>
-                </select>
-                <button type="submit" class="w-full py-2 bg-brandGold text-slate-950 font-bold rounded">Create Teacher Account</button>
-              </form>
-            </div>
-          </div>
-
-          <!-- Credential Inspector with Student DOB Included -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
-            <h3 class="font-bold text-sm text-white">Real-Time User Monitoring & Credentials Inspection</h3>
-            <div class="grid md:grid-cols-2 gap-6">
-              <div>
-                <h4 class="font-bold text-brandSea mb-2">Registered Students & Credentials</h4>
-                <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
-                  ${window.appState.students.map(s => `
-                    <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded border border-slate-800">
-                      <div>
-                        <p class="font-bold text-slate-200">${s.name} (${s.id})</p>
-                        <p class="text-[10px] text-slate-400">Class: ${s.className} | DOB: <span class="text-slate-200 font-semibold">${s.dob || 'N/A'}</span> | Phone: <span class="text-brandSea">${s.phone}</span> | Pass: <span class="text-amber-400 font-mono">${s.pass}</span></p>
-                      </div>
-                      <button onclick="window.deleteStudent('${s.id}')" class="text-red-400 hover:text-red-300 text-xs px-1"><i class="fa-solid fa-trash"></i></button>
+        <!-- CREDENTIAL INSPECTOR -->
+        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+          <h3 class="font-bold text-sm text-white">Real-Time User Monitoring & Credentials Inspection</h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-bold text-brandSea mb-2">Registered Students & Credentials</h4>
+              <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
+                ${window.appState.students.map(s => `
+                  <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded border border-slate-800">
+                    <div>
+                      <p class="font-bold text-slate-200">${s.name} (${s.id})</p>
+                      <p class="text-[10px] text-slate-400">Class: <span class="text-slate-200 font-semibold">${s.className}</span> | DOB: <span class="text-slate-200 font-semibold">${s.dob || 'N/A'}</span> | Phone: <span class="text-brandSea">${s.phone}</span> | Pass: <span class="text-amber-400 font-mono">${s.pass}</span></p>
                     </div>
-                  `).join('')}
-                </div>
+                    <button onclick="window.deleteStudent('${s.id}')" class="text-red-400 hover:text-red-300 text-xs px-1"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                `).join('')}
               </div>
+            </div>
 
-              <div>
-                <h4 class="font-bold text-brandGold mb-2">Registered Staff & Credentials</h4>
-                <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
-                  ${window.appState.teachers.map(t => `
-                    <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded border border-slate-800">
-                      <div>
-                        <p class="font-bold text-slate-200">${t.name} (${t.staffId})</p>
-                        <p class="text-[10px] text-slate-400">Class: ${t.className} | Phone: <span class="text-brandSea">${t.phone}</span> | Pass: <span class="text-amber-400 font-mono">${t.pass}</span></p>
-                      </div>
-                      <button onclick="window.deleteTeacher('${t.staffId}')" class="text-red-400 hover:text-red-300 text-xs px-1"><i class="fa-solid fa-trash"></i></button>
+            <div>
+              <h4 class="font-bold text-brandGold mb-2">Registered Staff & Credentials</h4>
+              <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
+                ${window.appState.teachers.map(t => `
+                  <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded border border-slate-800">
+                    <div>
+                      <p class="font-bold text-slate-200">${t.name} (${t.staffId})</p>
+                      <p class="text-[10px] text-slate-400">Class: ${t.className} | Phone: <span class="text-brandSea">${t.phone}</span> | Pass: <span class="text-amber-400 font-mono">${t.pass}</span></p>
                     </div>
-                  `).join('')}
-                </div>
+                    <button onclick="window.deleteTeacher('${t.staffId}')" class="text-red-400 hover:text-red-300 text-xs px-1"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                `).join('')}
               </div>
             </div>
           </div>
         </div>
-      `;
-    };
+      </div>
+    `;
+  };
 
-window.changeAdminPassword = async function(e) {
+  // GLOBAL FORCE-LOGOUT PASSWORD UPDATE
+  window.changeAdminPassword = async function(e) {
     e.preventDefault();
     const np = document.getElementById('newAdminPass').value.trim();
     if (np) {
-        const newSessionVersion = Date.now();
-        window.appState.adminPass = np;
-        window.appState.sessionVersion = newSessionVersion;
-        DB.set('adminPass', np);
-        DB.set('sessionVersion', newSessionVersion);
-        
-        if (supabaseClient) {
-            try {
-                await supabaseClient.from('audit_logs').upsert({
-                    id: 'CONFIG_ADMIN_PASS', 
-                    time: new Date().toISOString(), 
-                    data: { password: np, sessionVersion: newSessionVersion }
-                });
-            } catch (err) {}
-        }
-        await window.logAudit('Admin', 'Headteacher', 'Updated Master Admin Password');
-        window.showToast("Master password updated globally!");
-        document.getElementById('newAdminPass').value = '';
-        window.logout();
-    }
-};
+      const newSessionVersion = Date.now();
+      window.appState.adminPass = np;
+      window.appState.sessionVersion = newSessionVersion;
+      DB.set('adminPass', np);
+      DB.set('sessionVersion', newSessionVersion);
 
-window.previewAndSaveLogo = async function() {
+      if (supabaseClient) {
+        try {
+          await supabaseClient.from('audit_logs').upsert({
+            id: 'CONFIG_ADMIN_PASS',
+            time: new Date().toISOString(),
+            data: {
+              password: np,
+              sessionVersion: newSessionVersion
+            }
+          });
+        } catch (err) {}
+      }
+
+      await window.logAudit('Admin', 'Headteacher', 'Updated Master Admin Password');
+      window.showToast("Master password updated! All active sessions invalidated globally.");
+      document.getElementById('newAdminPass').value = '';
+      
+      window.appState.activeSession = null;
+      window.showPortal('home');
+      window.renderAdminDashboard();
+    }
+  };
+
+  window.previewAndSaveLogo = async function() {
     const url = document.getElementById('editLogoUrlInput').value.trim();
     if (!url) return;
     window.appState.logoUrl = url;
     DB.set('logoUrl', url);
     window.renderLogo();
-    if (supabaseClient) {
-        try {
-            await supabaseClient.from('audit_logs').upsert({
-                id: 'CONFIG_LOGO_URL', 
-                time: new Date().toLocaleString(), 
-                data: { url: url }
-            });
-        } catch (e) {}
-    }
-    await window.logAudit('Admin', 'Headteacher', 'Updated school logo URL');
-    const prev = document.getElementById('adminLogoPreview');
-    if (prev) prev.src = url;
-    window.showToast("School logo updated and synced to cloud!");
-};
 
-window.saveHomepageContent = async function() {
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('audit_logs').upsert({
+          id: 'CONFIG_LOGO_URL',
+          time: new Date().toLocaleString(),
+          data: { url: url }
+        });
+      } catch (e) {}
+    }
+
+    await window.logAudit('Admin', 'Headteacher', 'Updated school logo URL');
+    window.showToast("School logo updated and synced to cloud!");
+  };
+
+  window.saveHomepageContent = async function() {
     window.appState.overview = document.getElementById('editOverviewTxt').value;
     window.appState.about = document.getElementById('editAboutTxt').value;
     DB.set('overview', window.appState.overview);
@@ -1288,9 +1253,9 @@ window.saveHomepageContent = async function() {
     window.renderHomepageDynamicText();
     await window.logAudit('Admin', 'Headteacher', 'Updated homepage overview and about text');
     window.showToast("Homepage text updated and synchronized!");
-};
+  };
 
-window.saveCarouselImages = async function() {
+  window.saveCarouselImages = async function() {
     const raw = document.getElementById('editCarouselLinks').value;
     const links = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
     window.appState.carouselImages = links;
@@ -1299,139 +1264,115 @@ window.saveCarouselImages = async function() {
     window.renderCarousel();
     await window.logAudit('Admin', 'Headteacher', 'Updated carousel slide image links');
     window.showToast("Carousel images updated successfully!");
-};
+  };
 
-window.updateAppStatus = async function(appId, newStatus) {
+  window.updateAppStatus = async function(appId, newStatus) {
     const app = window.appState.admissions.find(a => a.id === appId);
     if (app) {
-        app.status = newStatus;
-        await window.syncTableToSupabase('admissions', 'id', app);
-        await window.logAudit('Admin', 'Headteacher', `Updated admission application ${appId} status to ${newStatus}`);
-        window.showToast(`Application ${appId} status set to ${newStatus}.`);
+      app.status = newStatus;
+      await window.syncTableToSupabase('admissions', 'id', app);
+      await window.logAudit('Admin', 'Headteacher', `Updated admission application ${appId} status to ${newStatus}`);
+      window.showToast(`Application ${appId} status set to ${newStatus}.`);
     }
-};
+  };
 
-window.deleteAdmission = async function(appId) {
+  window.deleteAdmission = async function(appId) {
     window.appState.admissions = window.appState.admissions.filter(a => a.id !== appId);
     await window.removeFromSupabase('admissions', 'id', appId);
     await window.logAudit('Admin', 'Headteacher', `Deleted admission application ${appId}`);
     window.renderAdminDashboard();
-};
+  };
 
-window.handleRegisterStudent = async function(e) {
+  window.handleRegisterStudent = async function(e) {
     e.preventDefault();
     const st = {
-        id: document.getElementById('regStudentId').value.trim(),
-        name: document.getElementById('regStudentName').value.trim(),
-        dob: document.getElementById('regStudentDOB').value,
-        phone: document.getElementById('regStudentPhone').value.trim(),
-        pass: document.getElementById('regStudentPass').value.trim(),
-        className: document.getElementById('regStudentClass').value,
-        complaint: "", parentReply: "", pdfResult: "",
-        fees: [{ type: "Academic Fee", amount: 500, paid: 0 }, { type: "Canteen Fee", amount: 150, paid: 0 }]
+      id: document.getElementById('regStudentId').value.trim(),
+      name: document.getElementById('regStudentName').value.trim(),
+      dob: document.getElementById('regStudentDOB').value,
+      phone: document.getElementById('regStudentPhone').value.trim(),
+      pass: document.getElementById('regStudentPass').value.trim(),
+      className: document.getElementById('regStudentClass').value,
+      complaint: "",
+      parentReply: "",
+      pdfResult: "",
+      fees: [
+        { type: "Academic Fee", amount: 500, paid: 0 },
+        { type: "Canteen Fee", amount: 150, paid: 0 }
+      ]
     };
+
     window.appState.students.push(st);
     await window.syncTableToSupabase('students', 'id', st);
-    await window.logAudit('Admin', 'Headteacher', `Registered new student ${st.name} (${st.id})`);
+    await window.logAudit('Admin', 'Headteacher', `Registered new student ${st.name} (${st.id}) DOB: ${st.dob}`);
     window.showToast(`Student ${st.name} registered successfully!`);
     window.renderAdminDashboard();
-};
+    e.target.reset();
+  };
 
-window.handleRegisterTeacher = async function(e) {
+  window.handleRegisterTeacher = async function(e) {
     e.preventDefault();
     const tch = {
-        staffId: document.getElementById('regStaffId').value.trim(),
-        name: document.getElementById('regTeacherName').value.trim(),
-        phone: document.getElementById('regTeacherPhone').value.trim(),
-        pass: document.getElementById('regTeacherPass').value.trim(),
-        className: document.getElementById('regTeacherClass').value
+      staffId: document.getElementById('regStaffId').value.trim(),
+      name: document.getElementById('regTeacherName').value.trim(),
+      phone: document.getElementById('regTeacherPhone').value.trim(),
+      pass: document.getElementById('regTeacherPass').value.trim(),
+      className: document.getElementById('regTeacherClass').value
     };
+
     window.appState.teachers.push(tch);
     await window.syncTableToSupabase('teachers', 'staff_id', tch);
     await window.logAudit('Admin', 'Headteacher', `Registered new teacher ${tch.name} (${tch.staffId})`);
     window.showToast(`Teacher ${tch.name} registered!`);
     window.renderAdminDashboard();
-};
+    e.target.reset();
+  };
 
-window.deleteStudent = async function(id) {
+  window.deleteStudent = async function(id) {
     window.appState.students = window.appState.students.filter(s => s.id !== id);
     await window.removeFromSupabase('students', 'id', id);
     await window.logAudit('Admin', 'Headteacher', `Deleted student account ${id}`);
     window.renderAdminDashboard();
-};
+  };
 
-window.deleteTeacher = async function(id) {
+  window.deleteTeacher = async function(id) {
     window.appState.teachers = window.appState.teachers.filter(t => t.staffId !== id);
     await window.removeFromSupabase('teachers', 'staff_id', id);
     await window.logAudit('Admin', 'Headteacher', `Deleted teacher account ${id}`);
     window.renderAdminDashboard();
-};
+  };
 
-// SINGLE, CLEAN DEFINITION OF showPortal
-window.showPortal = function(portal) {
-    if (!portal) return;
-    ['home', 'parents', 'teachers', 'admin'].forEach(p => {
-        const portalEl = document.getElementById(`portal-${p}`);
-        const navEl = document.getElementById(`nav-${p}`);
-        if (portalEl) portalEl.classList.add('hidden');
-        if (navEl) {
-            navEl.classList.remove('bg-brandSea', 'text-slate-950', 'font-bold');
-            navEl.classList.add('hover:bg-slate-800', 'text-slate-200');
-        }
+  window.logout = function() {
+    window.appState.activeSession = null;
+    ['parents', 'teachers', 'admin'].forEach(p => {
+      const f = document.getElementById(`${p}LoginForm`);
+      const d = document.getElementById(`${p}Dashboard`);
+      if (f) f.classList.remove('hidden');
+      if (d) d.classList.add('hidden');
     });
-    const targetPortal = document.getElementById(`portal-${portal}`);
-    const targetNav = document.getElementById(`nav-${portal}`);
-    if (targetPortal) targetPortal.classList.remove('hidden');
-    if (targetNav) {
-        targetNav.classList.add('bg-brandSea', 'text-slate-950', 'font-bold');
-        targetNav.classList.remove('hover:bg-slate-800');
-    }
-    if (portal === 'admin' && window.appState?.activeSession?.role === 'admin' && typeof window.renderAdminDashboard === 'function') {
-        window.renderAdminDashboard();
-    }
-    if (portal === 'teachers' && window.appState?.activeSession?.role === 'teacher' && typeof window.renderTeacherDashboard === 'function') {
-        window.renderTeacherDashboard();
-    }
-    if (portal === 'parents' && window.appState?.activeSession?.role === 'parent' && typeof window.renderParentDashboard === 'function') {
-        window.renderParentDashboard();
-    }
-};
+    window.showPortal('home');
+    window.showToast("Logged out successfully.");
+  };
 
-window.addEventListener('DOMContentLoaded', async () => {
+  window.renderHomepageDynamicText = function() {
+    const ov = document.getElementById('displayOverview');
+    const ab = document.getElementById('displayAbout');
+    if (ov) ov.textContent = window.appState.overview;
+    if (ab) ab.innerHTML = window.appState.about.split('\n').map(p => `<p>${p}</p>`).join('');
+  };
+
+  window.addEventListener('DOMContentLoaded', async () => {
     window.renderLogo();
-    await window.syncFromSupabase();
+    if (supabaseClient) {
+      await window.syncFromSupabase();
+    }
     window.renderLogo();
     window.renderCarousel();
     initTouchSwipe();
     window.renderHomepageDynamicText();
-    
-    if (typeof carouseInterval !== 'undefined' && carouseInterval) clearInterval(carouseInterval);
-    carouseInterval = setInterval(() => window.nextSlide(), 5000);
-    
-    setInterval(async () => {
-        if (supabaseClient) {
-            try {
-                const { data: passConfig } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_ADMIN_PASS');
-                if (passConfig && passConfig.length > 0 && passConfig[0].data) {
-                    const cloudVersion = passConfig[0].data.sessionVersion;
-                    const localVersion = DB.get('sessionVersion');
-                    if (cloudVersion && localVersion && Number(cloudVersion) !== Number(localVersion)) {
-                        DB.set('sessionVersion', cloudVersion);
-                        window.appState.adminPass = passConfig[0].data.password;
-                        if (window.appState.activeSession) {
-                            window.showToast("Security credentials updated. Please log in again.", "error");
-                            window.logout();
-                        }
-                    }
-                }
-            } catch (err) {}
-        }
-    }, 15000);
-});
-    
-   
 
+    if (carouseInterval) clearInterval(carouseInterval);
+    carouseInterval = setInterval(() => window.nextSlide(), 5000);
+  });
 </script>
 </body>
-</html>   
-   
+</html>
