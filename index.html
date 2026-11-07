@@ -500,24 +500,16 @@
     }
 } catch (e) {}
 
-      const { data: configData } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_LOGO_URL');
-      if (configData && configData.length > 0 && configData[0].data && configData[0].data.url) {
-        window.appState.logoUrl = configData[0].data.url;
-        DB.set('logoUrl', window.appState.logoUrl);
-        window.renderLogo();
-      }
-    } catch (e) {}
-
     // Paste the admin password sync block right here:
-    try {
-      const { data: passConfig } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_ADMIN_PASS');
-      if (passConfig && passConfig.length > 0 && passConfig[0].data && passConfig[0].data.password) {
-        window.appState.adminPass = passConfig[0].data.password;
-        DB.set('adminPass', window.appState.adminPass);
-      }
-    } catch (e) {}   
-    } catch (e) {}
-  } catch (err) {}
+   try {
+        const { data: passConfig } = await supabaseClient.from('audit_logs').select('*').eq('id', 'CONFIG_ADMIN_PASS');
+        if (passConfig && passConfig.length > 0 && passConfig[0].data && passConfig[0].data.password) {
+            window.appState.adminPass = passConfig[0].data.password;
+            DB.set('adminPass', window.appState.adminPass);
+        }
+    } catch (err) {
+        console.error(err);
+    }
 };
 
     window.pushAllToCloud = async function() {
