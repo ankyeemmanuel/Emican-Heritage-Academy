@@ -1471,17 +1471,15 @@ window.showPortal = function(portal) {
 };
 
 window.addEventListener('DOMContentLoaded', async () => {
-    // ... rest of your existing load code ...
-  window.addEventListener('DOMContentLoaded', async () => {
-  window.renderLogo();
-  await window.syncFromSupabase();
-  window.renderLogo();
-  window.renderCarousel();
-  initTouchSwipe();
-  window.renderHomepageDynamicText();
-  if (carouselInterval) clearInterval(carouselInterval);
-  carouselInterval = setInterval(() => window.nextSlide(), 5000);
-}); 
+    window.renderLogo();
+    await window.syncFromSupabase();
+    window.renderLogo();
+    window.renderCarousel();
+    initTouchSwipe();
+    window.renderHomepageDynamicText();
+    if (carouseInterval) clearInterval(carouseInterval);
+    carouseInterval = setInterval(() => window.nextSlide(), 5000);
+});
   </script>
 </body>
 </html>
