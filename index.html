@@ -1202,14 +1202,26 @@
       `;
     };
 
-    window.changeAdminPassword = async function(e) {
+  window.changeAdminPassword = async function(e) {
   e.preventDefault();
   const np = document.getElementById('newAdminPass').value.trim();
   if (np) {
     window.appState.adminPass = np;
     DB.set('adminPass', np);
+    
+    // Save the new password to Supabase cloud for global sync
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('audit_logs').upsert({
+          id: 'CONFIG_ADMIN_PASS',
+          time: new Date().toISOString(),
+          data: { password: np }
+        });
+      } catch (err) {}
+    }
+
     await window.logAudit('Admin', 'Headteacher', 'Updated Master Admin Password');
-    window.showToast("Admin master password updated permanently!");
+    window.showToast("Admin master password updated globally!");
     document.getElementById('newAdminPass').value = '';
   }
 };
