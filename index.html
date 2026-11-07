@@ -992,7 +992,7 @@
   const p = document.getElementById('adminLoginPass').value.trim();
 
   // Always read the latest active password from DB (localStorage) first
-  const currentSavedPass = DB.get('adminPass', window.appState.adminPass || 'admin123');
+  const currentSavedPass = window.appState.adminPass || DB.get('adminPass') || '';
 
   if ((u === 'admin' || u === 'headteacher') && p === currentSavedPass.trim()) {
     window.appState.activeSession = { role: 'admin' };
