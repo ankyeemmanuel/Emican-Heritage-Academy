@@ -336,16 +336,47 @@
 <div id="toast" class="fixed bottom-5 right-5 hidden z-50 px-4 py-3 rounded-xl border shadow-2xl transition-all duration-300"></div>
 
 <!-- JAVASCRIPT ENGINE WITH SUPABASE & SECURITY -->
-<script>
-  const SUPABASE_PROJECT_URL = "https://nkuehfzkrmghixggyggs.supabase.co";
- const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rdWVoZnprcm1naGl4Z2d5Z2dzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2ODA5MzQsImV4cCI6MjEwOTI1NjkzNH0.RutszSjZ_yY8mulkGFS4hhFqSkFCtJnVNujchZBwoes"; 
+const SUPABASE_URL = 'https://fgchqinpkpvjogmqltvh.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnY2hxaW5wa3B2am9nbXFsdHZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4NDU2MTEsImV4cCI6MjExMDQyMTYxMX0.Hq7OzVD9vWIZO-dKaVN7kE0jMfx5sWwZ1r89qK0utXk';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  let supabaseClient = null;
-  if (window.supabase) {
-    try {
-      supabaseClient = window.supabase.createClient(SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY);
-    } catch (e) {}
+// Push a single student, teacher, or admission record to Supabase
+window.syncTableToSupabase = async function(table, idField, record) {
+  DB.set(table, window.appState[table]);
+  if (!supabaseClient) return;
+  const recordId = String(record[idField] || record.id || record.staffId);
+  const { error } = await supabaseClient
+    .from(table)
+    .upsert({ 
+      id: recordId, 
+      data: record,
+      updated_at: new Date().toISOString()
+    }, { onConflict: 'id' });
+
+  if (error) {
+    console.error(`Supabase sync failed for ${table}:`, error.message);
   }
+};
+
+// Delete a record from Supabase when removed in Admin Portal
+window.deleteFromSupabase = async function(table, recordId) {
+  DB.set(table, window.appState[table]);
+  if (!supabaseClient) return;
+  await supabaseClient.from(table).delete().eq('id', String(recordId));
+};
+
+// Pull latest records from Supabase on page load & before login checks
+window.syncFromSupabase = async function() {
+  if (!supabaseClient) return;
+  const tables = ['students', 'teachers', 'admissions'];
+  for (const table of tables) {
+    const { data, error } = await supabaseClient.from(table).select('*');
+    if (!error && data) {
+      window.appState[table] = data.map(row => row.data);
+      DB.set(table, window.appState[table]);
+    }
+  }
+};
 
 const DEFAULT_IMAGES = [
   "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH1.jpeg",
