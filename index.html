@@ -336,97 +336,108 @@
 <div id="toast" class="fixed bottom-5 right-5 hidden z-50 px-4 py-3 rounded-xl border shadow-2xl transition-all duration-300"></div>
 
 <!-- JAVASCRIPT ENGINE WITH SUPABASE & SECURITY -->
+// ==========================================
+// SUPABASE CLOUD SYNC ENGINE (UPDATED)
+// ==========================================
 const SUPABASE_URL = 'https://fgchqinpkpvjogmqltvh.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnY2hxaW5wa3B2am9nbXFsdHZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4NDU2MTEsImV4cCI6MjExMDQyMTYxMX0.Hq7OzVD9vWIZO-dKaVN7kE0jMfx5sWwZ1r89qK0utXk';
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-// Push a single student, teacher, or admission record to Supabase
+// 1. Push a single record (student, teacher, or admission) to Supabase
 window.syncTableToSupabase = async function(table, idField, record) {
-  DB.set(table, window.appState[table]);
-  if (!supabaseClient) return;
-  const recordId = String(record[idField] || record.id || record.staffId);
+  if (window.DB && window.appState[table]) {
+    DB.set(table, window.appState[table]);
+  }
+  if (!supabaseClient || !record) return;
+
+  const recordId = String(record[idField] || record.id || record.staffId || Date.now());
   const { error } = await supabaseClient
     .from(table)
-    .upsert({ 
-      id: recordId, 
+    .upsert({
+      id: recordId,
       data: record,
       updated_at: new Date().toISOString()
     }, { onConflict: 'id' });
 
   if (error) {
-    console.error(`Supabase sync failed for ${table}:`, error.message);
+    console.error(`[Supabase Sync Error - ${table}]:`, error.message);
   }
 };
 
-// Delete a record from Supabase when removed in Admin Portal
+// 2. Delete a record from Supabase when removed in Admin Portal
 window.deleteFromSupabase = async function(table, recordId) {
-  DB.set(table, window.appState[table]);
-  if (!supabaseClient) return;
-  await supabaseClient.from(table).delete().eq('id', String(recordId));
+  if (window.DB && window.appState[table]) {
+    DB.set(table, window.appState[table]);
+  }
+  if (!supabaseClient || !recordId) return;
+
+  const { error } = await supabaseClient
+    .from(table)
+    .delete()
+    .eq('id', String(recordId));
+
+  if (error) {
+    console.error(`[Supabase Delete Error - ${table}]:`, error.message);
+  }
 };
 
-// Pull latest records from Supabase on page load & before login checks
-window.syncFromSupabase = async function() {
-  if (!supabaseClient) return;
-  const tables = ['students', 'teachers', 'admissions'];
-  for (const table of tables) {
-    const { data, error } = await supabaseClient.from(table).select('*');
-    if (!error && data) {
-      window.appState[table] = data.map(row => row.data);
-      DB.set(table, window.appState[table]);
+// 3. Push ALL local records up to Supabase (used if cloud tables are empty)
+window.pushAllLocalToSupabase = async function() {
+  if (!supabaseClient || !window.appState) return;
+  const config = [
+    { table: 'students', idField: 'id' },
+    { table: 'teachers', idField: 'staffId' },
+    { table: 'admissions', idField: 'id' }
+  ];
+
+  for (const item of config) {
+    const list = window.appState[item.table] || [];
+    for (const record of list) {
+      await window.syncTableToSupabase(item.table, item.idField, record);
     }
   }
 };
 
-const DEFAULT_IMAGES = [
-  "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH1.jpeg",
-  "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH2.jpeg",
-  "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH3.jpeg",
-  "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH4.jpeg",
-  "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/EH5.jpeg",
-  "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/ehapen1.jpeg",
-  "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/Emilogo.jpeg",
-  "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/master.png",
-  "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/SirEHA.jpeg"
-];
+// 4. Pull latest records from Supabase on page load & before login
+window.syncFromSupabase = async function() {
+  if (!supabaseClient || !window.appState) return;
+  const tables = [
+    { name: 'students', idField: 'id' },
+    { name: 'teachers', idField: 'staffId' },
+    { name: 'admissions', idField: 'id' }
+  ];
 
-  const DEFAULT_ABOUT = `Emican Heritage Academy is a premier educational institution situated in Techiman, the vibrant Bono East Regional Capital of Ghana. Dedicated to academic rigour, moral integrity, and technological innovation, the academy provides a comprehensive learning environment for students ranging from Crèche through Junior High School (J.H.S 3). Founded under the parent brand Emican Heritage Ghana (E.H.G.), our campus is built to nurture well-rounded leaders who are grounded in cultural heritage while prepared for global challenges.`;
-
-  const DB = {
-    get: (key, fallback) => {
-      try {
-        const val = localStorage.getItem('EHA_' + key);
-        return val ? JSON.parse(val) : fallback;
-      } catch { return fallback; }
-    },
-    set: (key, val) => {
-      try { localStorage.setItem('EHA_' + key, JSON.stringify(val)); } catch {}
-    }
-  };
-
-  window.appState = {
-    overview: DB.get('overview', "Welcome to Emican Heritage Academy, situated in Techiman, Bono East Region. We are committed to fostering a supportive, engaging, and academic environment for basic education excellence."),
-    about: DB.get('about', DEFAULT_ABOUT),
-    vision: DB.get('vision', "Vision: To nurture disciplined, innovative, and holistic future leaders equipped for global opportunities.\nValues: Integrity, Hard Work, Respect, Community, and Academic Perseverance."),
-    carouselImages: DB.get('carouselImages', DEFAULT_IMAGES),
-    logoUrl: DB.get('logoUrl', "https://nkuehfzkrmghixggyggs.supabase.co/storage/v1/object/public/carousal-images/Emilogo.jpeg"),
-    students: DB.get('students', [
-      {
-        id: "EHA/2026/001",
-        name: "Yaw Mensah",
-        dob: "2018-05-12",
-        phone: "0535694851",
-        pass: "123456",
-        className: "Basic 1",
-        complaint: "Punctual and brilliant in reading. Keep up the high effort!",
-        parentReply: "Thank you teacher, we will support him at home.",
-        pdfResult: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-        fees: [
-          { type: "Academic Fee", amount: 600, paid: 400 },
-          { type: "Canteen Fee", amount: 200, paid: 200 }
-        ]
+  for (const t of tables) {
+    try {
+      const { data, error } = await supabaseClient.from(t.name).select('*');
+      if (error) {
+        console.error(`[Supabase Fetch Error - ${t.name}]:`, error.message);
+        continue;
       }
-    ]),
+
+      if (data && data.length > 0) {
+        // Cloud has records: overwrite local browser cache so all devices match
+        window.appState[t.name] = data.map(row => row.data);
+        if (window.DB) DB.set(t.name, window.appState[t.name]);
+      } else if (window.appState[t.name] && window.appState[t.name].length > 0) {
+        // Cloud is empty (fresh project): seed cloud with your existing default records
+        for (const localItem of window.appState[t.name]) {
+          await window.syncTableToSupabase(t.name, t.idField, localItem);
+        }
+      }
+    } catch (err) {
+      console.error(`[Supabase Connection Error - ${t.name}]:`, err);
+    }
+  }
+};
+
+// 5. Run cloud sync immediately when the page loads
+document.addEventListener('DOMContentLoaded', async () => {
+  await window.syncFromSupabase();
+  if (typeof window.renderAdminDashboard === 'function') window.renderAdminDashboard();
+  if (typeof window.renderTeacherPortal === 'function') window.renderTeacherPortal();
+  if (typeof window.renderParentPortal === 'function') window.renderParentPortal();
+});
     teachers: DB.get('teachers', [
       { staffId: "TCH/001", name: "Mr. Emmanuel", phone: "0535694851", pass: "teach123", className: "Basic 1" }
     ]),
