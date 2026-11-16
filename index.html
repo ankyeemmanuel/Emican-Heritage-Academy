@@ -1284,48 +1284,52 @@ const DEFAULT_IMAGES = [
   };
 
   window.handleRegisterStudent = async function(e) {
-    e.preventDefault();
-    const st = {
-      id: document.getElementById('regStudentId').value.trim(),
-      name: document.getElementById('regStudentName').value.trim(),
-      dob: document.getElementById('regStudentDOB').value,
-      phone: document.getElementById('regStudentPhone').value.trim(),
-      pass: document.getElementById('regStudentPass').value.trim(),
-      className: document.getElementById('regStudentClass').value,
-      complaint: "",
-      parentReply: "",
-      pdfResult: "",
-      fees: [
-        { type: "Academic Fee", amount: 500, paid: 0 },
-        { type: "Canteen Fee", amount: 150, paid: 0 }
-      ]
-    };
-
-    window.appState.students.push(st);
-    await window.syncTableToSupabase('students', 'id', st);
-    await window.logAudit('Admin', 'Headteacher', `Registered new student ${st.name} (${st.id}) DOB: ${st.dob}`);
-    window.showToast(`Student ${st.name} registered successfully!`);
-    window.renderAdminDashboard();
-    e.target.reset();
+  e.preventDefault();
+  const st = {
+    id: document.getElementById('regStudentId').value.trim(),
+    name: document.getElementById('regStudentName').value.trim(),
+    dob: document.getElementById('regStudentDOB').value,
+    phone: document.getElementById('regStudentPhone').value.trim(),
+    pass: document.getElementById('regStudentPass').value.trim(),
+    className: document.getElementById('regStudentClass').value,
+    complaint: "",
+    parentReply: "",
+    pdfResult: "",
+    fees: [
+      { type: "Academic Fee", amount: 500, paid: 0 },
+      { type: "Canteen Fee", amount: 150, paid: 0 }
+    ]
   };
+  window.appState.students.push(st);
+  
+  // FIX: Explicitly sync the new student to Supabase
+  await window.syncTableToSupabase('students', 'id', st);
+  
+  await window.logAudit('Admin', 'Headteacher', `Registered new student ${st.name} (${st.id}) DOB: ${st.dob}`);
+  window.showToast(`Student ${st.name} registered successfully!`);
+  window.renderAdminDashboard();
+  e.target.reset();
+};
 
-  window.handleRegisterTeacher = async function(e) {
-    e.preventDefault();
-    const tch = {
-      staffId: document.getElementById('regStaffId').value.trim(),
-      name: document.getElementById('regTeacherName').value.trim(),
-      phone: document.getElementById('regTeacherPhone').value.trim(),
-      pass: document.getElementById('regTeacherPass').value.trim(),
-      className: document.getElementById('regTeacherClass').value
-    };
-
-    window.appState.teachers.push(tch);
-    await window.syncTableToSupabase('teachers', 'staff_id', tch);
-    await window.logAudit('Admin', 'Headteacher', `Registered new teacher ${tch.name} (${tch.staffId})`);
-    window.showToast(`Teacher ${tch.name} registered!`);
-    window.renderAdminDashboard();
-    e.target.reset();
+window.handleRegisterTeacher = async function(e) {
+  e.preventDefault();
+  const tch = {
+    staffId: document.getElementById('regStaffId').value.trim(),
+    name: document.getElementById('regTeacherName').value.trim(),
+    phone: document.getElementById('regTeacherPhone').value.trim(),
+    pass: document.getElementById('regTeacherPass').value.trim(),
+    className: document.getElementById('regTeacherClass').value
   };
+  window.appState.teachers.push(tch);
+  
+  // FIX: Explicitly sync the new teacher to Supabase
+  await window.syncTableToSupabase('teachers', 'staff_id', tch);
+  
+  await window.logAudit('Admin', 'Headteacher', `Registered new teacher ${tch.name} (${tch.staffId})`);
+  window.showToast(`Teacher ${tch.name} registered!`);
+  window.renderAdminDashboard();
+  e.target.reset();
+};
 
   window.deleteStudent = async function(id) {
     window.appState.students = window.appState.students.filter(s => s.id !== id);
